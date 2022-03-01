@@ -59,6 +59,7 @@ record User(string FirstName, string LastName, string? Email);
 
 void SendEmail(User user)
 {
+    // 👇🏼 Guard clauses 👇🏼
     if (string.IsNullOrWhiteSpace(user.FirstName))
     {
         throw new ArgumentException("Name is required", nameof(user));
@@ -79,6 +80,7 @@ void SendEmail(User user)
         throw new ArgumentOutOfRangeException(nameof(user), user.Email.Length, "Email is too long");
     }
 
+    // 👇🏼 Actual logic 👇🏼
     if (!emailService.TrySendEmail(user))
     {
         throw new EmailException("Email could not be sent");
@@ -93,12 +95,14 @@ record User(string FirstName, string LastName, string? Email);
 
 void SendEmail(User user)
 {
+    // 👇🏼 Guard clauses 👇🏼
     user.Throw()
         .IfWhiteSpace(user => user.FirstName)
         .IfWhiteSpace(user => user.LastName)
         .IfNull(user => user.Email)
         .IfLongerThan(user => user.Email!, 100);
 
+    // 👇🏼 Actual logic 👇🏼
     emailService.TrySendEmail(user)
         .Throw(() => new EmailException("Email could not be sent."))
         .IfFalse();
