@@ -1,7 +1,13 @@
 namespace Throw;
 
+/// <summary>
+/// Exception throwing extensions.
+/// </summary>
 public static class ExceptionThrower
 {
+    /// <summary>
+    /// Throws an <see cref="ArgumentNullException"/>, unless the <paramref name="exceptionCustomizations"/> defines a custom exception.
+    /// </summary>
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ThrowNull(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Value cannot be null.")
     {
@@ -17,6 +23,9 @@ public static class ExceptionThrower
             func => func(paramName));
     }
 
+    /// <summary>
+    /// Throws an <see cref="ArgumentOutOfRangeException"/>, unless the <paramref name="exceptionCustomizations"/> defines a custom exception.
+    /// </summary>
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ThrowOutOfRange<TValue>(string paramName, TValue actualValue, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Specified argument was out of the range of valid values.")
     {
@@ -32,6 +41,9 @@ public static class ExceptionThrower
             func => func(paramName));
     }
 
+    /// <summary>
+    /// Throws an <see cref="ArgumentException"/>, unless the <paramref name="exceptionCustomizations"/> defines a custom exception.
+    /// </summary>
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Throw(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = null)
     {

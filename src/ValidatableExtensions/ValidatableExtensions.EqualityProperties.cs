@@ -1,5 +1,8 @@
 namespace Throw;
 
+/// <summary>
+/// Extension methods for property equalities.
+/// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>

@@ -2,6 +2,9 @@ using System.Collections;
 
 namespace Throw;
 
+/// <summary>
+/// Extension methods for collection properties.
+/// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>

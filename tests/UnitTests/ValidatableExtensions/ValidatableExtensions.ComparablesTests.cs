@@ -1,7 +1,7 @@
 namespace Throw.UnitTests.ValidatableExtensions;
 
 [TestClass]
-public class ComperablesTests
+public class ComparablesTests
 {
     [TestMethod]
     public void ThrowIfGreaterThan_WhenValueIsGreaterThan_ShouldThrow()
