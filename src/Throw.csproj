@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <PackageId>Throw</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Amichai Mantinband</Authors>
     <PackageIconUrl>https://raw.githubusercontent.com/mantinband/throw/main/assets/logo.png</PackageIconUrl>
     <PackageTags>argument,guard,clause,exception,contract,assert,assertions,validation</PackageTags>
