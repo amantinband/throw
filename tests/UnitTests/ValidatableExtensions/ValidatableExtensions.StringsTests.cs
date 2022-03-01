@@ -187,6 +187,34 @@ public class StringsTests
     }
 
     [TestMethod]
+    public void ThrowIfNotEquals_WhenNotEquals_ShouldThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfNotEquals("different value");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should be equal to 'different value'. (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfNotEquals_WhenEquals_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfNotEquals("value");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
     public void ThrowIfNotEqualsIgnoreCase_WhenNotEquals_ShouldThrow()
     {
         // Arrange
@@ -198,7 +226,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'different value' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to 'different value' (case insensitive). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]

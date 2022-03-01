@@ -8,13 +8,13 @@
 
   <PropertyGroup>
     <PackageId>Throw</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.2</Version>
     <Authors>Amichai Mantinband</Authors>
     <PackageTags>argument,guard,clause,exception,contract,assert,assertions,validation</PackageTags>
     <Description>Fast, fluent, fully customizable and fun library for throwing exceptions.</Description>
     <PackageProjectUrl>https://github.com/mantinband/throw</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageOutputPath>../artifacts/</PackageOutputPath>
+    <PackageOutputPath>../nuget/</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
