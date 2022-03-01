@@ -1,0 +1,25 @@
+name: publish throw to nuget
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+jobs:
+  publish:
+    name: list Throw on nuget.org
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      
+      # Publish
+      - name: publish on version change
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/Throw.csproj
+          VERSION_REGEX: <Version>(.*)<\/Version>
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
