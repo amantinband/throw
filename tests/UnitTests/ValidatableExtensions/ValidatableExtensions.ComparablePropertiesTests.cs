@@ -1,7 +1,7 @@
 namespace Throw.UnitTests.ValidatableExtensions;
 
 [TestClass]
-public class ComperablePropertiesTests
+public class ComparablePropertiesTests
 {
     [TestMethod]
     public void ThrowIfPropertyGreaterThan_WhenPropertyGreaterThan_ShouldThrow()

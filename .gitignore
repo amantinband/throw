@@ -2,6 +2,7 @@
 **/.vscode
 **/obj
 **/bin
+**/artifacts
 
 .fake
 .ionide

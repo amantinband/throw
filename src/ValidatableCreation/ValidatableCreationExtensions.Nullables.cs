@@ -4,7 +4,7 @@ public static partial class ValidatableCreationExtensions
 {
     /// <summary>
     /// Throws an exception if the <paramref name="value"/> is null.
-    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <see cref="{TValue}"/>.
+    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <typeparam name="TValue"/>.
     /// The <see cref="Validatable{TValue}"/> instance can be used to throw exceptions if the value matches a condition specified.
     /// </summary>
     /// <param name="value">The nullable value to be validated.</param>
@@ -24,7 +24,7 @@ public static partial class ValidatableCreationExtensions
 
     /// <summary>
     /// Throws an exception if the <paramref name="value"/> is null.
-    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <see cref="{TValue}"/>.
+    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <typeparam name="TValue"/>.
     /// The <see cref="Validatable{TValue}"/> instance can be used to throw exceptions if the value matches a condition specified.
     /// </summary>
     /// <param name="value">The nullable value to be validated.</param>
@@ -49,7 +49,7 @@ public static partial class ValidatableCreationExtensions
 
     /// <summary>
     /// Throws an exception if the <paramref name="value"/> is null.
-    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <see cref="{TValue}"/>.
+    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <typeparam name="TValue"/>.
     /// The <see cref="Validatable{TValue}"/> instance can be used to throw exceptions if the value matches a condition specified.
     /// </summary>
     /// <param name="value">The nullable value to be validated.</param>
@@ -75,7 +75,7 @@ public static partial class ValidatableCreationExtensions
 
     /// <summary>
     /// Throws an exception if the <paramref name="value"/> is null.
-    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable type <see cref="{TValue}"/>.
+    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable type <typeparam name="TValue"/>.
     /// The <see cref="Validatable{TValue}"/> instance can be used to throw exceptions if the value matches a condition specified.
     /// </summary>
     /// <param name="value">The nullable value to be validated.</param>
@@ -96,7 +96,7 @@ public static partial class ValidatableCreationExtensions
 
     /// <summary>
     /// Throws an exception if the <paramref name="value"/> is null.
-    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable type <see cref="{TValue}"/>.
+    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable type <typeparam name="TValue"/>.
     /// The <see cref="Validatable{TValue}"/> instance can be used to throw exceptions if the value matches a condition specified.
     /// </summary>
     /// <param name="value">The nullable value to be validated.</param>
@@ -121,7 +121,7 @@ public static partial class ValidatableCreationExtensions
 
     /// <summary>
     /// Throws an exception if the <paramref name="value"/> is null.
-    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <see cref="{TValue}"/>.
+    /// Otherwise, creates a new <see cref="Validatable{TValue}"/> instance with the specified value, where the type is the non-nullable type of the given nullable value type <typeparam name="TValue"/>.
     /// The <see cref="Validatable{TValue}"/> instance can be used to throw exceptions if the value matches a condition specified.
     /// </summary>
     /// <param name="value">The nullable value to be validated.</param>

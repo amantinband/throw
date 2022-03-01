@@ -1,5 +1,8 @@
 namespace Throw;
 
+/// <summary>
+/// Extension methods for string properties.
+/// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>

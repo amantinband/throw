@@ -1,5 +1,8 @@
 namespace Throw;
 
+/// <summary>
+/// Extension methods for <see cref="DateTime"/>s.
+/// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>

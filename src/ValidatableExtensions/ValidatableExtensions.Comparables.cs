@@ -1,5 +1,8 @@
 namespace Throw;
 
+/// <summary>
+/// Extension methods for comparables (int, double, decimal, long, float, short, DateTime, DateOnly, TimeOnly etc.).
+/// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>
@@ -95,6 +98,7 @@ public static partial class ValidatableExtensions
     /// <summary>
     /// Throws an exception if the value is not between <paramref name="min"/> and <paramref name="max"/>.
     /// </summary>
+    /// <param name="validatable">The validatable being validated.</param>
     /// <param name="min">The minimum value, inclusive (equals or greater than).</param>
     /// <param name="max">The maximum value, inclusive (equals or less than).</param>
     /// <remarks>

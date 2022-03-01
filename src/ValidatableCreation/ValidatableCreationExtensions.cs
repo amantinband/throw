@@ -1,5 +1,8 @@
 namespace Throw;
 
+/// <summary>
+/// Extensions for creating <see cref="Validatable{TValue}"/>s.
+/// </summary>
 public static partial class ValidatableCreationExtensions
 {
     /// <summary>

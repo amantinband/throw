@@ -8,7 +8,7 @@
 
 ---
 
-### A simple, fluent and fully customizable library for throwing exceptions
+### A simple, fluent, and fully customizable library for throwing exceptions
 
 ---
 
@@ -17,12 +17,12 @@
 - [Getting started](#getting-started)
 - [Nullable vs non-nullable types](#nullable-vs-non-nullable-types)
 - [Customize everything](#customize-everything)
-  - [Exception customization](#exception-customization)
+  - [How customizing the exception affects the chained rules](#how-customizing-the-exception-affects-the-chained-rules)
+  - [Available customizations](#available-customizations)
     - [1. Default exceptions](#1-default-exceptions)
     - [2. Custom exception message](#2-custom-exception-message)
     - [3. Throw a custom exception](#3-throw-a-custom-exception)
     - [4 .Throw a custom exception using the parameter name](#4-throw-a-custom-exception-using-the-parameter-name)
-  - [More on exception customizations](#more-on-exception-customizations)
 - [Usage](#usage)
   - [Common types](#common-types)
     - [Booleans](#booleans)
@@ -184,7 +184,49 @@ int b = a.ThrowIfNull();
 
 # Customize everything
 
-## Exception customization
+## How customizing the exception affects the chained rules
+
+If you have customized the exception, any rule that throws an exception will use the customization. For example:
+
+```csharp
+// Default behavior:
+name.Throw()
+    .IfEmpty() // System.ArgumentException: String should not be empty. (Parameter 'name')
+    .IfWhiteSpace() // System.ArgumentException: String should not be white space only. (Parameter 'name')
+    .IfLongerThan(3) // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
+    .IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
+
+// Customized behavior:
+name.Throw(paramName => throw new MyCustomException($"Param name: {paramName}."))
+    .IfEmpty() // MyCustomException: Param name: name.
+    .IfWhiteSpace() // MyCustomException: Param name: name.
+    .IfLongerThan(3) // MyCustomException: Param name: name.
+    .IfShorterThan(10); // MyCustomException: Param name: name.
+```
+
+At any point, you can change the exception customization, and it will apply for all the rules that follow. For example:
+
+```csharp
+name.Throw("String should not be empty or white space only.")
+        .IfEmpty() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
+        .IfWhiteSpace() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
+    .Throw("String should not be between 3 and 10 characters long.")
+        .IfLongerThan(3) // System.ArgumentException: String should not be between 3 and 10 characters long. (Parameter 'name')
+        .IfShorterThan(10); // System.ArgumentException: String should not be between 3 and 10 characters long. (Parameter 'name')
+```
+
+To go back to the default exception, simply use the `Throw()` method. For example:
+
+```csharp
+name.Throw("String should not be empty or white space only.")
+        .IfEmpty() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
+        .IfWhiteSpace() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
+    .Throw()
+        .IfLongerThan(3) // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
+        .IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
+```
+
+## Available customizations
 
 ### 1. Default exceptions
 
@@ -265,48 +307,6 @@ void SendEmail(User user)
         .Throw(() => new EmailException("Email could not be sent."))
         .IfFalse();
 }
-```
-
-## More on exception customizations
-
-If you have customized the exception, any rule that throws an exception will use the customization. For example:
-
-```csharp
-// Default behavior:
-name.Throw()
-    .IfEmpty() // System.ArgumentException: String should not be empty. (Parameter 'name')
-    .IfWhiteSpace() // System.ArgumentException: String should not be white space only. (Parameter 'name')
-    .IfLongerThan(3) // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
-    .IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
-
-// Customized behavior:
-name.Throw(paramName => throw new MyCustomException($"Param name: {paramName}."))
-    .IfEmpty() // MyCustomException: Param name: name.
-    .IfWhiteSpace() // MyCustomException: Param name: name.
-    .IfLongerThan(3) // MyCustomException: Param name: name.
-    .IfShorterThan(10); // MyCustomException: Param name: name.
-```
-
-At any point, you can change the exception customization, and it will apply for all the rules that follow. For example:
-
-```csharp
-name.Throw("String should not be empty or white space only.")
-        .IfEmpty() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
-        .IfWhiteSpace() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
-    .Throw("String should not be between 3 and 10 characters long.")
-        .IfLongerThan(3) // System.ArgumentException: String should not be between 3 and 10 characters long. (Parameter 'name')
-        .IfShorterThan(10); // System.ArgumentException: String should not be between 3 and 10 characters long. (Parameter 'name')
-```
-
-To go back to the default exception, simply use the `Throw()` method. For example:
-
-```csharp
-name.Throw("String should not be empty or white space only.")
-        .IfEmpty() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
-        .IfWhiteSpace() // System.ArgumentException: String should not be empty or white space only. (Parameter 'name')
-    .Throw()
-        .IfLongerThan(3) // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
-        .IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
 ```
 
 # Usage
@@ -569,7 +569,7 @@ namespace Throw
 }
 ```
 
-If you want to use the exception customizations in your extension. You can use the `ExceptionThrower` class which knowns how to create the appropriate exception based on the customizations. For example:
+If you want to use the exception customizations in your extension. You can use the `ExceptionThrower` class which knows how to create the appropriate exception based on the customizations. For example:
 
 ```csharp
 namespace Throw
@@ -616,11 +616,11 @@ user.Throw(paramName => new Exception($"A different exception. Param name: '{par
 Contributions are super welcome!
 Please go ahead and open an issue with any idea, bug, or feature request.
 
-We are trying to be the fastest validation library, so if you have any suggestions on how to improve the runtime speed, share it with us.
+We are trying to be the fastest validation library, so if you have any suggestions on how to improve the runtime speed, share them with us.
 
 # Credits
 
-- [Dawn.Guard](https://github.com/safakgur/guard) - An awesome, fast and intuitive guard clause library for C#. Was a great inspiration for this library.
+- [Dawn.Guard](https://github.com/safakgur/guard) - An awesome, fast, and intuitive guard clause library for C#. Was a great inspiration for this library.
 
 # License
 
