@@ -52,7 +52,7 @@ internal static partial class Validator
     {
         if (!string.Equals(value, otherString, StringComparison.OrdinalIgnoreCase))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not be equal to '{otherString}' (case insensitive).");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}' (case insensitive).");
         }
     }
 
@@ -70,7 +70,7 @@ internal static partial class Validator
     {
         if (!string.Equals(value, otherString, StringComparison.Ordinal))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not be equal to '{otherString};.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}'.");
         }
     }
 }

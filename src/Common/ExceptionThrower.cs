@@ -1,9 +1,9 @@
 namespace Throw;
 
-internal static class ExceptionThrower
+public static class ExceptionThrower
 {
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowNull(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Value cannot be null.")
+    public static void ThrowNull(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Value cannot be null.")
     {
         if (exceptionCustomizations is null)
         {
@@ -18,7 +18,7 @@ internal static class ExceptionThrower
     }
 
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowOutOfRange<TValue>(string paramName, TValue actualValue, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Specified argument was out of the range of valid values.")
+    public static void ThrowOutOfRange<TValue>(string paramName, TValue actualValue, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Specified argument was out of the range of valid values.")
     {
         if (exceptionCustomizations is null)
         {
@@ -33,7 +33,7 @@ internal static class ExceptionThrower
     }
 
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void Throw(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = null)
+    public static void Throw(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = null)
     {
         if (exceptionCustomizations is null)
         {
