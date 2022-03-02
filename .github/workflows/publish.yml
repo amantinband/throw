@@ -1,25 +1,38 @@
-name: publish throw to nuget
+name: publish Throw to nuget
 on:
   push:
     branches:
-      - main
+      - main # Default release branch
     paths:
       - 'src/**'
 jobs:
   publish:
-    name: list Throw on nuget.org
-    runs-on: windows-latest
+    name: build, pack & publish
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
-      
+
       # Publish
       - name: publish on version change
+        id: publish_nuget
         uses: rohith/publish-nuget@v2
         with:
+          # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/Throw.csproj
-          VERSION_REGEX: <Version>(.*)<\/Version>
+          
+          # NuGet package id, used for version detection & defaults to project name
+          PACKAGE_NAME: Throw
+          
+          # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
+          VERSION_FILE_PATH: src\Throw.csproj
+
+          # Regex pattern to extract version info in a capturing group
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          
+          # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
