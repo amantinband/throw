@@ -4,11 +4,14 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Throw.svg)](https://www.nuget.org/packages/Throw) [![NuGet](https://img.shields.io/nuget/dt/Throw.svg)](https://www.nuget.org/packages/Throw)
 
+[![Build](https://github.com/mantinband/throw/actions/workflows/build.yml/badge.svg)](https://github.com/mantinband/throw/actions/workflows/build.yml) [![publish Throw to nuget](https://github.com/mantinband/throw/actions/workflows/publish.yml/badge.svg)](https://github.com/mantinband/throw/actions/workflows/publish.yml) [![codecov](https://codecov.io/gh/mantinband/throw/branch/main/graph/badge.svg?token=PA879VKK6M)](https://codecov.io/gh/mantinband/throw)
+
 [![GitHub contributors](https://img.shields.io/github/contributors/mantinband/throw)](https://GitHub.com/mantinband/throw/graphs/contributors/) [![GitHub Stars](https://img.shields.io/github/stars/mantinband/throw.svg)](https://github.com/mantinband/throw/stargazers) [![GitHub license](https://img.shields.io/github/license/mantinband/throw)](https://github.com/mantinband/throw/blob/main/LICENSE)
 
 ---
 
 ### A simple, fluent, extensible, and fully customizable library for throwing exceptions using .NET 6+
+
 `dotnet add package throw`
 
 ---
