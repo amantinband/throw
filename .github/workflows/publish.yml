@@ -30,7 +30,7 @@ jobs:
           PACKAGE_NAME: Throw
           
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
-          VERSION_FILE_PATH: src\Throw.csproj
+          VERSION_FILE_PATH: src/Throw.csproj
 
           # Regex pattern to extract version info in a capturing group
           VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
