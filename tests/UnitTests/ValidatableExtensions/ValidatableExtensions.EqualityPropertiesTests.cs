@@ -47,6 +47,19 @@ public class EqualityPropertiesTests
     }
 
     [TestMethod]
+    public void ThrowIfPropertyIsNotNull_WhenPropertyIsNull_ShouldThrow()
+    {
+        // Arrange
+        var value = new { Property = default(string) };
+
+        // Act
+        Action action = () => value.Throw().IfNotNull(v => v.Property);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
     public void ThrowIfPropertyIsDefault_WhenValueIsDefault_ShouldThrow()
     {
         // Arrange
