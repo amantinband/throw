@@ -1,4 +1,7 @@
 
+using Microsoft.VisualBasic;
+using OneOf;
+
 namespace Throw.UnitTests.ValidatableCreation;
 
 [TestClass]
@@ -72,6 +75,25 @@ public class ValidatableCreationExtensionsTests
         result.ExceptionCustomizations!.Value.Customization.Value
             .Should().BeOfType<Func<string, Exception>>()
             .Subject.Should().BeSameAs(exceptionThrower);
+        result.ParamName.Should().Be(nameof(value));
+    }
+
+    [TestMethod]
+    public void CreateThrowable_WhenOneOfDiscriminatedUnion_ShouldCreateCorrespondingThrowarble()
+    {
+        // Arrange
+        var value = "value";
+        OneOf<string, Type, Func<Exception>, Func<string, Exception>> customizations = ParameterConstants.CustomMessage;
+
+        // Act
+        Validatable<string> result = value.Throw(customizations);
+
+        // Assert
+        result.Value.Should().Be(value);
+        result.ExceptionCustomizations.Should().NotBeNull();
+        result.ExceptionCustomizations!.Value.Customization.Value
+            .Should().BeOfType<string>()
+            .Subject.Should().BeSameAs(ParameterConstants.CustomMessage);
         result.ParamName.Should().Be(nameof(value));
     }
 }
