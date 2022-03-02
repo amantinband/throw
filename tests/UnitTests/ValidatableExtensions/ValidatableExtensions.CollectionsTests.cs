@@ -43,6 +43,19 @@ public class CollectionsTests
     }
 
     [TestMethod]
+    public void ThrowIfCollectionNotEmpty_WhenCollectionIsEmpty_ShouldNotThrow()
+    {
+        // Arrange
+        var collection = Array.Empty<string>();
+
+        // Act
+        Action action = () => collection.Throw().IfNotEmpty();
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
     public void ThrowIfCollectionCountEquals_WhenCollectionCountEquals_ShouldThrow()
     {
         // Arrange

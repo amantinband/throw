@@ -58,7 +58,7 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int GetCollectionCount<TValue>(TValue value)
+    internal static int GetCollectionCount<TValue>(TValue value)
         where TValue : notnull, IEnumerable
     {
         static int GetEnumeratedCount(IEnumerable enumerable)
