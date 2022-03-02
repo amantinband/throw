@@ -22,4 +22,4 @@ jobs:
       - name: Package
         run: dotnet pack -c Release src/Throw.csproj
       - name: Publish
-        run: dotnet nuget push artifacts/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
