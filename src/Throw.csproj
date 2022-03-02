@@ -4,21 +4,22 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>Throw</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>Amichai Mantinband</Authors>
-    <PackageIcon>logo.png</PackageIcon>
+    <PackageIcon>icon-square.png</PackageIcon>
     <PackageTags>argument,guard,clause,exception,contract,assert,assertions,validation</PackageTags>
-    <Description>Fast, fluent, fully customizable and fun library for throwing exceptions.</Description>
+    <Description>A simple, fluent, extensible, and fully customizable library for throwing exceptions using .NET 6+</Description>
     <PackageProjectUrl>https://github.com/mantinband/throw</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <licenses>https://opensource.org/licenses/MIT</licenses>
     <RepositoryUrl>https://github.com/mantinband/throw</RepositoryUrl>
     <PackageOutputPath>../artifacts/</PackageOutputPath>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="../assets/logo.png" Pack="true" Visible="false" PackagePath="" />
+    <None Include="../assets/icon-square.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 </Project>
