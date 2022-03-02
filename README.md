@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo.png" alt="drawing" width="700px"/>
+<img src="assets/icon.png" alt="drawing" width="700px"/>
 
 [![NuGet](https://img.shields.io/nuget/v/Throw.svg)](https://www.nuget.org/packages/Throw) [![NuGet](https://img.shields.io/nuget/dt/Throw.svg)](https://www.nuget.org/packages/Throw)
 
@@ -8,21 +8,26 @@
 
 ---
 
-### A simple, fluent, and fully customizable library for throwing exceptions
+### A simple, fluent, extensible, and fully customizable library for throwing exceptions using .NET 6+
+`dotnet add package throw`
 
 ---
 
 </div>
 
 - [Getting started](#getting-started)
+  - [Basic examples](#basic-examples)
+  - [Verbose exception messages out of the box](#verbose-exception-messages-out-of-the-box)
+  - [Super customizable everything](#super-customizable-everything)
+  - [Give it a star ⭐!](#give-it-a-star-)
 - [Nullable vs non-nullable types](#nullable-vs-non-nullable-types)
 - [Customize everything](#customize-everything)
   - [How customizing the exception affects the chained rules](#how-customizing-the-exception-affects-the-chained-rules)
-  - [Available customizations](#available-customizations)
-    - [1. Default exceptions](#1-default-exceptions)
-    - [2. Custom exception message](#2-custom-exception-message)
-    - [3. Throw a custom exception](#3-throw-a-custom-exception)
-    - [4 .Throw a custom exception using the parameter name](#4-throw-a-custom-exception-using-the-parameter-name)
+  - [Exception customizations](#exception-customizations)
+    - [1. `Throw()`](#1-throw)
+    - [2. `Throw("My custom message")`](#2-throwmy-custom-message)
+    - [3. `Throw(() => new MyException())`](#3-throw--new-myexception)
+    - [4. `Throw(paramName => new MyException($"Param: {paramName}")`](#4-throwparamname--new-myexceptionparam-paramname)
 - [Usage](#usage)
   - [Common types](#common-types)
     - [Booleans](#booleans)
@@ -44,6 +49,7 @@
     - [Uri properties](#uri-properties)
     - [Comparable properties](#comparable-properties)
 - [Extensibility](#extensibility)
+- [Upcoming features](#upcoming-features)
 - [Contribution](#contribution)
 - [Credits](#credits)
 - [License](#license)
@@ -51,6 +57,8 @@
 ---
 
 # Getting started
+
+## Basic examples
 
 This 🤨
 
@@ -111,7 +119,9 @@ void SendEmail(User user)
 
 ---
 
-This multi-line example 🤨
+Cast back to original type 👇🏼
+
+This 🤨
 
 ```csharp
 if (!Enum.IsDefined(humorLevel))
@@ -131,9 +141,70 @@ Turns into this 😎
 
 ```csharp
 _humorLevel = humorLevel
-    .Throw().IfOutOfRange() // System.ArgumentOutOfRangeException: Value should be defined in enum. (Parameter 'humorLevel')\nActual value was 10.
-    .Throw("Humor level is way too high.").IfEquals(HumorLevel.ExtremelyFunny); // System.ArgumentException: Humor level is way too high. (Parameter 'humorLevel')
+    .Throw().IfOutOfRange()
+    .Throw("Humor level is way too high.").IfEquals(HumorLevel.ExtremelyFunny);
 ```
+
+---
+
+## Verbose exception messages out of the box
+
+```csharp
+// System.ArgumentException: Value should not meet condition (condition: 'user => user.FavoriteBrowser == Browser.Chrome'). (Parameter 'user')
+user.Throw().IfTrue(user => user.FavoriteBrowser == Browser.Chrome);
+```
+
+```csharp
+// System.ArgumentOutOfRangeException: Value should not be less than 18. (Parameter 'user: user => user.Age')\n Actual value was 5.
+user.Throw().IfLessThan(user => user.Age, 18);
+```
+
+```csharp
+// System.ArgumentException: String should not be empty. (Parameter 'user: user => user.Name')
+user.Throw().IfEmpty(user => user.Name);
+```
+
+## Super customizable everything
+
+Custom messages
+
+```csharp
+// System.ArgumentOutOfRangeException: User doesn't meet age requirements. (Parameter 'user: user => user.Age')\n Actual value was 5.
+user.Throw("User doesn't meet age requirements.")
+    .IfLessThan(user => user.Age, 18)
+    .IfGreaterThan(user => user.Age, 30);
+```
+
+Custom exceptions
+
+```csharp
+// AgeException: User doesn't meet age requirements.
+user.Throw(() => new AgeException("User doesn't meet age requirements."))
+    .IfLessThan(user => user.Age, 18)
+    .IfGreaterThan(user => user.Age, 30);
+```
+
+Switch exceptions in the middle and it will apply to following rules
+
+```csharp
+user.Throw(() => new AgeException("User doesn't meet age requirements."))
+        .IfLessThan(user => user.Age, 18)
+        .IfGreaterThan(user => user.Age, 30)
+    .Throw("Browser isn't supported.")
+        .IfTrue(user => user.FavoriteBrowser == Browser.Chrome)
+    .Throw("Uri isn't good.")
+        .IfAbsolute(user => user.FavoriteWebsite)
+        .IfPort(user => user.FavoriteWebsite, 80)
+    .Throw(paramName => new ServiceException(paramName: paramName, message: "User didn't meet requirements."))
+        .IfNull(user => user.Friends)
+        .IfEmpty(user => user.Friends!)
+        .IfCountGreaterThan(user => user.Friends!, 5)
+        .IfHasNullElements(user => user.Friends!);
+```
+
+## Give it a star ⭐!
+
+Loving it? Show your support by giving this project a star!
 
 # Nullable vs non-nullable types
 
@@ -230,71 +301,76 @@ name.Throw("String should not be empty or white space only.")
         .IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
 ```
 
-## Available customizations
+## Exception customizations
 
-### 1. Default exceptions
+### 1. `Throw()`
+
+Each rule has a default behavior. If you don't customize the exception, the default behavior will be used.
 
 Use the `Throw()` or `ThrowIfNull()` method to throw the default exception
 
 ```csharp
-nullableValue.ThrowIfNull(); // ArgumentNullException: Value cannot be null. (Parameter 'nullableValue')
+// ArgumentNullException: Value cannot be null. (Parameter 'nullableValue')
+nullableValue.ThrowIfNull();
 
-isGood.Throw().IfTrue(); // ArgumentException: Value should not be true (Parameter 'isGood')
+// System.ArgumentOutOfRangeException: Value should not be less than 2/28/2042 4:41:46 PM. (Parameter 'dateTime')\n Actual value was 2/28/2022 4:41:46 PM.
+dateTime.Throw().IfLessThan(DateTime.Now.AddYears(20));
 
-name.Throw().IfEmpty(); // System.ArgumentException: String should not be empty. (Parameter 'name')
+// ArgumentException: Value should not be true (Parameter 'isGood')
+isGood.Throw().IfTrue();
 
-dateTime.Throw().IfLessThan(DateTime.Now.AddYears(20)); // System.ArgumentOutOfRangeException: Value should not be less than 2/28/2042 4:41:46 PM. (Parameter 'dateTime')\n Actual value was 2/28/2022 4:41:46 PM.
+// System.ArgumentException: String should not be empty. (Parameter 'name')
+name.Throw().IfEmpty();
 
-number.Throw().IfPositive(); // System.ArgumentOutOfRangeException: Value should not be greater than 0. (Parameter 'number')\n Actual value was 5.
+// System.ArgumentOutOfRangeException: Value should not be greater than 0. (Parameter 'number')\n Actual value was 5.
+number.Throw().IfPositive();
 ```
 
-### 2. Custom exception message
+### 2. `Throw("My custom message")`
 
 Pass a custom exception message to the `Throw()` or `ThrowIfNull()` method
 
 ```csharp
-nullableValue.ThrowIfNull("My custom message"); // System.ArgumentNullException: My custom message (Parameter 'nullableValue')
+// System.ArgumentNullException: My custom message (Parameter 'nullableValue')
+nullableValue.ThrowIfNull("My custom message");
 
-isGood.Throw("My custom message").IfTrue(); // System.ArgumentException: My custom message (Parameter 'isGood')
+// System.ArgumentOutOfRangeException: My custom message (Parameter 'dateTime')\n Actual value was 3/1/2022 10:47:15 AM.
+dateTime.Throw("My custom message").IfLessThan(DateTime.Now.AddYears(20));
 
-name.Throw("My custom message").IfEmpty(); // System.ArgumentException: My custom message (Parameter 'name')
+// System.ArgumentException: My custom message (Parameter 'isGood')
+isGood.Throw("My custom message").IfTrue();
 
-dateTime.Throw("My custom message").IfLessThan(DateTime.Now.AddYears(20)); // System.ArgumentOutOfRangeException: My custom message (Parameter 'dateTime')\n Actual value was 3/1/2022 10:47:15 AM.
+// System.ArgumentException: My custom message (Parameter 'name')
+name.Throw("My custom message").IfEmpty();
 
-number.Throw("My custom message").IfPositive(); // System.ArgumentOutOfRangeException: My custom message (Parameter 'number')\n Actual value was 5.
+// System.ArgumentOutOfRangeException: My custom message (Parameter 'number')\n Actual value was 5.
+number.Throw("My custom message").IfPositive();
 ```
 
-### 3. Throw a custom exception
+### 3. `Throw(() => new MyException())`
 
 Pass a custom exception thrower to the `Throw()` or `ThrowIfNull()` method
 
 ```csharp
-nullableValue.ThrowIfNull(() => throw new MyCustomException()); // MyCustomException: Exception of type 'MyCustomException' was thrown.
+// MyCustomException: Exception of type 'MyCustomException' was thrown.
+nullableValue.ThrowIfNull(() => throw new MyCustomException());
 
-isGood.Throw(() => throw new MyCustomException()).IfTrue(); // MyCustomException: Exception of type 'MyCustomException' was thrown.
+// MyCustomException: Exception of type 'MyCustomException' was thrown.
+dateTime.Throw(() => throw new MyCustomException()).IfLessThan(DateTime.Now.AddYears(20));
 
-name.Throw(() => throw new MyCustomException()).IfEmpty(); // MyCustomException: Exception of type 'MyCustomException' was thrown.
+// MyCustomException: Exception of type 'MyCustomException' was thrown.
+isGood.Throw(() => throw new MyCustomException()).IfTrue();
 
-dateTime.Throw(() => throw new MyCustomException()).IfLessThan(DateTime.Now.AddYears(20)); // MyCustomException: Exception of type 'MyCustomException' was thrown.
+// MyCustomException: Exception of type 'MyCustomException' was thrown.
+name.Throw(() => throw new MyCustomException()).IfEmpty();
 
-number.Throw(() => throw new MyCustomException()).IfPositive(); // MyCustomException: Exception of type 'MyCustomException' was thrown.
+// MyCustomException: Exception of type 'MyCustomException' was thrown.
+number.Throw(() => throw new MyCustomException()).IfPositive();
 ```
 
-### 4 .Throw a custom exception using the parameter name
+### 4. `Throw(paramName => new MyException($"Param: {paramName}")`
 
 Pass a custom exception thrower to the `Throw()` or `ThrowIfNull()` method, that takes the parameter name as a parameter
-
-```csharp
-nullableValue.ThrowIfNull(paramName => throw new MyCustomException($"Param name: {paramName}.")); // MyCustomException: Param name: nullableValue.
-
-isGood.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfTrue(); // MyCustomException: Param name: isGood.
-
-name.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfEmpty(); // MyCustomException: Param name: name.
-
-dateTime.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfLessThan(DateTime.Now.AddYears(20)); // MyCustomException: Param name: dateTime.
-
-number.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfPositive(); // MyCustomException: Param name: number.
-```
 
 This comes in handy in scenarios like this:
 
@@ -311,6 +387,22 @@ void SendEmail(User user)
         .Throw(() => new EmailException("Email could not be sent."))
         .IfFalse();
 }
+```
+```csharp
+// MyCustomException: Param name: nullableValue.
+nullableValue.ThrowIfNull(paramName => throw new MyCustomException($"Param name: {paramName}."));
+
+// MyCustomException: Param name: dateTime.
+dateTime.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfLessThan(DateTime.Now.AddYears(20));
+
+// MyCustomException: Param name: isGood.
+isGood.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfTrue();
+
+// MyCustomException: Param name: name.
+name.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfEmpty();
+
+// MyCustomException: Param name: number.
+number.Throw(paramName => throw new MyCustomException($"Param name: {paramName}.")).IfPositive();
 ```
 
 # Usage
@@ -614,6 +706,11 @@ user.Throw(() => new Exception("A different exception."))
 user.Throw(paramName => new Exception($"A different exception. Param name: '{paramName}'"))
     .IfUsesFacebookOnChrome(); // System.Exception: A different exception. Param name: 'user'
 ```
+
+# Upcoming features
+
+- Conditional compilation: An optional way to remove the validations from the release build
+- Move extension methods: Many more rules to come! Please contribute!
 
 # Contribution
 
