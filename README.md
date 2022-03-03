@@ -2,7 +2,7 @@
 
 <img src="assets/icon.png" alt="drawing" width="700px"/>
 
-[![NuGet](https://img.shields.io/nuget/v/Throw.svg)](https://www.nuget.org/packages/Throw) [![NuGet](https://img.shields.io/nuget/dt/Throw.svg)](https://www.nuget.org/packages/Throw)
+[![NuGet](https://img.shields.io/nuget/v/Throw.svg)](https://www.nuget.org/packages/Throw)
 
 [![Build](https://github.com/mantinband/throw/actions/workflows/build.yml/badge.svg)](https://github.com/mantinband/throw/actions/workflows/build.yml) [![publish Throw to nuget](https://github.com/mantinband/throw/actions/workflows/publish.yml/badge.svg)](https://github.com/mantinband/throw/actions/workflows/publish.yml) [![codecov](https://codecov.io/gh/mantinband/throw/branch/main/graph/badge.svg?token=PA879VKK6M)](https://codecov.io/gh/mantinband/throw)
 
