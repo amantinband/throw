@@ -14,15 +14,12 @@
 
 `dotnet add package throw`
 
+![Getting started svg](./assets/getting-started.svg)
 ---
 
 </div>
 
-- [Getting started](#getting-started)
-  - [Basic examples](#basic-examples)
-  - [Verbose exception messages out of the box](#verbose-exception-messages-out-of-the-box)
-  - [Super customizable everything](#super-customizable-everything)
-  - [Give it a star ⭐!](#give-it-a-star-)
+- [Give it a star ⭐!](#give-it-a-star-)
 - [Nullable vs non-nullable types](#nullable-vs-non-nullable-types)
 - [Customize everything](#customize-everything)
   - [How customizing the exception affects the chained rules](#how-customizing-the-exception-affects-the-chained-rules)
@@ -59,153 +56,7 @@
 
 ---
 
-# Getting started
-
-## Basic examples
-
-This 🤨
-
-```csharp
-record User(string FirstName, string LastName, string? Email);
-
-void SendEmail(User user)
-{
-    // 👇🏼 Guard clauses 👇🏼
-    if (string.IsNullOrWhiteSpace(user.FirstName))
-    {
-        throw new ArgumentException("Name is required", nameof(user));
-    }
-
-    if (string.IsNullOrWhiteSpace(user.LastName))
-    {
-        throw new ArgumentException("Last name is required", nameof(user));
-    }
-
-    if (user.Email == null)
-    {
-        throw new ArgumentNullException(nameof(user), "Email is required");
-    }
-
-    if (user.Email.Length > 100)
-    {
-        throw new ArgumentOutOfRangeException(nameof(user), user.Email.Length, "Email is too long");
-    }
-
-    // 👇🏼 Actual logic 👇🏼
-    if (!emailService.TrySendEmail(user))
-    {
-        throw new EmailException("Email could not be sent");
-    }
-}
-```
-
-Turns into this 😎
-
-```csharp
-record User(string FirstName, string LastName, string? Email);
-
-void SendEmail(User user)
-{
-    // 👇🏼 Guard clauses 👇🏼
-    user.Throw()
-        .IfWhiteSpace(user => user.FirstName)
-        .IfWhiteSpace(user => user.LastName)
-        .IfNull(user => user.Email)
-        .IfLongerThan(user => user.Email!, 100);
-
-    // 👇🏼 Actual logic 👇🏼
-    emailService.TrySendEmail(user)
-        .Throw(() => new EmailException("Email could not be sent."))
-        .IfFalse();
-}
-```
-
----
-
-Cast back to original type 👇🏼
-
-This 🤨
-
-```csharp
-if (!Enum.IsDefined(humorLevel))
-{
-    throw new ArgumentOutOfRangeException("Humor level should be defined in enum.", humorLevel, nameof(humorLevel));
-}
-
-if (humorLevel == HumorLevel.ExtremelyFunny)
-{
-    throw new ArgumentException("Humor level is way too high.", nameof(humorLevel));
-}
-
-_humorLevel = humorLevel;
-```
-
-Turns into this 😎
-
-```csharp
-_humorLevel = humorLevel
-    .Throw().IfOutOfRange()
-    .Throw("Humor level is way too high.").IfEquals(HumorLevel.ExtremelyFunny);
-```
-
----
-
-## Verbose exception messages out of the box
-
-```csharp
-// System.ArgumentException: Value should not meet condition (condition: 'user => user.FavoriteBrowser == Browser.Chrome'). (Parameter 'user')
-user.Throw().IfTrue(user => user.FavoriteBrowser == Browser.Chrome);
-```
-
-```csharp
-// System.ArgumentOutOfRangeException: Value should not be less than 18. (Parameter 'user: user => user.Age')\n Actual value was 5.
-user.Throw().IfLessThan(user => user.Age, 18);
-```
-
-```csharp
-// System.ArgumentException: String should not be empty. (Parameter 'user: user => user.Name')
-user.Throw().IfEmpty(user => user.Name);
-```
-
-## Super customizable everything
-
-Custom messages
-
-```csharp
-// System.ArgumentOutOfRangeException: User doesn't meet age requirements. (Parameter 'user: user => user.Age')\n Actual value was 5.
-user.Throw("User doesn't meet age requirements.")
-    .IfLessThan(user => user.Age, 18)
-    .IfGreaterThan(user => user.Age, 30);
-```
-
-Custom exceptions
-
-```csharp
-// AgeException: User doesn't meet age requirements.
-user.Throw(() => new AgeException("User doesn't meet age requirements."))
-    .IfLessThan(user => user.Age, 18)
-    .IfGreaterThan(user => user.Age, 30);
-```
-
-Switch exceptions in the middle and it will apply to following rules
-
-```csharp
-user.Throw(() => new AgeException("User doesn't meet age requirements."))
-        .IfLessThan(user => user.Age, 18)
-        .IfGreaterThan(user => user.Age, 30)
-    .Throw("Browser isn't supported.")
-        .IfTrue(user => user.FavoriteBrowser == Browser.Chrome)
-    .Throw("Uri isn't good.")
-        .IfAbsolute(user => user.FavoriteWebsite)
-        .IfPort(user => user.FavoriteWebsite, 80)
-    .Throw(paramName => new ServiceException(paramName: paramName, message: "User didn't meet requirements."))
-        .IfNull(user => user.Friends)
-        .IfEmpty(user => user.Friends!)
-        .IfCountGreaterThan(user => user.Friends!, 5)
-        .IfHasNullElements(user => user.Friends!);
-```
-
-## Give it a star ⭐!
+# Give it a star ⭐!
 
 Loving it? Show your support by giving this project a star!
 
@@ -713,11 +564,12 @@ user.Throw(paramName => new Exception($"A different exception. Param name: '{par
 # Upcoming features
 
 - Conditional compilation: An optional way to remove the validations from the release build
-- Move extension methods: Many more rules to come! Please contribute!
+- More extension methods: Many more rules to come! Please contribute!
 
 # Contribution
 
 Contributions are super welcome!
+Take a look at the open issues, there are multiple features waiting to be implemented!
 Please go ahead and open an issue with any idea, bug, or feature request.
 
 We are trying to be the fastest validation library, so if you have any suggestions on how to improve the runtime speed, share them with us.
