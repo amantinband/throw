@@ -49,6 +49,7 @@
     - [Uri properties](#uri-properties)
     - [Comparable properties](#comparable-properties)
 - [Extensibility](#extensibility)
+- [Conditional compilation](#conditional-compilation)
 - [Upcoming features](#upcoming-features)
 - [Contribution](#contribution)
 - [Credits](#credits)
@@ -561,9 +562,25 @@ user.Throw(paramName => new Exception($"A different exception. Param name: '{par
     .IfUsesFacebookOnChrome(); // System.Exception: A different exception. Param name: 'user'
 ```
 
+# Conditional compilation
+
+Have a `Throw()` rule that you want to exclude from your release build?
+Simply add `OnlyInDebug()` to the rule and it will be excluded from non-debug builds.
+
+```csharp
+"foo".Throw().IfEquals("foo").OnlyInDebug();
+```
+
+```bash
+dotnet run -c Debug # will throw
+```
+
+```bash
+dotnet run -c Release # won't throw
+```
+
 # Upcoming features
 
-- Conditional compilation: An optional way to remove the validations from the release build
 - More extension methods: Many more rules to come! Please contribute!
 
 # Contribution
