@@ -20,9 +20,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build -c Release --no-restore
     - name: Test Debug
-      run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
+      run: dotnet test -c Debug --no-restore --verbosity normal --collect:"XPlat Code Coverage"
     - name: Test Release
       run: dotnet test -c Release --no-restore --verbosity normal
     - name: Upload coverage to Codecov
