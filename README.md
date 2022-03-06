@@ -14,7 +14,7 @@
 
 `dotnet add package throw`
 
-![Getting started svg](./assets/getting-started.svg)
+![Getting started png](./assets/getting-started.png)
 ---
 
 </div>
