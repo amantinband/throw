@@ -5,11 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>Throw</PackageId>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Authors>Amichai Mantinband</Authors>
     <PackageIcon>icon-square.png</PackageIcon>
     <PackageTags>argument,guard,clause,exception,contract,assert,assertions,validation</PackageTags>
@@ -19,7 +20,6 @@
     <licenses>https://opensource.org/licenses/MIT</licenses>
     <RepositoryUrl>https://github.com/mantinband/throw</RepositoryUrl>
     <PackageOutputPath>../artifacts/</PackageOutputPath>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
