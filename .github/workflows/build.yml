@@ -21,8 +21,10 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test
+    - name: Test Debug
       run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage"
+    - name: Test Release
+      run: dotnet test -c Release --no-restore --verbosity normal
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
