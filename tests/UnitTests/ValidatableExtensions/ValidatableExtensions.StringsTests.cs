@@ -254,4 +254,32 @@ public class StringsTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfLenghtEquals_WhenLengthEquals_ShouldThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfLengthEquals(value.Length);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String length should not be equal to '{value.Length}'. (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfLenghtEquals_WhenLengthNotEquals_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfLengthEquals(value.Length + 1);
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }
