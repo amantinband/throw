@@ -262,12 +262,12 @@ public class StringsTests
         string value = "value";
 
         // Act
-        Action action = () => value.Throw().IfLengthEquals(value.Length);
+        Action action = () => value.Throw().IfLengthEquals(5);
 
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String length should not be equal to '{value.Length}'. (Parameter '{nameof(value)}')");
+            .WithMessage($"String length should not be equal to 5. (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -277,7 +277,7 @@ public class StringsTests
         string value = "value";
 
         // Act
-        Action action = () => value.Throw().IfLengthEquals(value.Length + 1);
+        Action action = () => value.Throw().IfLengthEquals(100);
 
         // Assert
         action.Should().NotThrow();
@@ -288,16 +288,14 @@ public class StringsTests
     {
         // Arrange
         string value = "value";
-        int originalLength = value.Length;
-        value = "val";
 
         // Act
-        Action action = () => value.Throw().IfLengthNotEquals(originalLength);
+        Action action = () => value.Throw().IfLengthNotEquals(100);
 
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String length should be equal to '{originalLength}'. (Parameter '{nameof(value)}')");
+            .WithMessage($"String length should be equal to 100. (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]

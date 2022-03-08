@@ -79,7 +79,7 @@ internal static partial class Validator
     {
         if (value.Length == length)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should not be equal to '{length}'.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should not be equal to {length}.");
         }
     }
 
@@ -88,7 +88,7 @@ internal static partial class Validator
     {
         if (value.Length != length)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should be equal to '{length}'.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should be equal to {length}.");
         }
     }
 }
