@@ -31,6 +31,115 @@ public class StringPropertiesTests
     }
 
     [TestMethod]
+    public void ThrowIfPropertyNullOrEmpty_WhenPropertyIsNull_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = null as string };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrEmpty(p => p.Name);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be null or empty. (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNullOrEmpty_WhenPropertyIsEmpty_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "" };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrEmpty(p => p.Name);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be null or empty. (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNullOrEmpty_WhenPropertyIsWhiteSpace_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = " " };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrEmpty(p => p.Name);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNullOrEmpty_WhenPropertyNotEmpty_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "Milan" };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrEmpty(p => p.Name);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNullOrWhiteSpace_WhenPropertyIsNull_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = null as string };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrWhiteSpace(p => p.Name);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be null or whitespace. (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNullOrWhiteSpace_WhenPropertyIsEmpty_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = " " };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrWhiteSpace(p => p.Name);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be null or whitespace. (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNullOrWhiteSpace_WhenPropertyIsWhiteSpace_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = " " };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrWhiteSpace(p => p.Name);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be null or whitespace. (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNullOrWhiteSpace_WhenPropertyIsNotWhiteSpace_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "Milan" };
+
+        // Act
+        Action action = () => person.Throw().IfNullOrWhiteSpace(p => p.Name);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
     public void ThrowIfPropertyEmpty_WhenPropertyIsEmpty_ShouldThrow()
     {
         // Arrange

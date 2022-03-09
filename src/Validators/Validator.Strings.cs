@@ -30,6 +30,24 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfNullOrEmpty(string value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, "String should not be null or empty.");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfNullOrWhiteSpace(string value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, "String should not be null or whitespace.");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void ThrowIfWhiteSpace(string value, string paramName, ExceptionCustomizations? exceptionCustomizations)
     {
         if (value.All(char.IsWhiteSpace))
