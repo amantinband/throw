@@ -126,7 +126,7 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfLengthEquals(this in Validatable<string> validatable, int length)
     {
-        Validator.IfLengthEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
 
         return ref validatable;
     }
@@ -140,7 +140,7 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfLengthNotEquals(this in Validatable<string> validatable, int length)
     {
-        Validator.IfLengthNotEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthNotEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
 
         return ref validatable;
     }

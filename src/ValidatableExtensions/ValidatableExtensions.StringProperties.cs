@@ -135,7 +135,7 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfLengthEquals<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, int length, [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.IfLengthEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
 
         return ref validatable;
     }
@@ -150,7 +150,7 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfLengthNotEquals<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, int length, [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.IfLengthNotEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthNotEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
 
         return ref validatable;
     }

@@ -84,7 +84,7 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void IfLengthNotEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
+    internal static void ThrowIfLengthNotEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
     {
         if (value.Length != length)
         {
