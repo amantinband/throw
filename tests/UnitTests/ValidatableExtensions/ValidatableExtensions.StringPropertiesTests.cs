@@ -102,7 +102,7 @@ public class StringPropertiesTests
     public void ThrowIfPropertyNullOrWhiteSpace_WhenPropertyIsEmpty_ShouldThrow()
     {
         // Arrange
-        var person = new { Name = " " };
+        var person = new { Name = "" };
 
         // Act
         Action action = () => person.Throw().IfNullOrWhiteSpace(p => p.Name);
