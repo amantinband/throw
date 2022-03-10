@@ -254,4 +254,60 @@ public class StringsTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfLenghtEquals_WhenLengthEquals_ShouldThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfLengthEquals(5);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String length should not be equal to 5. (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfLenghtEquals_WhenLengthNotEquals_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfLengthEquals(100);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfLenghtNotEquals_WhenLengthNotEquals_ShouldThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfLengthNotEquals(100);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String length should be equal to 100. (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfLenghtNotEquals_WhenLengthEquals_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "value";
+
+        // Act
+        Action action = () => value.Throw().IfLengthNotEquals(value.Length);
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }
