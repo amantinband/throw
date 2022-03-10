@@ -42,7 +42,7 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNullOrEmpty<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNullOrEmpty<TValue>(this in Validatable<TValue> validatable, Func<TValue, string?> func, [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
         Validator.ThrowIfNullOrEmpty(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
@@ -57,7 +57,7 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNullOrWhiteSpace<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNullOrWhiteSpace<TValue>(this in Validatable<TValue> validatable, Func<TValue, string?> func, [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
         Validator.ThrowIfNullOrWhiteSpace(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);

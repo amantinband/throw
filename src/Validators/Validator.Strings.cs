@@ -30,7 +30,7 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNullOrEmpty(string value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfNullOrEmpty(string? value, string paramName, ExceptionCustomizations? exceptionCustomizations)
     {
         if (string.IsNullOrEmpty(value))
         {
@@ -39,7 +39,7 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNullOrWhiteSpace(string value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfNullOrWhiteSpace(string? value, string paramName, ExceptionCustomizations? exceptionCustomizations)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
