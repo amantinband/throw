@@ -297,6 +297,8 @@ bool nonNullableValue = value.ThrowIfNull(); // ArgumentNullException: Value can
 ```csharp
 name.Throw().IfEmpty(); // System.ArgumentException: String should not be empty. (Parameter 'name')
 name.Throw().IfWhiteSpace(); // System.ArgumentException: String should not be white space only. (Parameter 'name')
+name.Throw().IfLengthEquals(7); // System.ArgumentException: String length should not be equal to 7. (Parameter 'name')
+name.Throw().IfLengthNotEquals(10); // System.ArgumentException: String length should be equal to 10. (Parameter 'name')
 name.Throw().IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
 name.Throw().IfLongerThan(3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
 name.Throw().IfEquals("Amichai"); // System.ArgumentException: String should not be equal to 'Amichai'. (Parameter 'name')
@@ -391,6 +393,10 @@ Person person = GetPerson().Throw().IfTrue(person => person.Age < 18); // System
 ```csharp
 person.Throw().IfEmpty(p => p.Name); // System.ArgumentException: String should not be empty. (Parameter 'person: p => p.Name')
 person.Throw().IfWhiteSpace(p => p.Name); // System.ArgumentException: String should not be white space only. (Parameter 'person: p => p.Name')
+person.Throw().IfNullOrWhiteSpace(p => p.Name); // System.ArgumentException: String should not be null or whitespace. (Parameter 'person: p => p.Name')
+person.Throw().IfNullOrEmpty(p => p.Name); // System.ArgumentException: String should not be null or empty. (Parameter 'person: p => p.Name')
+person.Throw().IfLengthEquals(p => p.Name, 7); // System.ArgumentException: String length should not be equal to 7. (Parameter 'person: p => p.Name')
+person.Throw().IfLengthNotEquals(p => p.Name, 10); // System.ArgumentException: String length should be equal to 10. (Parameter 'person: p => p.Name')
 person.Throw().IfShorterThan(p => p.Name, 10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'person: p => p.Name')
 person.Throw().IfLongerThan(p => p.Name, 3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'person: p => p.Name')
 person.Throw().IfEquals(p => p.Name, "Amichai"); // System.ArgumentException: String should not be equal to 'Amichai'. (Parameter 'person: p => p.Name')
