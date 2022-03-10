@@ -36,6 +36,36 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is null or empty.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNullOrEmpty<TValue>(this in Validatable<TValue> validatable, Func<TValue, string?> func, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfNullOrEmpty(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is null or whitespace.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNullOrWhiteSpace<TValue>(this in Validatable<TValue> validatable, Func<TValue, string?> func, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfNullOrWhiteSpace(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+
+        return ref validatable;
+    }
+
+    /// <summary>
     /// Throws an exception if the string returned from the given <paramref name="func"/> is longer than <paramref name="length"/> characters.
     /// </summary>
     /// <remarks>
