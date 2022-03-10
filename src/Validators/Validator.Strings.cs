@@ -73,4 +73,22 @@ internal static partial class Validator
             ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}'.");
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfLengthEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
+    {
+        if (value.Length == length)
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should not be equal to {length}.");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfLengthNotEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
+    {
+        if (value.Length != length)
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should be equal to {length}.");
+        }
+    }
 }
