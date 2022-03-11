@@ -312,7 +312,7 @@ public class StringsTests
     }
 
     [TestMethod]
-    public void ThrowIfEndsWith_WhenEndsWith_ShouldNotThrow()
+    public void ThrowIfEndsWith_WhenNotEndsWith_ShouldNotThrow()
     {
         // Arrange
         string name = "John";
