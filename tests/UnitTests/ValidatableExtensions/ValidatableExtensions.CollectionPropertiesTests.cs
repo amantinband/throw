@@ -224,4 +224,18 @@ public class CollectionPropertiesTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfCollectionPropertyIsContainedInAnyElements_WhenCollectionPropertyHasAtLeastOneElement_ShouldThrow()
+    {
+        // Arrange
+        var collection = new[] { 1, 2, 3, 3 };
+
+
+        // Act
+        Action action = () => collection.Throw().IfAny(item => item < 3);
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }
