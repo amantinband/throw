@@ -335,7 +335,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not end with hn. (Parameter '{nameof(name)}')");
+            .WithMessage($"String should not end with 'hn'. (Parameter '{nameof(name)}')");
     }
 
     [TestMethod]
@@ -350,7 +350,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should end with Jo. (Parameter '{nameof(name)}')");
+            .WithMessage($"String should end with 'Jo'. (Parameter '{nameof(name)}')");
 
     }
 

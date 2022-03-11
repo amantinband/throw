@@ -124,7 +124,7 @@ internal static partial class Validator
     {
         if (!value.EndsWith(str))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should end with {str}.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should end with '{str}'.");
         }
     }
 }
