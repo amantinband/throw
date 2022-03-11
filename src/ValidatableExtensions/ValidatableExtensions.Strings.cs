@@ -144,4 +144,32 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if the string ends with <paramref name="str"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<string> IfEndsWith(this in Validatable<string> validatable, string str)
+    {
+        Validator.ThrowIfEndsWith(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, str);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string does not end with <paramref name="str"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<string> IfNotEndsWith(this in Validatable<string> validatable, string str)
+    {
+        Validator.ThrowIfNotEndsWith(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, str);
+
+        return ref validatable;
+    }
 }

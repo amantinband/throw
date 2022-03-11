@@ -408,4 +408,61 @@ public class StringPropertiesTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfPropertyEndsWith_WhenPropertyNotEndsWith_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfEndsWith(p => p.Name, "Jo");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyEndsWith_WhenPropertyEndsWith_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfEndsWith(p => p.Name, "hn");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not end with hn. (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotEndsWith_WhenPropertyNotEndsWith_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotEndsWith(p => p.Name, "Jo");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should end with Jo. (Parameter '{nameof(person)}: p => p.Name')");
+        
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotEndsWith_WhenPropertyEndsWith_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotEndsWith(p => p.Name, "hn");
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }

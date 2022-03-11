@@ -109,4 +109,22 @@ internal static partial class Validator
             ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should be equal to {length}.");
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    {
+        if (value.EndsWith(str))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not end with {str}.");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfNotEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    {
+        if (!value.EndsWith(str))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should end with {str}.");
+        }
+    }
 }
