@@ -58,6 +58,19 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfAny<TValue, TItem>(TValue value, Func<TItem, bool> predicate, string predicateName, string paramName, ExceptionCustomizations? exceptionCustomizations)
+        where TValue : notnull, IEnumerable<TItem>
+    {
+        foreach (var item in value)
+        {
+            if (predicate(item))
+            {
+                ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Collection should not have any elements matching {predicateName}.");
+            }
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static int GetCollectionCount<TValue>(TValue value)
         where TValue : notnull, IEnumerable
     {
