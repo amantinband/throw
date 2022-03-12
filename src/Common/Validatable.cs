@@ -7,7 +7,9 @@ namespace Throw;
 /// <param name="Value">The value to be validated.</param>
 /// <param name="ParamName">The name of the parameter holding the <paramref name="Value"/>.</param>
 /// <param name="ExceptionCustomizations">Customizations to the exception, which will be applied if an exception is thrown.</param>
-public readonly record struct Validatable<TValue>(TValue Value, string ParamName, ExceptionCustomizations? ExceptionCustomizations = null) where TValue : notnull
+public readonly record struct Validatable<TValue>(TValue Value, string ParamName, ExceptionCustomizations? ExceptionCustomizations = null)
+    : IValidatable<TValue>
+    where TValue : notnull
 {
     /// <summary>
     /// Implicit conversion operator back to the original value's type.

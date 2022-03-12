@@ -127,11 +127,10 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfAny<TValue, TItem>(this in Validatable<TValue> validatable, Func<TItem, bool> predicate, [CallerArgumentExpression("predicate")] string? predicateName = null)
-        where TValue : notnull, IEnumerable<TItem>
+    public static IValidatable<IEnumerable<TItem>> IfAny<TItem>(this IValidatable<IEnumerable<TItem>> validatable, Func<TItem, bool> predicate, [CallerArgumentExpression("predicate")] string? predicateName = null)
     {
         Validator.ThrowIfAny(validatable.Value, predicate, predicateName!, validatable.ParamName, validatable.ExceptionCustomizations);
 
-        return ref validatable;
+        return validatable;
     }
 }
