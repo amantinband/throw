@@ -312,6 +312,62 @@ public class StringsTests
     }
 
     [TestMethod]
+    public void ThrowIfEndsWith_WhenNotEndsWith_ShouldNotThrow()
+    {
+        // Arrange
+        string name = "John";
+
+        // Act
+        Action action = () => name.Throw().IfEndsWith("Jo");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfEndsWith_WhenEndsWith_ShouldThrow()
+    {
+        // Arrange
+        string name = "John";
+        // Act
+        Action action = () => name.Throw().IfEndsWith("hn");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not end with 'hn'. (Parameter '{nameof(name)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfNotEndsWith_WhenNotEndsWith_ShouldThrow()
+    {
+        // Arrange
+        string name = "John";
+
+        // Act
+        Action action = () => name.Throw().IfNotEndsWith("Jo");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should end with 'Jo'. (Parameter '{nameof(name)}')");
+
+    }
+
+    [TestMethod]
+    public void ThrowIfNotEndsWith_WhenEndsWith_ShouldNotThrow()
+    {
+        // Arrange
+        string name = "John";
+
+        // Act
+        Action action = () => name.Throw().IfNotEndsWith("hn");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
     public void ThrowIfStartsWith_WhenNotStartsWith_ShouldNotThrow()
     {
         // Arrange
