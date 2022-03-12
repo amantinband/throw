@@ -127,4 +127,22 @@ internal static partial class Validator
             ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should end with '{str}'.");
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    {
+        if (value.StartsWith(str))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not start with '{str}'.");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfNotStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    {
+        if (!value.StartsWith(str))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should start with '{str}'.");
+        }
+    }
 }

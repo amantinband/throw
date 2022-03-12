@@ -366,4 +366,60 @@ public class StringsTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfStartsWith_WhenNotStartsWith_ShouldNotThrow()
+    {
+        // Arrange
+        string name = "John";
+
+        // Act
+        Action action = () => name.Throw().IfStartsWith("hn");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfStartsWith_WhenStartsWith_ShouldThrow()
+    {
+        // Arrange
+        string name = "John";
+        // Act
+        Action action = () => name.Throw().IfStartsWith("Jo");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not start with 'Jo'. (Parameter '{nameof(name)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfNotStartsWith_WhenNotStartsWith_ShouldThrow()
+    {
+        // Arrange
+        string name = "John";
+
+        // Act
+        Action action = () => name.Throw().IfNotStartsWith("hn");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should start with 'hn'. (Parameter '{nameof(name)}')");
+
+    }
+
+    [TestMethod]
+    public void ThrowIfNotStartsWith_WhenStartsWith_ShouldNotThrow()
+    {
+        // Arrange
+        string name = "John";
+
+        // Act
+        Action action = () => name.Throw().IfNotStartsWith("Jo");
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }

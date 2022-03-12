@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <PackageId>Throw</PackageId>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <Authors>Amichai Mantinband</Authors>
     <PackageIcon>icon-square.png</PackageIcon>
     <PackageTags>argument,guard,clause,exception,contract,assert,assertions,validation</PackageTags>
