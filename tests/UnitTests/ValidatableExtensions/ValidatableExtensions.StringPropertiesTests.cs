@@ -408,4 +408,61 @@ public class StringPropertiesTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfPropertyStartsWith_WhenPropertyNotStartsWith_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfStartsWith(p => p.Name, "hh");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyStartsWith_WhenPropertyStartsWith_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfStartsWith(p => p.Name, "Jo");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not start with 'Jo'. (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotStartsWith_WhenPropertyNotStartsWith_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotStartsWith(p => p.Name, "hn");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should start with 'hn'. (Parameter '{nameof(person)}: p => p.Name')");
+
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotStartsWith_WhenPropertyStartsWith_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotStartsWith(p => p.Name, "Jo");
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }

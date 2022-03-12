@@ -184,4 +184,34 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> start with <paramref name="str"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfStartsWith<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string str, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfStartsWith(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, str);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> does not start with <paramref name="str"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNotStartsWith<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string str, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfNotStartsWith(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, str);
+
+        return ref validatable;
+    }
 }
