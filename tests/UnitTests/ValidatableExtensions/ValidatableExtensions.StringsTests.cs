@@ -335,7 +335,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not Start with 'Jo'. (Parameter '{nameof(name)}')");
+            .WithMessage($"String should not start with 'Jo'. (Parameter '{nameof(name)}')");
     }
 
     [TestMethod]
@@ -350,7 +350,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should Start with 'hn'. (Parameter '{nameof(name)}')");
+            .WithMessage($"String should start with 'hn'. (Parameter '{nameof(name)}')");
 
     }
 
