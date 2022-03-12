@@ -216,4 +216,34 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if the string contains the given <paramref name="otherString"/>
+    /// Default <paramref name="comparisonType"/> is Ordinal.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    public static ref readonly Validatable<string> IfContains(this in Validatable<string> validatable, string otherString, StringComparison comparisonType = StringComparison.Ordinal)
+    {
+        Validator.ThrowIfContains(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, comparisonType);
+
+        return ref validatable;
+    }
+    
+    /// <summary>
+    /// Throws an exception if the string does not contain the given <paramref name="otherString"/>.
+    /// Default <paramref name="comparisonType"/> is Ordinal.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<string> IfNotContains(this in Validatable<string> validatable, string otherString, StringComparison comparisonType = StringComparison.Ordinal)
+    {
+        Validator.ThrowIfNotContains(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, comparisonType);
+
+        return ref validatable;
+    }
+
 }

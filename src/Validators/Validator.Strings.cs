@@ -136,4 +136,22 @@ internal static partial class Validator
             ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should start with '{str}'.");
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfContains(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
+    {
+        if (value.Contains(otherString, comparisonType))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not contain '{otherString}'. (Comparison Type: {comparisonType})");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfNotContains(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
+    {
+        if (!value.Contains(otherString, StringComparison.Ordinal))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should contain '{otherString}'. (Comparison Type: {comparisonType})");
+        }
+    }
 }
