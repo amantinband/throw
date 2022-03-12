@@ -216,7 +216,7 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the string returned from the given <paramref name="func"/> start with <paramref name="str"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> starts with <paramref name="str"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.

@@ -174,7 +174,7 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the string start with <paramref name="str"/>.
+    /// Throws an exception if the string starts with <paramref name="str"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
