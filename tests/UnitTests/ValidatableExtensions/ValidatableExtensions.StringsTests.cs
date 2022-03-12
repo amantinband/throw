@@ -450,4 +450,64 @@ public class StringsTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfContains_WhenContains_ShouldThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherString = "quick";
+
+        // Act
+        Action action = () => value.Throw().IfContains(otherString);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not contain 'quick'. (Comparison Type: Ordinal) (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfContains_WhenNotContains_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherString = "horse";
+
+        // Act
+        Action action = () => value.Throw().IfContains(otherString);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfNotContains_WhenNotContains_ShouldThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "horse";
+
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should contain 'horse'. (Comparison Type: Ordinal) (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfNotContains_WhenContains_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "jumps";
+
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue);
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }
