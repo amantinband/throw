@@ -219,7 +219,7 @@ public static partial class ValidatableExtensions
 
     /// <summary>
     /// Throws an exception if the string contains the given <paramref name="otherString"/>
-    /// Default <paramref name="comparisonType"/> is Ordinal.
+    /// Default <paramref name="comparisonType"/> is <see cref="StringComparison.Ordinal"/>..
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
@@ -233,7 +233,7 @@ public static partial class ValidatableExtensions
     
     /// <summary>
     /// Throws an exception if the string does not contain the given <paramref name="otherString"/>.
-    /// Default <paramref name="comparisonType"/> is Ordinal.
+    /// Default <paramref name="comparisonType"/> is <see cref="StringComparison.Ordinal"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
