@@ -385,6 +385,7 @@ public class StringsTests
     {
         // Arrange
         string name = "John";
+
         // Act
         Action action = () => name.Throw().IfEndsWith("hn");
 
@@ -407,7 +408,6 @@ public class StringsTests
         action.Should()
             .ThrowExactly<ArgumentException>()
             .WithMessage($"String should end with 'Jo'. (Parameter '{nameof(name)}')");
-
     }
 
     [TestMethod]
@@ -441,6 +441,7 @@ public class StringsTests
     {
         // Arrange
         string name = "John";
+
         // Act
         Action action = () => name.Throw().IfStartsWith("Jo");
 
@@ -463,7 +464,6 @@ public class StringsTests
         action.Should()
             .ThrowExactly<ArgumentException>()
             .WithMessage($"String should start with 'hn'. (Parameter '{nameof(name)}')");
-
     }
 
     [TestMethod]
@@ -538,7 +538,7 @@ public class StringsTests
         // Assert
         action.Should().NotThrow();
     }
-    
+
     [DataTestMethod]
     [DataRow("value", "AL", StringComparison.OrdinalIgnoreCase)]
     [DataRow("\u0068\u0065\u006c\u006c\u006f", "\u0065\u006c", StringComparison.InvariantCulture)]

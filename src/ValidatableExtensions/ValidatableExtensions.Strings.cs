@@ -246,7 +246,7 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
-    
+
     /// <summary>
     /// Throws an exception if the string does not contain the given <paramref name="otherString"/>.
     /// Default <paramref name="comparisonType"/> is <see cref="StringComparison.Ordinal"/>.
