@@ -218,12 +218,13 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the string contains the given <paramref name="otherString"/>
-    /// Default <paramref name="comparisonType"/> is <see cref="StringComparison.Ordinal"/>..
+    /// Throws an exception if the string contains the given <paramref name="otherString"/>.
+    /// Default <paramref name="comparisonType"/> is <see cref="StringComparison.Ordinal"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfContains(this in Validatable<string> validatable, string otherString, StringComparison comparisonType = StringComparison.Ordinal)
     {
         Validator.ThrowIfContains(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, comparisonType);
