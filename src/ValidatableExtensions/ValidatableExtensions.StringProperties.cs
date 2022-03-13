@@ -96,16 +96,32 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the string returned from the given <paramref name="func"/> equals the given <paramref name="otherString"/> (case sensitive).
+    /// Throws an exception if the string returned from the given <paramref name="func"/> equals the given <paramref name="otherString"/>.
     /// </summary>
     /// <remarks>
+    /// The <see cref="StringComparison"/> used is <see cref="StringComparison.Ordinal"/>.
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<TValue> IfEquals<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString);
+        Validator.ThrowIfEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, StringComparison.Ordinal);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> equals the given <paramref name="otherString"/> using the given <paramref name="comparisonType"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfEquals<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, StringComparison comparisonType, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, comparisonType);
 
         return ref validatable;
     }
@@ -151,7 +167,7 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfEqualsIgnoreCase<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfEqualsIgnoreCase(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString);
+        Validator.ThrowIfEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, StringComparison.OrdinalIgnoreCase);
 
         return ref validatable;
     }

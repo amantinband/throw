@@ -127,7 +127,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'value'. (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'value' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -138,6 +138,34 @@ public class StringsTests
 
         // Act
         Action action = () => value.Throw().IfEquals("VALUE");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "VALUE", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "\u00e5", StringComparison.InvariantCulture)]
+    [DataRow("AA", "A\u0000\u0000\u0000a", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfEquals_WhenEqualsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfEquals(otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be equal to '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(value)}')");
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfEquals_WhenNotEqualsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfEquals(otherValue, comparisonType);
 
         // Assert
         action.Should().NotThrow();
@@ -155,7 +183,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'value' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'value' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -170,7 +198,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'VALUE' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'VALUE' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
