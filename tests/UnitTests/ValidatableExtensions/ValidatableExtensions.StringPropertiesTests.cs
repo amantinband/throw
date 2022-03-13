@@ -555,4 +555,112 @@ public class StringPropertiesTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfPropertyContains_WhenPropertyContains_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfContains(p => p.Name, "oh");
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not contain 'oh' (Comparison Type: Ordinal). (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyContains_WhenPropertyNotContains_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfContains(p => p.Name, "Oh");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotContains_WhenPropertyNotContains_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotContains(p => p.Name, "Oh");
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should contain 'Oh' (Comparison Type: Ordinal). (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotContains_WhenPropertyContains_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotContains(p => p.Name, "oh");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyContains_UsingOrdinalIgnoreCase_WhenPropertyContains_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfContains(p => p.Name, "Oh", StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not contain 'Oh' (Comparison Type: OrdinalIgnoreCase). (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyContains_UsingOrdinalIgnoreCase_WhenPropertyNotContains_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfContains(p => p.Name, "123", StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotContains_UsingOrdinalIgnoreCase_WhenPropertyNotContains_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotContains(p => p.Name, "123", StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"String should contain '123' (Comparison Type: OrdinalIgnoreCase). (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [TestMethod]
+    public void ThrowIfPropertyNotContains_UsingOrdinalIgnoreCase_WhenPropertyContains_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Name = "John" };
+
+        // Act
+        Action action = () => person.Throw().IfNotContains(p => p.Name, "Oh", StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }
