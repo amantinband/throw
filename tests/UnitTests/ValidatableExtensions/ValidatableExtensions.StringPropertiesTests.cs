@@ -231,7 +231,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'Amichai'. (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should not be equal to 'Amichai' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -242,6 +242,40 @@ public class StringPropertiesTests
 
         // Act
         Action action = () => person.Throw().IfEquals(p => p.Name, "Amichai2");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "VALUE", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "\u00e5", StringComparison.InvariantCulture)]
+    [DataRow("AA", "A\u0000\u0000\u0000a", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyEquals_WhenPropertyEqualsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Arrange
+        var person = new { Name = value };
+
+        // Act
+        Action action = () => person.Throw().IfEquals(p => p.Name, otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be equal to '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(person)}: p => p.Name')");
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyEquals_WhenPropertyNotEqualsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Arrange
+        var person = new { Name = value };
+
+        // Act
+        Action action = () => person.Throw().IfEquals(p => p.Name, otherValue, comparisonType);
 
         // Assert
         action.Should().NotThrow();
