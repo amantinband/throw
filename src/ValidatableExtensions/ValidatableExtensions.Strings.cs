@@ -128,7 +128,7 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfEqualsIgnoreCase(this in Validatable<string> validatable, string otherString)
     {
-        Validator.ThrowIfEqualsIgnoreCase(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString);
+        Validator.ThrowIfEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, StringComparison.OrdinalIgnoreCase);
 
         return ref validatable;
     }

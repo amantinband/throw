@@ -183,7 +183,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'value' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'value' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -198,7 +198,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'VALUE' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'VALUE' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]

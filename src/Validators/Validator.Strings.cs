@@ -57,15 +57,6 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfEqualsIgnoreCase(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString)
-    {
-        if (string.Equals(value, otherString, StringComparison.OrdinalIgnoreCase))
-        {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not be equal to '{otherString}' (case insensitive).");
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void ThrowIfEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
     {
         if (string.Equals(value, otherString, comparisonType))

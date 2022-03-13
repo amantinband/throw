@@ -167,7 +167,7 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfEqualsIgnoreCase<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfEqualsIgnoreCase(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString);
+        Validator.ThrowIfEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, StringComparison.OrdinalIgnoreCase);
 
         return ref validatable;
     }

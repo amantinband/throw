@@ -353,7 +353,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'Amichai' (case insensitive). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should not be equal to 'Amichai' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -367,7 +367,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'Amichai' (case insensitive). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should not be equal to 'Amichai' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
