@@ -198,7 +198,35 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value'. (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to 'different value' (comparison type: {StringComparison.Ordinal}). (Parameter '{nameof(value)}')");
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "VALUE", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "\u00e5", StringComparison.InvariantCulture)]
+    [DataRow("AA", "A\u0000\u0000\u0000a", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfNotEquals_WhenEqualsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfNotEquals(otherValue, comparisonType);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfNotEquals_WhenNotEqualsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfNotEquals(otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should be equal to 'different value' (comparison type: {comparisonType}). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -226,7 +254,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to 'different value' (comparison type: {StringComparison.OrdinalIgnoreCase}). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -256,7 +284,7 @@ public class StringsTests
     }
 
     [TestMethod]
-    public void ThrowIfLenghtEquals_WhenLengthEquals_ShouldThrow()
+    public void ThrowIfLengthEquals_WhenLengthEquals_ShouldThrow()
     {
         // Arrange
         string value = "value";
@@ -271,7 +299,7 @@ public class StringsTests
     }
 
     [TestMethod]
-    public void ThrowIfLenghtEquals_WhenLengthNotEquals_ShouldNotThrow()
+    public void ThrowIfLengthEquals_WhenLengthNotEquals_ShouldNotThrow()
     {
         // Arrange
         string value = "value";
@@ -284,7 +312,7 @@ public class StringsTests
     }
 
     [TestMethod]
-    public void ThrowIfLenghtNotEquals_WhenLengthNotEquals_ShouldThrow()
+    public void ThrowIfLengthNotEquals_WhenLengthNotEquals_ShouldThrow()
     {
         // Arrange
         string value = "value";
@@ -299,7 +327,7 @@ public class StringsTests
     }
 
     [TestMethod]
-    public void ThrowIfLenghtNotEquals_WhenLengthEquals_ShouldNotThrow()
+    public void ThrowIfLengthNotEquals_WhenLengthEquals_ShouldNotThrow()
     {
         // Arrange
         string value = "value";
