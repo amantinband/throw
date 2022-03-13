@@ -567,7 +567,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not contain 'oh' (Comparison Type: Ordinal). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should not contain 'oh' (comparison Type: '{StringComparison.Ordinal}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -594,7 +594,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should contain 'Oh' (Comparison Type: Ordinal). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should contain 'Oh' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -610,55 +610,69 @@ public class StringPropertiesTests
         action.Should().NotThrow();
     }
 
-    [TestMethod]
-    public void ThrowIfPropertyContains_UsingOrdinalIgnoreCase_WhenPropertyContains_ShouldThrow()
+    [DataTestMethod]
+    [DataRow("value", "AL", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0068\u0065\u006c\u006c\u006f", "\u0065", StringComparison.InvariantCulture)]
+    [DataRow("\u0068\u0065\u006c\u006c\u006f", "\u0045", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyContains_WhenPropertyContainsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
     {
         // Arrange
-        var person = new { Name = "John" };
+        var person = new { Name = value };
 
         // Act
-        Action action = () => person.Throw().IfContains(p => p.Name, "Oh", StringComparison.OrdinalIgnoreCase);
+        Action action = () => person.Throw().IfContains(p => p.Name, otherValue, comparisonType);
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not contain 'Oh' (Comparison Type: OrdinalIgnoreCase). (Parameter '{nameof(person)}: p => p.Name')");
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not contain '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
-    [TestMethod]
-    public void ThrowIfPropertyContains_UsingOrdinalIgnoreCase_WhenPropertyNotContains_ShouldNotThrow()
+    [DataTestMethod]
+    [DataRow("value", "123", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0041\u0041", "\u0031", StringComparison.InvariantCulture)]
+    [DataRow("AA", "\u0031", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyContains_WhenPropertyNotContainsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
     {
         // Arrange
-        var person = new { Name = "John" };
+        var person = new { Name = value };
 
         // Act
-        Action action = () => person.Throw().IfContains(p => p.Name, "123", StringComparison.OrdinalIgnoreCase);
+        Action action = () => person.Throw().IfContains(p => p.Name, otherValue, comparisonType);
 
         // Assert
         action.Should().NotThrow();
     }
-
-    [TestMethod]
-    public void ThrowIfPropertyNotContains_UsingOrdinalIgnoreCase_WhenPropertyNotContains_ShouldThrow()
+    
+    [DataTestMethod]
+    [DataRow("value", "123", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0041\u0041", "\u0031", StringComparison.InvariantCulture)]
+    [DataRow("AA", "\u0031", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyNotContains_WhenPropertyNotContainsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
     {
         // Arrange
-        var person = new { Name = "John" };
+        var person = new { Name = value };
 
         // Act
-        Action action = () => person.Throw().IfNotContains(p => p.Name, "123", StringComparison.OrdinalIgnoreCase);
+        Action action = () => person.Throw().IfNotContains(p => p.Name, otherValue, comparisonType);
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should contain '123' (Comparison Type: OrdinalIgnoreCase). (Parameter '{nameof(person)}: p => p.Name')");
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should contain '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
-    [TestMethod]
-    public void ThrowIfPropertyNotContains_UsingOrdinalIgnoreCase_WhenPropertyContains_ShouldNotThrow()
+    [DataTestMethod]
+    [DataRow("value", "AL", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0068\u0065\u006c\u006c\u006f", "\u0065", StringComparison.InvariantCulture)]
+    [DataRow("\u0068\u0065\u006c\u006c\u006f", "\u0045", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyNotContains_WhenPropertyContainsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
     {
         // Arrange
-        var person = new { Name = "John" };
+        var person = new { Name = value };
 
         // Act
-        Action action = () => person.Throw().IfNotContains(p => p.Name, "Oh", StringComparison.OrdinalIgnoreCase);
+        Action action = () => person.Throw().IfNotContains(p => p.Name, otherValue, comparisonType);
 
         // Assert
         action.Should().NotThrow();
