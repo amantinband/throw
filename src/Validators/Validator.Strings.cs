@@ -79,7 +79,7 @@ internal static partial class Validator
     {
         if (!string.Equals(value, otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}' (comparison type: {comparisonType}).");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 

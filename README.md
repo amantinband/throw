@@ -301,10 +301,11 @@ name.Throw().IfLengthEquals(7); // System.ArgumentException: String length shoul
 name.Throw().IfLengthNotEquals(10); // System.ArgumentException: String length should be equal to 10. (Parameter 'name')
 name.Throw().IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
 name.Throw().IfLongerThan(3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
-name.Throw().IfEquals("Amichai"); // System.ArgumentException: String should not be equal to 'Amichai'. (Parameter 'name')
-name.Throw().IfEqualsIgnoreCase("AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (case insensitive). (Parameter 'name')
-name.Throw().IfNotEquals("Dan"); // System.ArgumentException: String should be equal to 'Dan'. (Parameter 'name')
-name.Throw().IfNotEqualsIgnoreCase("Dan"); // System.ArgumentException: String should be equal to 'Dan' (case insensitive). (Parameter 'name')
+name.Throw().IfEquals("Amichai"); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfEqualsIgnoreCase("AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotEquals("Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotEquals("Dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotEqualsIgnoreCase("Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
 ```
 
 ### Collections (`IEnumerable`, `IEnumerable<T>`, `ICollection`, `ICollection<T>`, `IList`, etc.)
@@ -399,10 +400,11 @@ person.Throw().IfLengthEquals(p => p.Name, 7); // System.ArgumentException: Stri
 person.Throw().IfLengthNotEquals(p => p.Name, 10); // System.ArgumentException: String length should be equal to 10. (Parameter 'person: p => p.Name')
 person.Throw().IfShorterThan(p => p.Name, 10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'person: p => p.Name')
 person.Throw().IfLongerThan(p => p.Name, 3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'person: p => p.Name')
-person.Throw().IfEquals(p => p.Name, "Amichai"); // System.ArgumentException: String should not be equal to 'Amichai'. (Parameter 'person: p => p.Name')
-person.Throw().IfEqualsIgnoreCase(p => p.Name, "AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (case insensitive). (Parameter 'person: p => p.Name')
-person.Throw().IfNotEquals(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan'. (Parameter 'person: p => p.Name')
-person.Throw().IfNotEqualsIgnoreCase(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (case insensitive). (Parameter 'person: p => p.Name')
+person.Throw().IfEquals(p => p.Name, "Amichai"); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfEqualsIgnoreCase(p => p.Name, "AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEquals(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEquals(p => p.Name, "Dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEqualsIgnoreCase(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
 ```
 
 ### Collection properties

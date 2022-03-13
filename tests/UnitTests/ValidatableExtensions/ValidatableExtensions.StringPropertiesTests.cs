@@ -258,7 +258,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'Amiko' (comparison type: {StringComparison.Ordinal}). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should be equal to 'Amiko' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -305,7 +305,7 @@ public class StringPropertiesTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value' (comparison type: {comparisonType}). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should be equal to '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -360,7 +360,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'Amiko' (comparison type: {StringComparison.OrdinalIgnoreCase}). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should be equal to 'Amiko' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -484,7 +484,6 @@ public class StringPropertiesTests
         action.Should()
             .ThrowExactly<ArgumentException>()
             .WithMessage($"String should end with 'Jo'. (Parameter '{nameof(person)}: p => p.Name')");
-
     }
 
     [TestMethod]

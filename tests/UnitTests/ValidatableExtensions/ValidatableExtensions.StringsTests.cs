@@ -198,7 +198,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value' (comparison type: {StringComparison.Ordinal}). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to 'different value' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(value)}')");
     }
 
     [DataTestMethod]
@@ -226,7 +226,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value' (comparison type: {comparisonType}). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -254,7 +254,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value' (comparison type: {StringComparison.OrdinalIgnoreCase}). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to 'different value' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
