@@ -456,15 +456,15 @@ public class StringsTests
     {
         // Arrange
         string value = "the quick brown fox jumps over the lazy dog.";
-        string otherString = "quick";
+        string otherValue = "quick";
 
         // Act
-        Action action = () => value.Throw().IfContains(otherString);
+        Action action = () => value.Throw().IfContains(otherValue);
 
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not contain 'quick'. (Comparison Type: Ordinal) (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not contain '{otherValue}' (Comparison Type: Ordinal). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -472,10 +472,10 @@ public class StringsTests
     {
         // Arrange
         string value = "the quick brown fox jumps over the lazy dog.";
-        string otherString = "horse";
+        string otherValue = "horse";
 
         // Act
-        Action action = () => value.Throw().IfContains(otherString);
+        Action action = () => value.Throw().IfContains(otherValue);
 
         // Assert
         action.Should().NotThrow();
@@ -494,7 +494,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should contain 'horse'. (Comparison Type: Ordinal) (Parameter '{nameof(value)}')");
+            .WithMessage($"String should contain '{otherValue}' (Comparison Type: Ordinal). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -510,4 +510,64 @@ public class StringsTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfContains_UsingOrdinalIgnoreCase_WhenContains_ShouldThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "Quick";
+
+        // Act
+        Action action = () => value.Throw().IfContains(otherValue, StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not contain '{otherValue}' (Comparison Type: OrdinalIgnoreCase). (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfContains_UsingOrdinalIgnoreCase_WhenNotContains_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "horse";
+
+        // Act
+        Action action = () => value.Throw().IfContains(otherValue, StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfNotContains_UsingOrdinalIgnoreCase_WhenNotContains_ShouldThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "Horse";
+
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue, StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should contain '{otherValue}' (Comparison Type: OrdinalIgnoreCase). (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfNotContains_UsingOrdinalIgnoreCase_WhenContains_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "Jumps";
+
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue, StringComparison.OrdinalIgnoreCase);
+
+        // Assert
+        action.Should().NotThrow();
+    }   
 }
