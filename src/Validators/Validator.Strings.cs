@@ -142,7 +142,7 @@ internal static partial class Validator
     {
         if (value.Contains(otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not contain '{otherString}' (Comparison Type: {comparisonType}).");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not contain '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 
@@ -151,7 +151,7 @@ internal static partial class Validator
     {
         if (!value.Contains(otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should contain '{otherString}' (Comparison Type: {comparisonType}).");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should contain '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 }
