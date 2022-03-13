@@ -66,15 +66,6 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotEqualsIgnoreCase(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString)
-    {
-        if (!string.Equals(value, otherString, StringComparison.OrdinalIgnoreCase))
-        {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}' (case insensitive).");
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void ThrowIfEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString)
     {
         if (string.Equals(value, otherString, StringComparison.Ordinal))
@@ -84,11 +75,11 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString)
+    internal static void ThrowIfNotEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
     {
-        if (!string.Equals(value, otherString, StringComparison.Ordinal))
+        if (!string.Equals(value, otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}'.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 

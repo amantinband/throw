@@ -258,7 +258,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'Amiko'. (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should be equal to 'Amiko' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -272,6 +272,40 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "VALUE", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "\u00e5", StringComparison.InvariantCulture)]
+    [DataRow("AA", "A\u0000\u0000\u0000a", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyNotEquals_WhenPropertyEqualsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Arrange
+        var person = new { Name = value };
+
+        // Act
+        Action action = () => person.Throw().IfNotEquals(p => p.Name, otherValue, comparisonType);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfPropertyNotEquals_WhenPropertyNotEqualsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Arrange
+        var person = new { Name = value };
+
+        // Act
+        Action action = () => person.Throw().IfNotEquals(p => p.Name, otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should be equal to '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -326,7 +360,7 @@ public class StringPropertiesTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'Amiko' (case insensitive). (Parameter '{nameof(person)}: p => p.Name')");
+            .WithMessage($"String should be equal to 'Amiko' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(person)}: p => p.Name')");
     }
 
     [TestMethod]
@@ -450,7 +484,6 @@ public class StringPropertiesTests
         action.Should()
             .ThrowExactly<ArgumentException>()
             .WithMessage($"String should end with 'Jo'. (Parameter '{nameof(person)}: p => p.Name')");
-        
     }
 
     [TestMethod]
