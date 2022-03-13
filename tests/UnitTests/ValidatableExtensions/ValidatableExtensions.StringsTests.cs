@@ -450,4 +450,120 @@ public class StringsTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfContains_WhenContains_ShouldThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "quick";
+
+        // Act
+        Action action = () => value.Throw().IfContains(otherValue);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not contain '{otherValue}' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfContains_WhenNotContains_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "horse";
+
+        // Act
+        Action action = () => value.Throw().IfContains(otherValue);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfNotContains_WhenNotContains_ShouldThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "horse";
+
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should contain '{otherValue}' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(value)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfNotContains_WhenContains_ShouldNotThrow()
+    {
+        // Arrange
+        string value = "the quick brown fox jumps over the lazy dog.";
+        string otherValue = "jumps";
+
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+    
+    [DataTestMethod]
+    [DataRow("value", "AL", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0068\u0065\u006c\u006c\u006f", "\u0065\u006c", StringComparison.InvariantCulture)]
+    [DataRow("\u0041\u0041", "\u0061", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfContains_WhenContainsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfContains(otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not contain '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(value)}')");
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfContains_WhenNotContainsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfContains(otherValue, comparisonType);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfNotContains_WhenNotContainsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should contain '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(value)}')");
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "AL", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0068\u0065\u006c\u006c\u006f", "\u0065\u006c", StringComparison.InvariantCulture)]
+    [DataRow("\u0041\u0041", "\u0061", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfNotContains_WhenContainsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfNotContains(otherValue, comparisonType);
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }

@@ -261,4 +261,36 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> contains the given <paramref name="otherString"/>.
+    /// Default <paramref name="comparisonType"/> is <see cref="StringComparison.Ordinal"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfContains<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfContains(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, comparisonType);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> does not contain the given <paramref name="otherString"/>.
+    /// Default <paramref name="comparisonType"/> is <see cref="StringComparison.Ordinal"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNotContains<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfNotContains(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, comparisonType);
+
+        return ref validatable;
+    }
 }
