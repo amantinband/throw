@@ -540,7 +540,6 @@ public class StringPropertiesTests
         action.Should()
             .ThrowExactly<ArgumentException>()
             .WithMessage($"String should start with 'hn'. (Parameter '{nameof(person)}: p => p.Name')");
-
     }
 
     [TestMethod]
@@ -643,7 +642,7 @@ public class StringPropertiesTests
         // Assert
         action.Should().NotThrow();
     }
-    
+
     [DataTestMethod]
     [DataRow("value", "123", StringComparison.OrdinalIgnoreCase)]
     [DataRow("\u0041\u0041", "\u0031", StringComparison.InvariantCulture)]

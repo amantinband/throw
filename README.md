@@ -243,6 +243,7 @@ void SendEmail(User user)
         .IfFalse();
 }
 ```
+
 ```csharp
 // MyCustomException: Param name: nullableValue.
 nullableValue.ThrowIfNull(paramName => throw new MyCustomException($"Param name: {paramName}."));
@@ -302,10 +303,15 @@ name.Throw().IfLengthNotEquals(10); // System.ArgumentException: String length s
 name.Throw().IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
 name.Throw().IfLongerThan(3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
 name.Throw().IfEquals("Amichai"); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfEquals("Amichai", StringComparison.InvariantCulture); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'InvariantCulture'). (Parameter 'name')
 name.Throw().IfEqualsIgnoreCase("AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
 name.Throw().IfNotEquals("Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'Ordinal'). (Parameter 'name')
 name.Throw().IfNotEquals("Dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
 name.Throw().IfNotEqualsIgnoreCase("Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfContains("substring"); // System.ArgumentException: String should not contain 'substring' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfContains("substring", ComparisonType.InvariantCulture); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCulture'). (Parameter 'name')
+name.Throw().IfNotContains("substring"); // System.ArgumentException: String should contain 'substring' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotContains("substring", ComparisonType.InvariantCultureIgnoreCase); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
 ```
 
 ### Collections (`IEnumerable`, `IEnumerable<T>`, `ICollection`, `ICollection<T>`, `IList`, etc.)
@@ -401,10 +407,15 @@ person.Throw().IfLengthNotEquals(p => p.Name, 10); // System.ArgumentException: 
 person.Throw().IfShorterThan(p => p.Name, 10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'person: p => p.Name')
 person.Throw().IfLongerThan(p => p.Name, 3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'person: p => p.Name')
 person.Throw().IfEquals(p => p.Name, "Amichai"); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfEquals(p => p.Name, "Amichai", StringComparison.InvariantCulture); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'InvariantCulture'). (Parameter 'person: p => p.Name')
 person.Throw().IfEqualsIgnoreCase(p => p.Name, "AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
 person.Throw().IfNotEquals(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
 person.Throw().IfNotEquals(p => p.Name, "Dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
 person.Throw().IfNotEqualsIgnoreCase(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfContains(p => p.Name, "substring"); // System.ArgumentException: String should not contain 'substring' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfContains(p => p.Name, "substring", ComparisonType.InvariantCulture); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCulture'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotContains(p => p.Name, "substring"); // System.ArgumentException: String should contain 'substring' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotContains(p => p.Name, "substring", ComparisonType.InvariantCultureIgnoreCase); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
 ```
 
 ### Collection properties
