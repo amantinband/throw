@@ -601,7 +601,7 @@ public class StringsTests
     [DataRow("Amichai", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("123456789", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My NAME", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfMatches_WhenPropertyMatchesRegexPattern_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfMatches_WhenMatchesRegexPattern_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Act
         Action action = () => value.Throw().IfMatches(regexPattern, regexOptions);
@@ -616,7 +616,7 @@ public class StringsTests
     [DataRow("123456789", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("Amichai", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My AGE", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfMatches_WhenPropertyMatchesRegexPattern_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfMatches_WhenMatchesRegexPattern_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Act
         Action action = () => value.Throw().IfMatches(regexPattern, regexOptions);
@@ -629,7 +629,7 @@ public class StringsTests
     [DataRow("Amichai", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("123456789", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My NAME", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfMatches_WhenPropertyMatchesRegex_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfMatches_WhenMatchesRegex_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var regex = new Regex(regexPattern, regexOptions);
@@ -647,7 +647,7 @@ public class StringsTests
     [DataRow("123456789", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("Amichai", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My AGE", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfMatches_WhenPropertyMatchesRegex_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfMatches_WhenMatchesRegex_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var regex = new Regex(regexPattern, regexOptions);
@@ -663,7 +663,7 @@ public class StringsTests
     [DataRow("123456789", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("Amichai", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My AGE", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfNotMatches_WhenPropertyMatchesRegexPattern_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfNotMatches_WhenMatchesRegexPattern_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Act
         Action action = () => value.Throw().IfNotMatches(regexPattern, regexOptions);
@@ -678,7 +678,7 @@ public class StringsTests
     [DataRow("Amichai", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("123456789", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My NAME", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfNotMatches_WhenPropertyMatchesRegexPattern_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfNotMatches_WhenMatchesRegexPattern_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Act
         Action action = () => value.Throw().IfNotMatches(regexPattern, regexOptions);
@@ -691,7 +691,7 @@ public class StringsTests
     [DataRow("123456789", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("Amichai", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My AGE", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfNotMatches_WhenPropertyMatchesRegex_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfNotMatches_WhenMatchesRegex_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var regex = new Regex(regexPattern, regexOptions);
@@ -709,7 +709,7 @@ public class StringsTests
     [DataRow("Amichai", @"^[a-zA-Z]+$", RegexOptions.None)]
     [DataRow("123456789", @"^[0-9]+$", RegexOptions.None)]
     [DataRow("My NAME", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfNotMatches_WhenPropertyMatchesRegex_ShouldNowThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfNotMatches_WhenMatchesRegex_ShouldNowThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var regex = new Regex(regexPattern, regexOptions);
