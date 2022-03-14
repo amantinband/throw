@@ -735,7 +735,7 @@ public class StringPropertiesTests
     [DataRow("123456789", @"[a-zA-Z]", RegexOptions.None)]
     [DataRow("Amichai", @"\b[H]\w+", RegexOptions.None)]
     [DataRow("No Match", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfPropertyMatches_WhenPropertyMatchesRegexPattern_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfPropertyMatches_WhenPropertyNotMatchesRegexPattern_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var person = new { Name = value };
@@ -770,7 +770,7 @@ public class StringPropertiesTests
     [DataRow("123456789", @"[a-zA-Z]", RegexOptions.None)]
     [DataRow("Amichai", @"\b[H]\w+", RegexOptions.None)]
     [DataRow("No Match", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfPropertyMatches_WhenPropertyMatchesRegex_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfPropertyMatches_WhenPropertyNotMatchesRegex_ShouldNotThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var person = new { Name = value };
@@ -787,7 +787,7 @@ public class StringPropertiesTests
     [DataRow("123456789", @"[a-zA-Z]", RegexOptions.None)]
     [DataRow("Amichai", @"\b[H]\w+", RegexOptions.None)]
     [DataRow("No Match", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfPropertyNotMatches_WhenPropertyMatchesRegexPattern_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfPropertyNotMatches_WhenPropertyNotMatchesRegexPattern_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var person = new { Name = value };
@@ -821,7 +821,7 @@ public class StringPropertiesTests
     [DataRow("123456789", @"[a-zA-Z]", RegexOptions.None)]
     [DataRow("Amichai", @"\b[H]\w+", RegexOptions.None)]
     [DataRow("No Match", @"\bname\b", RegexOptions.IgnoreCase)]
-    public void ThrowIfPropertyNotMatches_WhenPropertyMatchesRegex_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
+    public void ThrowIfPropertyNotMatches_WhenPropertyNotMatchesRegex_ShouldThrow(string value, string regexPattern, RegexOptions regexOptions)
     {
         // Arrange
         var person = new { Name = value };
