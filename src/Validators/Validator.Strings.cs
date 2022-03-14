@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Throw;
 
 internal static partial class Validator
@@ -143,6 +145,46 @@ internal static partial class Validator
         if (!value.Contains(otherString, comparisonType))
         {
             ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should contain '{otherString}' (comparison type: '{comparisonType}').");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string regexPattern, RegexOptions regexOptions)
+    {
+        var regex = new Regex(regexPattern, regexOptions);
+
+        if (regex.IsMatch(value))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not match RegEx pattern '{regexPattern}'");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, Regex regex)
+    {
+        if (regex.IsMatch(value))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not match RegEx pattern '{regex}'");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfNotMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string regexPattern, RegexOptions regexOptions)
+    {
+        var regex = new Regex(regexPattern, regexOptions);
+
+        if (!regex.IsMatch(value))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should match RegEx pattern '{regexPattern}'");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfNotMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, Regex regex)
+    {
+        if (!regex.IsMatch(value))
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should match RegEx pattern '{regex}'");
         }
     }
 }
