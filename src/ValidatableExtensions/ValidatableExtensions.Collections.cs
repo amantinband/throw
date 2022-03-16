@@ -118,4 +118,19 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if any of the items in the collection matches the <paramref name="predicate"/>.
+    /// Important note: if the collection is a non-evaluated expression, the expression will be evaluated.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static IValidatable<IEnumerable<TItem>> IfAny<TItem>(this IValidatable<IEnumerable<TItem>> validatable, Func<TItem, bool> predicate, [CallerArgumentExpression("predicate")] string? predicateName = null)
+    {
+        Validator.ThrowIfAny(validatable.Value, predicate, predicateName!, validatable.ParamName, validatable.ExceptionCustomizations);
+
+        return validatable;
+    }
 }
