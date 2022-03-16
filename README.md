@@ -312,6 +312,18 @@ name.Throw().IfContains("substring"); // System.ArgumentException: String should
 name.Throw().IfContains("substring", ComparisonType.InvariantCulture); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCulture'). (Parameter 'name')
 name.Throw().IfNotContains("substring"); // System.ArgumentException: String should contain 'substring' (comparison type: 'Ordinal'). (Parameter 'name')
 name.Throw().IfNotContains("substring", ComparisonType.InvariantCultureIgnoreCase); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
+name.Throw().IfStartsWith("Jer"); // System.ArgumentException: String should not start with 'Jer' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfStartsWith("JER", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not start with 'JER' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotStartsWith("dan"); // System.ArgumentException: String should start with 'dan' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotStartsWith("dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should start with 'dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
+name.Throw().IfEndsWith("emy"); // System.ArgumentException: String should not end with 'emy' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfEndsWith("EMY", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not end with 'EMY' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotEndsWith("dan"); // System.ArgumentException: String should end with 'dan' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotEndsWith("dan", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should end with 'dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfMatches("J.*y"); // System.ArgumentException: String should not match RegEx pattern 'J.*y' (Parameter 'name')
+name.Throw().IfMatches("[a-z]{0,10}", RegexOptions.IgnoreCase); // System.ArgumentException: String should not match RegEx pattern '[a-z]{0,10}' (Parameter 'name')
+name.Throw().IfNotMatches("^[0-9]+$"); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'name')
+name.Throw().IfNotMatches("abc ", RegexOptions.IgnorePatternWhitespace); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'name')
 ```
 
 ### Collections (`IEnumerable`, `IEnumerable<T>`, `ICollection`, `ICollection<T>`, `IList`, etc.)
@@ -416,6 +428,18 @@ person.Throw().IfContains(p => p.Name, "substring"); // System.ArgumentException
 person.Throw().IfContains(p => p.Name, "substring", ComparisonType.InvariantCulture); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCulture'). (Parameter 'person: p => p.Name')
 person.Throw().IfNotContains(p => p.Name, "substring"); // System.ArgumentException: String should contain 'substring' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
 person.Throw().IfNotContains(p => p.Name, "substring", ComparisonType.InvariantCultureIgnoreCase); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfStartsWith(p => p.Name, "Jer"); // System.ArgumentException: String should not start with 'Jer' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfStartsWith(p => p.Name, "JER", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not start with 'JER' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotStartsWith(p => p.Name, "dan"); // System.ArgumentException: String should start with 'dan' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotStartsWith(p => p.Name, "dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should start with 'dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfEndsWith(p => p.Name, "emy"); // System.ArgumentException: String should not end with 'emy' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfEndsWith(p => p.Name, "EMY", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not end with 'EMY' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEndsWith(p => p.Name, "dan"); // System.ArgumentException: String should end with 'dan' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEndsWith(p => p.Name, "dan", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should end with 'dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfMatches(p => p.Name, "J.*y"); // System.ArgumentException: String should not match RegEx pattern 'J.*y' (Parameter 'person: p => p.Name')
+person.Throw().IfMatches(p => p.Name, "[a-z]{0,10}", RegexOptions.IgnoreCase); // System.ArgumentException: String should not match RegEx pattern '[a-z]{0,10}' (Parameter 'person: p => p.Name')
+person.Throw().IfNotMatches(p => p.Name, "^[0-9]+$"); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'person: p => p.Name')
+person.Throw().IfNotMatches(p => p.Name, "abc ", RegexOptions.IgnorePatternWhitespace); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'person: p => p.Name')
 ```
 
 ### Collection properties

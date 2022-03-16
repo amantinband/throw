@@ -95,38 +95,38 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    internal static void ThrowIfEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
     {
-        if (value.EndsWith(str))
+        if (value.EndsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not end with '{str}'.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not end with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    internal static void ThrowIfNotEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
     {
-        if (!value.EndsWith(str))
+        if (!value.EndsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should end with '{str}'.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should end with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    internal static void ThrowIfStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
     {
-        if (value.StartsWith(str))
+        if (value.StartsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not start with '{str}'.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not start with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str)
+    internal static void ThrowIfNotStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
     {
-        if (!value.StartsWith(str))
+        if (!value.StartsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should start with '{str}'.");
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should start with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
