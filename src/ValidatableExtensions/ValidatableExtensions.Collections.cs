@@ -128,7 +128,7 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the collection contains element. <paramref name="element"/>.
+    /// Throws an exception if the collection contains <paramref name="element"/>.
     /// Important note: if the collection is a non-evaluated expression, the expression will be evaluated.
     /// </summary>
     /// <remarks>
@@ -148,7 +148,7 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the collection contains element. <paramref name="element"/>.
+    /// Throws an exception if the collection not contains <paramref name="element"/>.
     /// Important note: if the collection is a non-evaluated expression, the expression will be evaluated.
     /// </summary>
     /// <remarks>
