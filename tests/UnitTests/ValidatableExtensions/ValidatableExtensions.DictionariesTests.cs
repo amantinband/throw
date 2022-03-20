@@ -54,7 +54,7 @@ namespace Throw.UnitTests.ValidatableExtensions
             };
 
             //Act
-            var action = () => dictionary.Throw().IfContainsKey("key3");
+            var action = () => dictionary.Throw().IfNotContainsKey("key1");
 
             //Assert
             action.Should().NotThrow();
@@ -88,7 +88,7 @@ namespace Throw.UnitTests.ValidatableExtensions
             };
 
             //Act
-            var action = () => dictionary.Throw().IfContainsKey("1");
+            var action = () => dictionary.Throw().IfContainsKey(1);
 
             //Assert
             action.Should().Throw();
@@ -105,7 +105,7 @@ namespace Throw.UnitTests.ValidatableExtensions
             };
 
             //Act
-            var action = () => dictionary.Throw().IfContainsKey("3");
+            var action = () => dictionary.Throw().IfContainsKey(3);
 
             //Assert
             action.Should().NotThrow();
@@ -122,7 +122,7 @@ namespace Throw.UnitTests.ValidatableExtensions
             };
 
             //Act
-            var action = () => dictionary.Throw().IfContainsKey(3);
+            var action = () => dictionary.Throw().IfNotContainsKey(1);
 
             //Assert
             action.Should().NotThrow();
@@ -156,7 +156,7 @@ namespace Throw.UnitTests.ValidatableExtensions
             };
 
             //Act
-            var action = () => dictionary.Throw().IfContainsKey(dictionary.First());
+            var action = () => dictionary.Throw().IfContainsKey(dictionary.Keys.First());
 
             //Assert
             action.Should().Throw();
@@ -190,7 +190,7 @@ namespace Throw.UnitTests.ValidatableExtensions
             };
 
             //Act
-            var action = () => dictionary.Throw().IfContainsKey(dictionary.First());
+            var action = () => dictionary.Throw().IfNotContainsKey(dictionary.Keys.First());
 
             //Assert
             action.Should().NotThrow();
