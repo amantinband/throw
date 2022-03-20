@@ -5,25 +5,42 @@ namespace Throw;
 internal static partial class Validator
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfLongerThan(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
+    internal static void ThrowIfLongerThan(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        int length)
     {
         if (value.Length > length)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not be longer than {length} characters.");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not be longer than {length} characters.");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfShorterThan(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
+    internal static void ThrowIfShorterThan(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        int length)
     {
         if (value.Length < length)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not be shorter than {length} characters.");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not be shorter than {length} characters.");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfEmpty(string value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfEmpty(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (value.Length == 0)
         {
@@ -32,7 +49,10 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNullOrEmpty(string? value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfNullOrEmpty(
+        string? value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (string.IsNullOrEmpty(value))
         {
@@ -41,7 +61,10 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNullOrWhiteSpace(string? value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfNullOrWhiteSpace(
+        string? value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
@@ -50,7 +73,10 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfWhiteSpace(string value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfWhiteSpace(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (value.All(char.IsWhiteSpace))
         {
@@ -59,34 +85,61 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
+    internal static void ThrowIfEquals(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string otherString,
+        StringComparison comparisonType)
     {
         if (string.Equals(value, otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not be equal to '{otherString}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not be equal to '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
+    internal static void ThrowIfNotEquals(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string otherString,
+        StringComparison comparisonType)
     {
         if (!string.Equals(value, otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should be equal to '{otherString}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should be equal to '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfLengthEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
+    internal static void ThrowIfLengthEquals(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        int length)
     {
         if (value.Length == length)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String length should not be equal to {length}.");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String length should not be equal to {length}.");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfLengthNotEquals(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, int length)
+    internal static void ThrowIfLengthNotEquals(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        int length)
     {
         if (value.Length != length)
         {
@@ -95,96 +148,174 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
+    internal static void ThrowIfEndsWith(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string str,
+        StringComparison comparisonType)
     {
         if (value.EndsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not end with '{str}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not end with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotEndsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
+    internal static void ThrowIfNotEndsWith(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string str,
+        StringComparison comparisonType)
     {
         if (!value.EndsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should end with '{str}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should end with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
+    internal static void ThrowIfStartsWith(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string str,
+        StringComparison comparisonType)
     {
         if (value.StartsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not start with '{str}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not start with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotStartsWith(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string str, StringComparison comparisonType)
+    internal static void ThrowIfNotStartsWith(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string str,
+        StringComparison comparisonType)
     {
         if (!value.StartsWith(str, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should start with '{str}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should start with '{str}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfContains(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
+    internal static void ThrowIfContains(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string otherString,
+        StringComparison comparisonType)
     {
         if (value.Contains(otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not contain '{otherString}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not contain '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotContains(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string otherString, StringComparison comparisonType)
+    internal static void ThrowIfNotContains(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string otherString,
+        StringComparison comparisonType)
     {
         if (!value.Contains(otherString, comparisonType))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should contain '{otherString}' (comparison type: '{comparisonType}').");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should contain '{otherString}' (comparison type: '{comparisonType}').");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string regexPattern, RegexOptions regexOptions)
+    internal static void ThrowIfMatches(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string regexPattern,
+        RegexOptions regexOptions)
     {
         var regex = new Regex(regexPattern, regexOptions);
 
         if (regex.IsMatch(value))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not match RegEx pattern '{regexPattern}'");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not match RegEx pattern '{regexPattern}'");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, Regex regex)
+    internal static void ThrowIfMatches(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        Regex regex)
     {
         if (regex.IsMatch(value))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should not match RegEx pattern '{regex}'");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should not match RegEx pattern '{regex}'");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, string regexPattern, RegexOptions regexOptions)
+    internal static void ThrowIfNotMatches(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string regexPattern,
+        RegexOptions regexOptions)
     {
         var regex = new Regex(regexPattern, regexOptions);
 
         if (!regex.IsMatch(value))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should match RegEx pattern '{regexPattern}'");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should match RegEx pattern '{regexPattern}'");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotMatches(string value, string paramName, ExceptionCustomizations? exceptionCustomizations, Regex regex)
+    internal static void ThrowIfNotMatches(
+        string value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        Regex regex)
     {
         if (!regex.IsMatch(value))
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"String should match RegEx pattern '{regex}'");
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"String should match RegEx pattern '{regex}'");
         }
     }
 }

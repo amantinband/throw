@@ -13,10 +13,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfUtc<TValue>(this in Validatable<TValue> validatable, Func<TValue, DateTime> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfUtc<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, DateTime> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfKind(func(validatable.Value), DateTimeKind.Utc, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfKind(
+            func(validatable.Value),
+            DateTimeKind.Utc,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -29,10 +36,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotUtc<TValue>(this in Validatable<TValue> validatable, Func<TValue, DateTime> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotUtc<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, DateTime> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotKind(func(validatable.Value), DateTimeKind.Utc, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfNotKind(
+            func(validatable.Value),
+            DateTimeKind.Utc,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -45,10 +59,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfDateTimeKind<TValue>(this in Validatable<TValue> validatable, Func<TValue, DateTime> func, DateTimeKind kind, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfDateTimeKind<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, DateTime> func,
+        DateTimeKind kind,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfKind(func(validatable.Value), kind, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfKind(
+            func(validatable.Value),
+            kind,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -61,10 +83,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfDateTimeKindNot<TValue>(this in Validatable<TValue> validatable, Func<TValue, DateTime> func, DateTimeKind kind, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfDateTimeKindNot<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, DateTime> func,
+        DateTimeKind kind,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotKind(func(validatable.Value), kind, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfNotKind(
+            func(validatable.Value),
+            kind,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }

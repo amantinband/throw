@@ -11,7 +11,9 @@ internal static partial class Validator
     {
         if (GetCollectionCount(value) != count)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations,
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
                 message ?? $"Collection count should be equal to {count}.");
         }
     }
@@ -23,7 +25,9 @@ internal static partial class Validator
     {
         if (GetCollectionCount(value) == count)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations,
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
                 message ?? $"Collection count should not be equal to {count}.");
         }
     }
@@ -35,7 +39,9 @@ internal static partial class Validator
     {
         if (GetCollectionCount(value) > count)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations,
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
                 $"Collection count should not be greater than {count}.");
         }
     }
@@ -47,7 +53,9 @@ internal static partial class Validator
     {
         if (GetCollectionCount(value) < count)
         {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations,
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
                 $"Collection count should not be less than {count}.");
         }
     }
@@ -61,7 +69,10 @@ internal static partial class Validator
         {
             if (item == null)
             {
-                ExceptionThrower.Throw(paramName, exceptionCustomizations, "Collection should not have null elements.");
+                ExceptionThrower.Throw(
+                    paramName,
+                    exceptionCustomizations,
+                    "Collection should not have null elements.");
             }
         }
     }
@@ -73,16 +84,15 @@ internal static partial class Validator
         TElement element,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
-        where TValue : notnull, IEnumerable<TElement>
+        where TValue : notnull, IEnumerable<TElement?>
         where TElement : notnull
     {
-        foreach (var item in value)
+        if (IsElementInCollection(value, element))
         {
-            if (item.Equals(element))
-            {
-                ExceptionThrower.Throw(paramName, exceptionCustomizations,
-                    $"Collection should not contain '{element}' element.");
-            }
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"Collection should not contain element.");
         }
     }
 
@@ -92,24 +102,31 @@ internal static partial class Validator
         TElement element,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
-        where TValue : notnull, IEnumerable<TElement>
+        where TValue : notnull, IEnumerable<TElement?>
         where TElement : notnull
     {
-        bool noContainElement = true;
+        if (!IsElementInCollection(value, element))
+        {
+            ExceptionThrower.Throw(
+                paramName,
+                exceptionCustomizations,
+                $"Collection should contain element.");
+        }
+    }
 
+    internal static bool IsElementInCollection<TValue, TElement>(TValue value, TElement element)
+        where TValue : IEnumerable<TElement?>
+        where TElement : notnull
+    {
         foreach (var item in value)
         {
-            if (item.Equals(element))
+            if (element.Equals(item))
             {
-                noContainElement = false;
+                return true;
             }
         }
 
-        if (noContainElement)
-        {
-            ExceptionThrower.Throw(paramName, exceptionCustomizations,
-                $"Collection should contain '{element}' element.");
-        }
+        return false;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

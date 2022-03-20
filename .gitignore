@@ -1,6 +1,7 @@
 **/.ionide
 **/.vscode
 **/.vs
+**/.idea
 **/obj
 **/bin
 **/artifacts

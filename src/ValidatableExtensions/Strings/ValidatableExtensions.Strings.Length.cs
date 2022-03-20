@@ -14,7 +14,11 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfLongerThan(this in Validatable<string> validatable, int length)
     {
-        Validator.ThrowIfLongerThan(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLongerThan(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
@@ -28,7 +32,11 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfShorterThan(this in Validatable<string> validatable, int length)
     {
-        Validator.ThrowIfShorterThan(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfShorterThan(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
@@ -42,7 +50,11 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfLengthEquals(this in Validatable<string> validatable, int length)
     {
-        Validator.ThrowIfLengthEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthEquals(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
@@ -54,9 +66,15 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfLengthNotEquals(this in Validatable<string> validatable, int length)
+    public static ref readonly Validatable<string> IfLengthNotEquals(
+        this in Validatable<string> validatable,
+        int length)
     {
-        Validator.ThrowIfLengthNotEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthNotEquals(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }

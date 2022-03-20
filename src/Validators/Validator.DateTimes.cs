@@ -3,7 +3,11 @@ namespace Throw;
 internal static partial class Validator
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotKind(DateTime value, DateTimeKind kind, string paramName, ExceptionCustomizations? exceptionCustomizations = null)
+    internal static void ThrowIfNotKind(
+        DateTime value,
+        DateTimeKind kind,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations = null)
     {
         if (value.Kind != kind)
         {
@@ -12,7 +16,11 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfKind(DateTime value, DateTimeKind kind, string paramName, ExceptionCustomizations? exceptionCustomizations = null)
+    internal static void ThrowIfKind(
+        DateTime value,
+        DateTimeKind kind,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations = null)
     {
         if (value.Kind == kind)
         {

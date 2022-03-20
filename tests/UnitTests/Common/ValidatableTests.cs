@@ -82,4 +82,20 @@ public class ValidatableTests
             .Should().BeOfType<Func<string, Exception>>()
             .Subject.Should().BeSameAs(exceptionThrower);
     }
+
+    [TestMethod]
+    public void UpdateExceptionCustomization_WhenToExceptionType_ShouldReturnValidatableWithExceptionTypeCustomization()
+    {
+        // Arrange
+        string value = "value";
+        var validatable = value.Throw(); // no customization.
+
+        // Act
+        Validatable<string> result = validatable.Throw<InvalidOperationException>(); // update to custom exception type.
+
+        // Assert
+        result.ExceptionCustomizations.Should().NotBeNull();
+        result.ExceptionCustomizations!.Value.Customization.Value
+            .Should().BeSameAs(typeof(InvalidOperationException));
+    }
 }

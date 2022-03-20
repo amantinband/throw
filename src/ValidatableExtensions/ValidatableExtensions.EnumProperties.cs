@@ -20,7 +20,10 @@ public static partial class ValidatableExtensions
             where TValue : notnull
             where TEnumValue : struct, Enum
     {
-        Validator.ThrowIfOutOfRange(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfOutOfRange(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }

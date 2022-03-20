@@ -233,21 +233,21 @@ public class CollectionPropertiesTests
         var person = new { Friends = new[] { "Amichai's mom" } };
 
         // Act
-        Action action = () => person.Throw().IfContainsElement(p => p.Friends, "Amichai's mom");
+        Action action = () => person.Throw().IfContains(p => p.Friends, "Amichai's mom");
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"Collection should not contain 'Amichai's mom' element. (Parameter '{nameof(person)}: p => p.Friends')");
+            .WithMessage($"Collection should not contain element. (Parameter '{nameof(person)}: p => p.Friends')");
     }
 
     [TestMethod]
     public void ThrowIfCollectionPropertyContainsElement_WhenCollectionPropertyNotContainsElement_ShouldNotThrow()
     {
         // Arrange
-        var person = new { Friends = new[] { "Amichai's mom" } };
+        var person = new { Friends = new[] { null, "Amichai's mom" } };
 
         // Act
-        Action action = () => person.Throw().IfContainsElement(p => p.Friends, "Amichai's dad");
+        Action action = () => person.Throw().IfContains(p => p.Friends, "Amichai's dad");
 
         // Assert
         action.Should().NotThrow();
@@ -257,24 +257,24 @@ public class CollectionPropertiesTests
     public void ThrowIfCollectionPropertyNotContainsElement_WhenCollectionPropertyNotContainsElement_ShouldThrow()
     {
         // Arrange
-        var person = new { Friends = new[] { "Amichai's mom" } };
+        var person = new { Friends = new[] { null, "Amichai's mom" } };
 
         // Act
-        Action action = () => person.Throw().IfNotContainsElement(p => p.Friends, "Amichai's dad");
+        Action action = () => person.Throw().IfNotContains(p => p.Friends, "Amichai's dad");
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"Collection should contain 'Amichai's dad' element. (Parameter '{nameof(person)}: p => p.Friends')");
+            .WithMessage($"Collection should contain element. (Parameter '{nameof(person)}: p => p.Friends')");
     }
 
     [TestMethod]
     public void ThrowIfCollectionPropertyNotContainsElement_WhenCollectionPropertyContainsElement_ShouldNotThrow()
     {
         // Arrange
-        var person = new { Friends = new[] { "Amichai's mom" } };
+        var person = new { Friends = new[] { null, "Amichai's mom" } };
 
         // Act
-        Action action = () => person.Throw().IfNotContainsElement(p => p.Friends, "Amichai's mom");
+        Action action = () => person.Throw().IfNotContains(p => p.Friends, "Amichai's mom");
 
         // Assert
         action.Should().NotThrow();

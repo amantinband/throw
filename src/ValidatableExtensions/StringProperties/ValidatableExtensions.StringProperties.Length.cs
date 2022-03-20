@@ -12,10 +12,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfLongerThan<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, int length, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfLongerThan<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        int length,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfLongerThan(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLongerThan(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
@@ -27,10 +35,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfShorterThan<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, int length, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfShorterThan<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        int length,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfShorterThan(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfShorterThan(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
@@ -42,10 +58,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfLengthEquals<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, int length, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfLengthEquals<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        int length,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfLengthEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthEquals(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
@@ -57,10 +81,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfLengthNotEquals<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, int length, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfLengthNotEquals<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        int length,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfLengthNotEquals(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, length);
+        Validator.ThrowIfLengthNotEquals(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }

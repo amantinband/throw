@@ -224,7 +224,7 @@ public class CollectionsTests
     public void ThrowIfCollectionContains_WhenCollectionContainsElement_ShouldThrow()
     {
         // Arrange
-        var collection = new[] { "hey", "ho" };
+        var collection = new[] { "hey", null, "ho" };
         var collection2 = new[] { 1, 2 };
         // Act
         Action action = () => collection.Throw().IfContains("ho");
@@ -232,16 +232,16 @@ public class CollectionsTests
 
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"Collection should not contain 'ho' element. (Parameter '{nameof(collection)}')");
+            .WithMessage($"Collection should not contain element. (Parameter '{nameof(collection)}')");
         action2.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"Collection should not contain '{1}' element. (Parameter '{nameof(collection2)}')");
+            .WithMessage($"Collection should not contain element. (Parameter '{nameof(collection2)}')");
     }
 
     [TestMethod]
     public void ThrowIfCollectionContains_WhenCollectionNotContainsElement_ShouldNotThrow()
     {
         // Arrange
-        var collection = new[] { "hey", "ho" };
+        var collection = new[] { "hey", null, "ho" };
         var collection2 = new[] { 1, 2 };
 
         // Act
@@ -257,25 +257,24 @@ public class CollectionsTests
     public void ThrowIfCollectionNotContains_WhenCollectionNotContainsElement_ShouldThrow()
     {
         // Arrange
-        var collection = new[] { "hey", "ho" };
+        var collection = new[] { "hey", null, "ho" };
         var collection2 = new[] { 1, 2 };
         // Act
         Action action = () => collection.Throw().IfNotContains("ho1");
         Action action2 = () => collection2.Throw().IfNotContains(3);
 
-        collection2.Should().Contain(1);
         // Assert
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"Collection should contain 'ho1' element. (Parameter '{nameof(collection)}')");
+            .WithMessage($"Collection should contain element. (Parameter '{nameof(collection)}')");
         action2.Should().ThrowExactly<ArgumentException>()
-            .WithMessage($"Collection should contain '{3}' element. (Parameter '{nameof(collection2)}')");
+            .WithMessage($"Collection should contain element. (Parameter '{nameof(collection2)}')");
     }
 
     [TestMethod]
     public void ThrowIfCollectionNotContains_WhenCollectionContainsElement_ShouldNotThrow()
     {
         // Arrange
-        var collection = new[] { "hey", "ho" };
+        var collection = new[] { "hey", null, "ho" };
         var collection2 = new[] { 1, 2 };
 
         // Act

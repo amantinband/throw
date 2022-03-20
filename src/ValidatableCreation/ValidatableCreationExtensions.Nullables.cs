@@ -16,7 +16,10 @@ public static partial class ValidatableCreationExtensions
     /// For non-nullable types, use the <see cref="Throw{TValue}(TValue, ExceptionCustomizations?, string?)"/> extension method.
     /// </remarks>
     [Pure, JetBrainsNotNull, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Validatable<TValue> ThrowIfNull<TValue>([NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value, Func<string, Exception> exceptionThrower, [CallerArgumentExpression("value")] string? paramName = null)
+    public static Validatable<TValue> ThrowIfNull<TValue>(
+        [NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value,
+        Func<string, Exception> exceptionThrower,
+        [CallerArgumentExpression("value")] string? paramName = null)
         where TValue : struct
     {
         return value.ThrowIfNull(exceptionCustomizations: exceptionThrower, paramName: paramName);
@@ -41,7 +44,10 @@ public static partial class ValidatableCreationExtensions
     /// For non-nullable types, use the <see cref="Throw{TValue}(TValue, ExceptionCustomizations?, string?)"/> extension method.
     /// </remarks>
     [Pure, JetBrainsNotNull, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Validatable<TValue> ThrowIfNull<TValue>([NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value, Func<Exception> exceptionThrower, [CallerArgumentExpression("value")] string? paramName = null)
+    public static Validatable<TValue> ThrowIfNull<TValue>(
+        [NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value,
+        Func<Exception> exceptionThrower,
+        [CallerArgumentExpression("value")] string? paramName = null)
         where TValue : struct
     {
         return value.ThrowIfNull(exceptionCustomizations: exceptionThrower, paramName: paramName);
@@ -62,7 +68,10 @@ public static partial class ValidatableCreationExtensions
     /// For non-nullable types, use the <see cref="Throw{TValue}(TValue, ExceptionCustomizations?, string?)"/> extension method.
     /// </remarks>
     [Pure, JetBrainsNotNull, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Validatable<TValue> ThrowIfNull<TValue>([NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value, ExceptionCustomizations? exceptionCustomizations = null, [CallerArgumentExpression("value")] string? paramName = null)
+    public static Validatable<TValue> ThrowIfNull<TValue>(
+        [NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value,
+        ExceptionCustomizations? exceptionCustomizations = null,
+        [CallerArgumentExpression("value")] string? paramName = null)
         where TValue : struct
     {
         if (value == null)
@@ -88,7 +97,10 @@ public static partial class ValidatableCreationExtensions
     /// For non-nullable types, use the <see cref="Throw{TValue}(TValue, ExceptionCustomizations?, string?)"/> extension method.
     /// </remarks>
     [Pure, JetBrainsNotNull, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Validatable<TValue> ThrowIfNull<TValue>([NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value, Func<string, Exception> exceptionThrower, [CallerArgumentExpression("value")] string? paramName = null)
+    public static Validatable<TValue> ThrowIfNull<TValue>(
+        [NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value,
+        Func<string, Exception> exceptionThrower,
+        [CallerArgumentExpression("value")] string? paramName = null)
         where TValue : notnull
     {
         return value.ThrowIfNull(exceptionCustomizations: exceptionThrower, paramName: paramName);
@@ -113,7 +125,10 @@ public static partial class ValidatableCreationExtensions
     /// For non-nullable types, use the <see cref="Throw{TValue}(TValue, ExceptionCustomizations?, string?)"/> extension method.
     /// </remarks>
     [Pure, JetBrainsNotNull, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Validatable<TValue> ThrowIfNull<TValue>([NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value, Func<Exception> exceptionThrower, [CallerArgumentExpression("value")] string? paramName = null)
+    public static Validatable<TValue> ThrowIfNull<TValue>(
+        [NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value,
+        Func<Exception> exceptionThrower,
+        [CallerArgumentExpression("value")] string? paramName = null)
         where TValue : notnull
     {
         return value.ThrowIfNull(exceptionCustomizations: exceptionThrower, paramName: paramName);
@@ -134,7 +149,10 @@ public static partial class ValidatableCreationExtensions
     /// For non-nullable types, use the <see cref="Throw{TValue}(TValue, ExceptionCustomizations?, string?)"/> extension method.
     /// </remarks>
     [Pure, JetBrainsNotNull, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Validatable<TValue> ThrowIfNull<TValue>([NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value, ExceptionCustomizations? exceptionCustomizations = null, [CallerArgumentExpression("value")] string? paramName = null)
+    public static Validatable<TValue> ThrowIfNull<TValue>(
+        [NotNull, AllowNull, JetBrainsCanBeNull] this TValue? value,
+        ExceptionCustomizations? exceptionCustomizations = null,
+        [CallerArgumentExpression("value")] string? paramName = null)
         where TValue : notnull
     {
         if (value == null)

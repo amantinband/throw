@@ -13,9 +13,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfEndsWith(this in Validatable<string> validatable, string str, StringComparison comparisonType = StringComparison.Ordinal)
+    public static ref readonly Validatable<string> IfEndsWith(
+        this in Validatable<string> validatable,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
-        Validator.ThrowIfEndsWith(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfEndsWith(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -28,9 +36,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfNotEndsWith(this in Validatable<string> validatable, string str, StringComparison comparisonType = StringComparison.Ordinal)
+    public static ref readonly Validatable<string> IfNotEndsWith(
+        this in Validatable<string> validatable,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
-        Validator.ThrowIfNotEndsWith(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfNotEndsWith(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -43,9 +59,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfStartsWith(this in Validatable<string> validatable, string str, StringComparison comparisonType = StringComparison.Ordinal)
+    public static ref readonly Validatable<string> IfStartsWith(
+        this in Validatable<string> validatable,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
-        Validator.ThrowIfStartsWith(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfStartsWith(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -58,9 +82,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfNotStartsWith(this in Validatable<string> validatable, string str, StringComparison comparisonType = StringComparison.Ordinal)
+    public static ref readonly Validatable<string> IfNotStartsWith(
+        this in Validatable<string> validatable,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
-        Validator.ThrowIfNotStartsWith(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfNotStartsWith(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -73,9 +105,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfContains(this in Validatable<string> validatable, string otherString, StringComparison comparisonType = StringComparison.Ordinal)
+    public static ref readonly Validatable<string> IfContains(
+        this in Validatable<string> validatable,
+        string otherString,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
-        Validator.ThrowIfContains(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, comparisonType);
+        Validator.ThrowIfContains(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            otherString,
+            comparisonType);
 
         return ref validatable;
     }
@@ -88,9 +128,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfNotContains(this in Validatable<string> validatable, string otherString, StringComparison comparisonType = StringComparison.Ordinal)
+    public static ref readonly Validatable<string> IfNotContains(
+        this in Validatable<string> validatable,
+        string otherString,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
-        Validator.ThrowIfNotContains(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, comparisonType);
+        Validator.ThrowIfNotContains(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            otherString,
+            comparisonType);
 
         return ref validatable;
     }
