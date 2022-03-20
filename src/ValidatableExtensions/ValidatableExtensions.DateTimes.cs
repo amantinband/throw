@@ -14,7 +14,11 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<DateTime> IfUtc(this in Validatable<DateTime> validatable)
     {
-        Validator.ThrowIfKind(validatable.Value, DateTimeKind.Utc, validatable.ParamName, validatable.ExceptionCustomizations);
+        Validator.ThrowIfKind(
+            validatable.Value,
+            DateTimeKind.Utc,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -28,7 +32,11 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<DateTime> IfNotUtc(this in Validatable<DateTime> validatable)
     {
-        Validator.ThrowIfNotKind(validatable.Value, DateTimeKind.Utc, validatable.ParamName, validatable.ExceptionCustomizations);
+        Validator.ThrowIfNotKind(
+            validatable.Value,
+            DateTimeKind.Utc,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -40,7 +48,9 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<DateTime> IfDateTimeKind(this in Validatable<DateTime> validatable, DateTimeKind kind)
+    public static ref readonly Validatable<DateTime> IfDateTimeKind(
+        this in Validatable<DateTime> validatable,
+        DateTimeKind kind)
     {
         Validator.ThrowIfKind(validatable.Value, kind, validatable.ParamName, validatable.ExceptionCustomizations);
 
@@ -54,7 +64,9 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<DateTime> IfDateTimeKindNot(this in Validatable<DateTime> validatable, DateTimeKind kind)
+    public static ref readonly Validatable<DateTime> IfDateTimeKindNot(
+        this in Validatable<DateTime> validatable,
+        DateTimeKind kind)
     {
         Validator.ThrowIfNotKind(validatable.Value, kind, validatable.ParamName, validatable.ExceptionCustomizations);
 

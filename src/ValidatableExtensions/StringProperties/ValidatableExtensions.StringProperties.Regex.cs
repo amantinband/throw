@@ -15,10 +15,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfMatches<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string regexPattern, RegexOptions regexOptions = RegexOptions.None, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfMatches<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string regexPattern,
+        RegexOptions regexOptions = RegexOptions.None,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfMatches(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, regexPattern, regexOptions);
+        Validator.ThrowIfMatches(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            regexPattern,
+            regexOptions);
 
         return ref validatable;
     }
@@ -30,10 +40,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfMatches<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, Regex regex, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfMatches<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        Regex regex,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfMatches(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, regex);
+        Validator.ThrowIfMatches(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            regex);
 
         return ref validatable;
     }
@@ -46,10 +64,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotMatches<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string regexPattern, RegexOptions regexOptions = RegexOptions.None, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotMatches<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string regexPattern,
+        RegexOptions regexOptions = RegexOptions.None,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotMatches(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, regexPattern, regexOptions);
+        Validator.ThrowIfNotMatches(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            regexPattern,
+            regexOptions);
 
         return ref validatable;
     }
@@ -61,10 +89,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotMatches<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, Regex regex, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotMatches<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        Regex regex,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotMatches(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, regex);
+        Validator.ThrowIfNotMatches(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            regex);
 
         return ref validatable;
     }

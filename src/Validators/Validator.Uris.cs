@@ -3,7 +3,11 @@ namespace Throw;
 internal static partial class Validator
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfSchemeNot(Uri value, string scheme, string paramName, ExceptionCustomizations? exceptionCustomizations = null)
+    internal static void ThrowIfSchemeNot(
+        Uri value,
+        string scheme,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations = null)
     {
         if (!string.Equals(value.Scheme, scheme, StringComparison.OrdinalIgnoreCase))
         {
@@ -12,7 +16,11 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfScheme(Uri value, string scheme, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfScheme(
+        Uri value,
+        string scheme,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (string.Equals(value.Scheme, scheme, StringComparison.OrdinalIgnoreCase))
         {
@@ -21,7 +29,10 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfAbsolute(Uri value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfAbsolute(
+        Uri value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (value.IsAbsoluteUri)
         {
@@ -30,7 +41,10 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfRelative(Uri value, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfRelative(
+        Uri value,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (!value.IsAbsoluteUri)
         {
@@ -39,7 +53,11 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfPort(Uri value, int port, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfPort(
+        Uri value,
+        int port,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (value.Port == port)
         {
@@ -48,7 +66,11 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfPortNot(Uri value, int port, string paramName, ExceptionCustomizations? exceptionCustomizations)
+    internal static void ThrowIfPortNot(
+        Uri value,
+        int port,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
     {
         if (value.Port != port)
         {

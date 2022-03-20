@@ -43,7 +43,12 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfEquals(this in Validatable<string> validatable, string otherString)
     {
-        Validator.ThrowIfEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, StringComparison.Ordinal);
+        Validator.ThrowIfEquals(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.Ordinal);
 
         return ref validatable;
     }
@@ -55,9 +60,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfEquals(this in Validatable<string> validatable, string otherString, StringComparison comparisonType)
+    public static ref readonly Validatable<string> IfEquals(
+        this in Validatable<string> validatable,
+        string otherString,
+        StringComparison comparisonType)
     {
-        Validator.ThrowIfEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, comparisonType);
+        Validator.ThrowIfEquals(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            otherString,
+            comparisonType);
 
         return ref validatable;
     }
@@ -70,9 +83,16 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfNotEquals(this in Validatable<string> validatable, string otherString)
+    public static ref readonly Validatable<string> IfNotEquals(
+        this in Validatable<string> validatable,
+        string otherString)
     {
-        Validator.ThrowIfNotEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, StringComparison.Ordinal);
+        Validator.ThrowIfNotEquals(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.Ordinal);
 
         return ref validatable;
     }
@@ -100,7 +120,12 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfEqualsIgnoreCase(this in Validatable<string> validatable, string otherString)
     {
-        Validator.ThrowIfEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, StringComparison.OrdinalIgnoreCase);
+        Validator.ThrowIfEquals(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.OrdinalIgnoreCase);
 
         return ref validatable;
     }
@@ -115,7 +140,12 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfNotEqualsIgnoreCase(this in Validatable<string> validatable, string otherString)
     {
-        Validator.ThrowIfNotEquals(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, otherString, StringComparison.OrdinalIgnoreCase);
+        Validator.ThrowIfNotEquals(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.OrdinalIgnoreCase);
 
         return ref validatable;
     }

@@ -12,12 +12,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfTrue<TValue>(this in Validatable<TValue> validatable, Func<TValue, bool> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfTrue<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, bool> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
         if (func(validatable.Value))
         {
-            ExceptionThrower.Throw(validatable.ParamName, validatable.ExceptionCustomizations, $"Value should not meet condition (condition: '{funcName}').");
+            ExceptionThrower.Throw(
+                validatable.ParamName,
+                validatable.ExceptionCustomizations,
+                $"Value should not meet condition (condition: '{funcName}').");
         }
 
         return ref validatable;
@@ -30,12 +36,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfFalse<TValue>(this in Validatable<TValue> validatable, Func<TValue, bool> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfFalse<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, bool> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
         if (!func(validatable.Value))
         {
-            ExceptionThrower.Throw(validatable.ParamName, validatable.ExceptionCustomizations, $"Value should meet condition (condition: '{funcName}').");
+            ExceptionThrower.Throw(
+                validatable.ParamName,
+                validatable.ExceptionCustomizations,
+                $"Value should meet condition (condition: '{funcName}').");
         }
 
         return ref validatable;

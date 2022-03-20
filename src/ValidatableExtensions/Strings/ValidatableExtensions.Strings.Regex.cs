@@ -15,9 +15,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfMatches(this in Validatable<string> validatable, string regexPattern, RegexOptions regexOptions = RegexOptions.None)
+    public static ref readonly Validatable<string> IfMatches(
+        this in Validatable<string> validatable,
+        string regexPattern,
+        RegexOptions regexOptions = RegexOptions.None)
     {
-        Validator.ThrowIfMatches(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, regexPattern, regexOptions);
+        Validator.ThrowIfMatches(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            regexPattern,
+            regexOptions);
 
         return ref validatable;
     }
@@ -44,9 +52,17 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<string> IfNotMatches(this in Validatable<string> validatable, string regexPattern, RegexOptions regexOptions = RegexOptions.None)
+    public static ref readonly Validatable<string> IfNotMatches(
+        this in Validatable<string> validatable,
+        string regexPattern,
+        RegexOptions regexOptions = RegexOptions.None)
     {
-        Validator.ThrowIfNotMatches(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, regexPattern, regexOptions);
+        Validator.ThrowIfNotMatches(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            regexPattern,
+            regexOptions);
 
         return ref validatable;
     }
@@ -60,7 +76,11 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<string> IfNotMatches(this in Validatable<string> validatable, Regex regex)
     {
-        Validator.ThrowIfNotMatches(validatable.Value, validatable.ParamName, validatable.ExceptionCustomizations, regex);
+        Validator.ThrowIfNotMatches(
+            validatable.Value,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            regex);
 
         return ref validatable;
     }

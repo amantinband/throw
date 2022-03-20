@@ -15,7 +15,12 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfDefault<TValue>(this in Validatable<TValue> validatable)
         where TValue : struct, IComparable
     {
-        Validator.ThrowIfEquals(validatable.Value, default, validatable.ParamName, validatable.ExceptionCustomizations, "Value should not be default.");
+        Validator.ThrowIfEquals(
+            validatable.Value,
+            default,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            "Value should not be default.");
 
         return ref validatable;
     }
@@ -30,7 +35,12 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfNotDefault<TValue>(this in Validatable<TValue> validatable)
         where TValue : struct, IComparable
     {
-        Validator.ThrowIfNotEquals(validatable.Value, default, validatable.ParamName, validatable.ExceptionCustomizations, "Value should be default.");
+        Validator.ThrowIfNotEquals(
+            validatable.Value,
+            default,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations,
+            "Value should be default.");
 
         return ref validatable;
     }

@@ -12,7 +12,9 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentOutOfRangeException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfGreaterThan<TValue>(this in Validatable<TValue> validatable, TValue n)
+    public static ref readonly Validatable<TValue> IfGreaterThan<TValue>(
+        this in Validatable<TValue> validatable,
+        TValue n)
         where TValue : notnull, IComparable
     {
         Validator.ThrowIfGreaterThan(validatable.Value, n, validatable.ParamName, validatable.ExceptionCustomizations);
@@ -57,7 +59,9 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotEquals<TValue>(this in Validatable<TValue> validatable, TValue n)
+    public static ref readonly Validatable<TValue> IfNotEquals<TValue>(
+        this in Validatable<TValue> validatable,
+        TValue n)
         where TValue : notnull, IComparable
     {
         Validator.ThrowIfNotEquals(validatable.Value, n, validatable.ParamName, validatable.ExceptionCustomizations);
@@ -75,7 +79,11 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfPositive<TValue>(this in Validatable<TValue> validatable)
         where TValue : notnull, IComparable
     {
-        Validator.ThrowIfGreaterThan(validatable.Value, default!, validatable.ParamName, validatable.ExceptionCustomizations);
+        Validator.ThrowIfGreaterThan(
+            validatable.Value,
+            default!,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -90,7 +98,11 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfNegative<TValue>(this in Validatable<TValue> validatable)
         where TValue : notnull, IComparable
     {
-        Validator.ThrowIfLessThan(validatable.Value, default!, validatable.ParamName, validatable.ExceptionCustomizations);
+        Validator.ThrowIfLessThan(
+            validatable.Value,
+            default!,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -105,10 +117,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentOutOfRangeException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfOutOfRange<TValue>(this in Validatable<TValue> validatable, TValue min, TValue max)
+    public static ref readonly Validatable<TValue> IfOutOfRange<TValue>(
+        this in Validatable<TValue> validatable,
+        TValue min,
+        TValue max)
         where TValue : notnull, IComparable
     {
-        Validator.ThrowIfNotInRange(validatable.Value, min, max, validatable.ParamName, validatable.ExceptionCustomizations);
+        Validator.ThrowIfNotInRange(
+            validatable.Value,
+            min,
+            max,
+            validatable.ParamName,
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }

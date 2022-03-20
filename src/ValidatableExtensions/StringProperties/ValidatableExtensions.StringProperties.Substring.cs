@@ -13,10 +13,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfEndsWith<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string str, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfEndsWith<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfEndsWith(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfEndsWith(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -29,10 +39,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotEndsWith<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string str, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotEndsWith<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotEndsWith(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfNotEndsWith(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -45,10 +65,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfStartsWith<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string str, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfStartsWith<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfStartsWith(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfStartsWith(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -61,10 +91,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotStartsWith<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string str, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotStartsWith<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string str,
+        StringComparison comparisonType = StringComparison.Ordinal,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotStartsWith(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, str, comparisonType);
+        Validator.ThrowIfNotStartsWith(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            str,
+            comparisonType);
 
         return ref validatable;
     }
@@ -77,10 +117,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfContains<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfContains<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string otherString,
+        StringComparison comparisonType = StringComparison.Ordinal,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfContains(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, comparisonType);
+        Validator.ThrowIfContains(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            otherString,
+            comparisonType);
 
         return ref validatable;
     }
@@ -93,10 +143,20 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotContains<TValue>(this in Validatable<TValue> validatable, Func<TValue, string> func, string otherString, StringComparison comparisonType = StringComparison.Ordinal, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotContains<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string otherString,
+        StringComparison comparisonType = StringComparison.Ordinal,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotContains(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, otherString, comparisonType);
+        Validator.ThrowIfNotContains(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            otherString,
+            comparisonType);
 
         return ref validatable;
     }

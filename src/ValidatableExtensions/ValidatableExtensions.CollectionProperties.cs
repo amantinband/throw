@@ -15,11 +15,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfEmpty<TValue, TCollectionType>(this in Validatable<TValue> validatable, Func<TValue, TCollectionType> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfEmpty<TValue, TCollectionType>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TCollectionType : IEnumerable
     {
-        Validator.ThrowIfCount(func(validatable.Value), 0, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, "Collection should not be empty.");
+        Validator.ThrowIfCount(
+            func(validatable.Value),
+            0,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            "Collection should not be empty.");
 
         return ref validatable;
     }
@@ -32,11 +40,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotEmpty<TValue, TCollectionType>(this in Validatable<TValue> validatable, Func<TValue, TCollectionType> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotEmpty<TValue, TCollectionType>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TCollectionType : IEnumerable
     {
-        Validator.ThrowIfCountNot(func(validatable.Value), 0, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, "Collection should be empty.");
+        Validator.ThrowIfCountNot(
+            func(validatable.Value),
+            0,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            "Collection should be empty.");
 
         return ref validatable;
     }
@@ -49,11 +65,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfCountNotEquals<TValue, TCollectionType>(this in Validatable<TValue> validatable, Func<TValue, TCollectionType> func, int count, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfCountNotEquals<TValue, TCollectionType>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        int count,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TCollectionType : IEnumerable
     {
-        Validator.ThrowIfCountNot(func(validatable.Value), count, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfCountNot(
+            func(validatable.Value),
+            count,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -66,11 +90,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfCountEquals<TValue, TCollectionType>(this in Validatable<TValue> validatable, Func<TValue, TCollectionType> func, int count, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfCountEquals<TValue, TCollectionType>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        int count,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TCollectionType : IEnumerable
     {
-        Validator.ThrowIfCount(func(validatable.Value), count, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfCount(
+            func(validatable.Value),
+            count,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -83,11 +115,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfCountGreaterThan<TValue, TCollectionType>(this in Validatable<TValue> validatable, Func<TValue, TCollectionType> func, int count, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfCountGreaterThan<TValue, TCollectionType>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        int count,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TCollectionType : IEnumerable
     {
-        Validator.ThrowIfCountGreaterThan(func(validatable.Value), count, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfCountGreaterThan(
+            func(validatable.Value),
+            count,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -100,11 +140,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfCountLessThan<TValue, TCollectionType>(this in Validatable<TValue> validatable, Func<TValue, TCollectionType> func, int count, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfCountLessThan<TValue, TCollectionType>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        int count,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TCollectionType : IEnumerable
     {
-        Validator.ThrowIfCountLessThan(func(validatable.Value), count, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfCountLessThan(
+            func(validatable.Value),
+            count,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
@@ -117,58 +165,69 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfHasNullElements<TValue, TCollectionType>(this in Validatable<TValue> validatable, Func<TValue, TCollectionType> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfHasNullElements<TValue, TCollectionType>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TCollectionType : IEnumerable
     {
-        Validator.ThrowIfHasNullElements(func(validatable.Value), $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations);
+        Validator.ThrowIfHasNullElements(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the collection returned from the given <paramref name="func"/> contains specific element.
+    /// Throws an exception if the collection returned from the given <paramref name="func"/> contains the given <paramref name="element"/>.
     /// Important note: if the collection is a non-evaluated expression, the expression will be evaluated.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfContainsElement<TValue, TElement, TCollectionType>(
-        this in  Validatable<TValue> validatable,
+    public static ref readonly Validatable<TValue> IfContains<TValue, TElement, TCollectionType>(
+        this in Validatable<TValue> validatable,
         Func<TValue, TCollectionType> func,
-        TElement element ,
-        [CallerArgumentExpression ("func")] string? funcName = null)
+        TElement element,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
+        where TCollectionType : IEnumerable<TElement?>
         where TElement : notnull
-        where TCollectionType : IEnumerable<TElement>
     {
-        Validator.ThrowIfContainsElement(func(validatable.Value),element , $"{validatable.ParamName}: {funcName}", validatable
-        .ExceptionCustomizations);
+        Validator.ThrowIfContainsElement(
+            func(validatable.Value),
+            element,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the collection returned from the given <paramref name="func"/> not contains specific element.
+    /// Throws an exception if the collection returned from the given <paramref name="func"/> does not contain the given <paramref name="element"/>.
     /// Important note: if the collection is a non-evaluated expression, the expression will be evaluated.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotContainsElement<TValue, TElement, TCollectionType>(
-        this in  Validatable<TValue> validatable,
+    public static ref readonly Validatable<TValue> IfNotContains<TValue, TElement, TCollectionType>(
+        this in Validatable<TValue> validatable,
         Func<TValue, TCollectionType> func,
-        TElement element ,
-        [CallerArgumentExpression ("func")] string? funcName = null)
+        TElement element,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
+        where TCollectionType : IEnumerable<TElement?>
         where TElement : notnull
-        where TCollectionType : IEnumerable<TElement>
     {
-        Validator.ThrowIfNotContainsElement(func(validatable.Value),element , $"{validatable.ParamName}: {funcName}",
-        validatable
-            .ExceptionCustomizations);
+        Validator.ThrowIfNotContainsElement(
+            func(validatable.Value),
+            element,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
