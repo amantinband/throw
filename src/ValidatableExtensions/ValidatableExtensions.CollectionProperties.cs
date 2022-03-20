@@ -125,4 +125,51 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if the collection returned from the given <paramref name="func"/> contains specific element.
+    /// Important note: if the collection is a non-evaluated expression, the expression will be evaluated.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfContainsElement<TValue, TElement, TCollectionType>(
+        this in  Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        TElement element ,
+        [CallerArgumentExpression ("func")] string? funcName = null)
+        where TValue : notnull
+        where TElement : notnull
+        where TCollectionType : IEnumerable<TElement>
+    {
+        Validator.ThrowIfContainsElement(func(validatable.Value),element , $"{validatable.ParamName}: {funcName}", validatable
+        .ExceptionCustomizations);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the collection returned from the given <paramref name="func"/> not contains specific element.
+    /// Important note: if the collection is a non-evaluated expression, the expression will be evaluated.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNotContainsElement<TValue, TElement, TCollectionType>(
+        this in  Validatable<TValue> validatable,
+        Func<TValue, TCollectionType> func,
+        TElement element ,
+        [CallerArgumentExpression ("func")] string? funcName = null)
+        where TValue : notnull
+        where TElement : notnull
+        where TCollectionType : IEnumerable<TElement>
+    {
+        Validator.ThrowIfNotContainsElement(func(validatable.Value),element , $"{validatable.ParamName}: {funcName}",
+        validatable
+            .ExceptionCustomizations);
+
+        return ref validatable;
+    }
 }
