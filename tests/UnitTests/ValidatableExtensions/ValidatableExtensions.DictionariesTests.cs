@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Throw.UnitTests.ValidatableExtensions
 {
     [TestClass]
-    public class ValidatableExtensions
+    public class DictionariesTests
     {
         [TestMethod]
         public void ThrowIfContainsKey_WhenDictionaryContainsKey_ShouldThrow()
