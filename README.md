@@ -338,6 +338,8 @@ collection.Throw().IfCountLessThan(5); // System.ArgumentException: Collection c
 collection.Throw().IfCountGreaterThan(1); // System.ArgumentException: Collection count should not be greater than 1. (Parameter 'collection')
 collection.Throw().IfCountEquals(0); // System.ArgumentException: Collection count should not be equal to 0. (Parameter 'collection')
 collection.Throw().IfCountNotEquals(0); // System.ArgumentException: Collection count should be equal to 0. (Parameter 'collection')
+collection.Throw().IfContains("value"); // System.ArgumentException: Collection should not contain element. (Parameter 'person: p => p.Friends')
+collection.Throw().IfNotContains("value"); // System.ArgumentException: Collection should contain element. (Parameter 'person: p => p.Friends')
 ```
 
 ### DateTime
@@ -452,6 +454,8 @@ person.Throw().IfCountLessThan(p => p.Friends, 5); // System.ArgumentException: 
 person.Throw().IfCountGreaterThan(p => p.Friends, 1); // System.ArgumentException: Collection count should not be greater than 1. (Parameter 'person: p => p.Friends')
 person.Throw().IfCountEquals(p => p.Friends, 0); // System.ArgumentException: Collection count should not be equal to 0. (Parameter 'person: p => p.Friends')
 person.Throw().IfCountNotEquals(p => p.Friends, 0); // System.ArgumentException: Collection count should be equal to 0. (Parameter 'person: p => p.Friends')
+person.Throw().IfContains(p => p.Friends, "Amichai"); // System.ArgumentException: Collection should not contain element. (Parameter 'person: p => p.Friends')
+person.Throw().IfNotContains(p => p.Friends, "Amichai"); // System.ArgumentException: Collection should contain element. (Parameter 'person: p => p.Friends')
 ```
 
 ### DateTime properties
