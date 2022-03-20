@@ -127,7 +127,8 @@ public class CollectionPropertiesTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Collection count should not be greater than 0. (Parameter '{nameof(person)}: p => p.Friends')");
+            .WithMessage(
+                $"Collection count should not be greater than 0. (Parameter '{nameof(person)}: p => p.Friends')");
     }
 
     [TestMethod]
@@ -220,6 +221,60 @@ public class CollectionPropertiesTests
 
         // Act
         Action action = () => person.Throw().IfHasNullElements(p => p.Friends);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionPropertyContainsElement_WhenCollectionPropertyContainsElement_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Friends = new[] { "Amichai's mom" } };
+
+        // Act
+        Action action = () => person.Throw().IfContainsElement(p => p.Friends, "Amichai's mom");
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should not contain 'Amichai's mom' element. (Parameter '{nameof(person)}: p => p.Friends')");
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionPropertyContainsElement_WhenCollectionPropertyNotContainsElement_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Friends = new[] { "Amichai's mom" } };
+
+        // Act
+        Action action = () => person.Throw().IfContainsElement(p => p.Friends, "Amichai's dad");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionPropertyNotContainsElement_WhenCollectionPropertyNotContainsElement_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Friends = new[] { "Amichai's mom" } };
+
+        // Act
+        Action action = () => person.Throw().IfNotContainsElement(p => p.Friends, "Amichai's dad");
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should contain 'Amichai's dad' element. (Parameter '{nameof(person)}: p => p.Friends')");
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionPropertyNotContainsElement_WhenCollectionPropertyContainsElement_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Friends = new[] { "Amichai's mom" } };
+
+        // Act
+        Action action = () => person.Throw().IfNotContainsElement(p => p.Friends, "Amichai's mom");
 
         // Assert
         action.Should().NotThrow();
