@@ -64,9 +64,9 @@ internal static partial class Validator
         string paramName,
         ExceptionCustomizations? exceptionCustomizations = null,
         string? message = null)
-        where TValue : notnull, IComparable
+        where TValue : notnull
     {
-        if (Comparer<TValue>.Default.Compare(value, other) != 0)
+        if (!IsEqual(value, other))
         {
             ExceptionThrower.Throw(
                 paramName,
@@ -82,14 +82,31 @@ internal static partial class Validator
         string paramName,
         ExceptionCustomizations? exceptionCustomizations = null,
         string? message = null)
-        where TValue : notnull, IComparable
+        where TValue : notnull
     {
-        if (Comparer<TValue>.Default.Compare(value, other) == 0)
+        if (IsEqual(value,other))
         {
             ExceptionThrower.Throw(
                 paramName,
                 exceptionCustomizations,
                 message ?? $"Value should not be equal to {other}.");
         }
+    }
+
+    internal static bool IsEqual<TValue>(TValue value, TValue other)
+    where TValue : notnull
+    {
+        if (value is IComparable<TValue> or IComparable)
+        {
+            return Comparer<TValue>.Default.Compare(value, other) == 0;
+        }
+
+        if (value is IEquatable<TValue>)
+        {
+            return EqualityComparer<TValue>.Default.Equals(value, other);
+        }
+
+        return value.Equals(other);
+
     }
 }

@@ -66,7 +66,7 @@ public static partial class ValidatableExtensions
         TResult n,
         [CallerArgumentExpression("func")] string? funcName = null)
             where TValue : notnull
-            where TResult : IComparable
+            where TResult : notnull
     {
         Validator.ThrowIfEquals(
             value: func(validatable.Value),
@@ -90,7 +90,7 @@ public static partial class ValidatableExtensions
         TResult n,
         [CallerArgumentExpression("func")] string? funcName = null)
             where TValue : notnull
-            where TResult : IComparable
+            where TResult : notnull
     {
         Validator.ThrowIfNotEquals(
             value: func(validatable.Value),

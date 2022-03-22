@@ -45,7 +45,7 @@ public static partial class ValidatableExtensions
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<TValue> IfEquals<TValue>(this in Validatable<TValue> validatable, TValue n)
-        where TValue : notnull, IComparable
+        where TValue : notnull
     {
         Validator.ThrowIfEquals(validatable.Value, n, validatable.ParamName, validatable.ExceptionCustomizations);
 
@@ -62,7 +62,7 @@ public static partial class ValidatableExtensions
     public static ref readonly Validatable<TValue> IfNotEquals<TValue>(
         this in Validatable<TValue> validatable,
         TValue n)
-        where TValue : notnull, IComparable
+        where TValue : notnull
     {
         Validator.ThrowIfNotEquals(validatable.Value, n, validatable.ParamName, validatable.ExceptionCustomizations);
 
