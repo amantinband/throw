@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Throw.UnitTests.ValidatableExtensions;
+namespace Throw.UnitTests.ValidatableMethods;
 
 [TestClass]
 public class TypesTests
