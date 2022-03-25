@@ -3,32 +3,34 @@ namespace Throw;
 internal static partial class Validator
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfType<T>(
+    internal static void ThrowIfTypesEqual(
         Type type,
+        Type other,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
     {
-        if (type == typeof(T))
+        if (type == other)
         {
             ExceptionThrower.Throw(
                 paramName,
                 exceptionCustomizations,
-                $"Type shouldn't be {typeof(T)}");
+                $"Parameter should not be of type '{other.Name}'.");
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfNotType<T>(
+    internal static void ThrowIfTypesNotEqual(
         Type type,
+        Type other,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
     {
-        if (type != typeof(T))
+        if (type != other)
         {
             ExceptionThrower.Throw(
                 paramName,
                 exceptionCustomizations,
-                $"Type should be {typeof(T)}");
+                $"Parameter should be of type '{other.Name}'.");
         }
     }
 }

@@ -10,37 +10,39 @@ public class TypesTests
     {
         // Arrange
         string str = "string";
-        List<int> list = new List<int>(0);
-
 
         // Act
         Action action = () => str.Throw().IfType<string>();
-        Action action2 = () => list.Throw().IfType<List<int>>();
 
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Type shouldn't be {typeof(string)} (Parameter '{nameof(str)}')");
+            .WithMessage($"Parameter should not be of type '{str.GetType().Name}'. (Parameter '{nameof(str)}')");
+    }
 
-        action2.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Type shouldn't be {typeof(List<int>)} (Parameter '{nameof(list)}')");
+    [TestMethod]
+    public void ThrowIfType_WhenCompileTypesNotEqualButRuntimeEquals_ShouldNotThrow()
+    {
+        // Arrange
+        IList<int> list = new List<int>();
+
+        // Act
+        Action action = () => list.Throw().IfType<List<int>>();
+
+        // Assert
+        action.Should().NotThrow();
     }
 
     [TestMethod]
     public void ThrowIfType_WhenValueIsNotType_ShouldNotThrow()
     {
         // Arrange
-        string str = "string";
-        List<int> list = new List<int>(0);
-
+        List<int> list = new();
 
         // Act
-        Action action = () => str.Throw().IfType<int>();
         Action action2 = () => list.Throw().IfType<int>();
 
         // Assert
-        action.Should().NotThrow();
         action2.Should().NotThrow();
     }
 
@@ -49,37 +51,42 @@ public class TypesTests
     {
         // Arrange
         string str = "string";
-        List<int> list = new List<int>(0);
 
 
         // Act
         Action action = () => str.Throw().IfNotType<int>();
-        Action action2 = () => list.Throw().IfNotType<int>();
 
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Type should be {typeof(int)} (Parameter '{nameof(str)}')");
-
-        action2.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Type should be {typeof(int)} (Parameter '{nameof(list)}')");
+            .WithMessage($"Parameter should be of type '{typeof(int).Name}'. (Parameter '{nameof(str)}')");
     }
 
     [TestMethod]
     public void ThrowIfNotType_WhenValueIsType_ShouldNotThrow()
     {
         // Arrange
-        string str = "string";
-        List<int> list = new List<int>(0);
-
+        List<int> list = new();
 
         // Act
-        Action action = () => str.Throw().IfNotType<string>();
-        Action action2 = () => list.Throw().IfNotType<List<int>>();
+        Action action = () => list.Throw().IfNotType<List<int>>();
 
         // Assert
         action.Should().NotThrow();
-        action2.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfNotType_WhenCompileTypesNotEqualButRuntimeEquals_ShouldThrow()
+    {
+        // Arrange
+        IList<int> list = new List<int>();
+
+        // Act
+        Action action = () => list.Throw().IfNotType<List<int>>();
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Parameter should be of type '{typeof(List<int>).Name}'. (Parameter '{nameof(list)}')");
     }
 }

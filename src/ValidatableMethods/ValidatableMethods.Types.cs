@@ -1,36 +1,43 @@
 namespace Throw;
 
+/// <summary>
+/// Methods for <typeparamref name="TValue"/>.
+/// </summary>
 public readonly partial record struct Validatable<TValue>
 {
     /// <summary>
-    /// Throws an exception if type of the value is <see cref="T:T"/>
+    /// Throws an exception if <typeparamref name="TValue"/> equals <typeparamref name="TOther"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Validatable<TValue> IfType<T>()
+    public Validatable<TValue> IfType<TOther>()
     {
-        Validator.ThrowIfType<T>(
+        Validator.ThrowIfTypesEqual(
             typeof(TValue),
+            typeof(TOther),
             ParamName,
             ExceptionCustomizations);
+
         return this;
     }
 
     /// <summary>
-    /// Throws an exception if type of the value is not <see cref="T:T"/>
+    /// Throws an exception if <typeparamref name="TValue"/> does not equal <typeparamref name="TOther"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Validatable<TValue> IfNotType<T>()
+    public Validatable<TValue> IfNotType<TOther>()
     {
-        Validator.ThrowIfNotType<T>(
+        Validator.ThrowIfTypesNotEqual(
             typeof(TValue),
+            typeof(TOther),
             ParamName,
             ExceptionCustomizations);
+
         return this;
     }
 }
