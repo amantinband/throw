@@ -12,7 +12,10 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentNullException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNull<TValue, TResult>(this in Validatable<TValue> validatable, Func<TValue, TResult> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNull<TValue, TResult>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TResult> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
         if (func(validatable.Value) is null)
@@ -30,7 +33,10 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentNullException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotNull<TValue, TResult>(this in Validatable<TValue> validatable, Func<TValue, TResult> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotNull<TValue, TResult>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TResult> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
         if (func(validatable.Value) is not null)
@@ -48,11 +54,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfDefault<TValue, TResult>(this in Validatable<TValue> validatable, Func<TValue, TResult> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfDefault<TValue, TResult>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TResult> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TResult : struct, IComparable
     {
-        Validator.ThrowIfEquals(func(validatable.Value), default, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, "Value should not be default.");
+        Validator.ThrowIfEquals(
+            func(validatable.Value),
+            default,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            "Value should not be default.");
 
         return ref validatable;
     }
@@ -64,11 +78,19 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotDefault<TValue, TResult>(this in Validatable<TValue> validatable, Func<TValue, TResult> func, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfNotDefault<TValue, TResult>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, TResult> func,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
         where TResult : struct, IComparable
     {
-        Validator.ThrowIfNotEquals(func(validatable.Value), default, $"{validatable.ParamName}: {funcName}", validatable.ExceptionCustomizations, "Value should be default.");
+        Validator.ThrowIfNotEquals(
+            func(validatable.Value),
+            default,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            "Value should be default.");
 
         return ref validatable;
     }

@@ -1,158 +1,24 @@
 namespace Throw;
 
 /// <summary>
-/// Extension methods <see cref="Uri"/> properties.
+/// Extension methods for string properties.
 /// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is <see cref="Uri.UriSchemeHttp"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is white space only.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfHttp<TValue>(
+    public static ref readonly Validatable<TValue> IfWhiteSpace<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
+        Func<TValue, string> func,
         [CallerArgumentExpression("func")] string? funcName = null)
-        where TValue : notnull
+       where TValue : notnull
     {
-        Validator.ThrowIfScheme(
-            func(validatable.Value),
-            Uri.UriSchemeHttp,
-            $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is not <see cref="Uri.UriSchemeHttp"/>.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotHttp<TValue>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
-        [CallerArgumentExpression("func")] string? funcName = null)
-        where TValue : notnull
-    {
-        Validator.ThrowIfSchemeNot(
-            func(validatable.Value),
-            Uri.UriSchemeHttp,
-            $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is <see cref="Uri.UriSchemeHttps"/>.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfHttps<TValue>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
-        [CallerArgumentExpression("func")] string? funcName = null)
-        where TValue : notnull
-    {
-        Validator.ThrowIfScheme(
-            func(validatable.Value),
-            Uri.UriSchemeHttps,
-            $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is not <see cref="Uri.UriSchemeHttps"/>.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotHttps<TValue>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
-        [CallerArgumentExpression("func")] string? funcName = null)
-        where TValue : notnull
-    {
-        Validator.ThrowIfSchemeNot(
-            func(validatable.Value),
-            Uri.UriSchemeHttps,
-            $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> matches the given <paramref name="scheme"/>.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfScheme<TValue>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
-        string scheme,
-        [CallerArgumentExpression("func")] string? funcName = null)
-        where TValue : notnull
-    {
-        Validator.ThrowIfScheme(
-            func(validatable.Value),
-            scheme,
-            $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> does not match the given <paramref name="scheme"/>.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfSchemeNot<TValue>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
-        string scheme,
-        [CallerArgumentExpression("func")] string? funcName = null)
-        where TValue : notnull
-    {
-        Validator.ThrowIfSchemeNot(
-            func(validatable.Value),
-            scheme,
-            $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is absolute.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfAbsolute<TValue>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
-        [CallerArgumentExpression("func")] string? funcName = null)
-        where TValue : notnull
-    {
-        Validator.ThrowIfAbsolute(
+        Validator.ThrowIfWhiteSpace(
             func(validatable.Value),
             $"{validatable.ParamName}: {funcName}",
             validatable.ExceptionCustomizations);
@@ -161,19 +27,19 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is relative.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is empty.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfRelative<TValue>(
+    public static ref readonly Validatable<TValue> IfEmpty<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
+        Func<TValue, string> func,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfRelative(
+        Validator.ThrowIfEmpty(
             func(validatable.Value),
             $"{validatable.ParamName}: {funcName}",
             validatable.ExceptionCustomizations);
@@ -182,19 +48,19 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is not relative.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is null or empty.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotRelative<TValue>(
+    public static ref readonly Validatable<TValue> IfNullOrEmpty<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
+        Func<TValue, string?> func,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfAbsolute(
+        Validator.ThrowIfNullOrEmpty(
             func(validatable.Value),
             $"{validatable.ParamName}: {funcName}",
             validatable.ExceptionCustomizations);
@@ -203,19 +69,19 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if scheme of the <see cref="Uri"/> returned from the given <paramref name="func"/> is not absolute.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is null or whitespace.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotAbsolute<TValue>(
+    public static ref readonly Validatable<TValue> IfNullOrWhiteSpace<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
+        Func<TValue, string?> func,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfRelative(
+        Validator.ThrowIfNullOrWhiteSpace(
             func(validatable.Value),
             $"{validatable.ParamName}: {funcName}",
             validatable.ExceptionCustomizations);
@@ -224,43 +90,150 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if port of the <see cref="Uri"/> returned from the given <paramref name="func"/> matches the given <paramref name="port"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> equals the given <paramref name="otherString"/>.
     /// </summary>
     /// <remarks>
+    /// The <see cref="StringComparison"/> used is <see cref="StringComparison.Ordinal"/>.
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfPort<TValue>(this in Validatable<TValue> validatable, Func<TValue, Uri> func, int port, [CallerArgumentExpression("func")] string? funcName = null)
+    public static ref readonly Validatable<TValue> IfEquals<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string otherString,
+        [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfPort(
+        Validator.ThrowIfEquals(
             func(validatable.Value),
-            port,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.Ordinal);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if port of the <see cref="Uri"/> returned from the given <paramref name="func"/> does not match the given <paramref name="port"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> equals the given <paramref name="otherString"/> using the given <paramref name="comparisonType"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfPortNot<TValue>(
+    public static ref readonly Validatable<TValue> IfEquals<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, Uri> func,
-        int port,
+        Func<TValue, string> func,
+        string otherString,
+        StringComparison comparisonType,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfPortNot(
+        Validator.ThrowIfEquals(
             func(validatable.Value),
-            port,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            otherString,
+            comparisonType);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> does not equal the given <paramref name="otherString"/>.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="StringComparison"/> used is <see cref="StringComparison.Ordinal"/>.
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNotEquals<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string otherString,
+        [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfNotEquals(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.Ordinal);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the <paramref name="func"/> does not equal the <paramref name="otherString"/> using the given <paramref name="comparisonType"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNotEquals<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string otherString,
+        StringComparison comparisonType,
+        [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfNotEquals(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            otherString,
+            comparisonType);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> equals the given <paramref name="otherString"/> (case insensitive).
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfEqualsIgnoreCase<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string otherString,
+        [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfEquals(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.OrdinalIgnoreCase);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if the string returned from the given <paramref name="func"/> does not equal the given <paramref name="otherString"/> (case insensitive).
+    /// </summary>
+    /// <remarks>
+    /// The default <see cref="StringComparison"/> type is <see cref="StringComparison.OrdinalIgnoreCase"/>.
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfNotEqualsIgnoreCase<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, string> func,
+        string otherString,
+        [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfNotEquals(
+            func(validatable.Value),
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations,
+            otherString,
+            StringComparison.OrdinalIgnoreCase);
 
         return ref validatable;
     }

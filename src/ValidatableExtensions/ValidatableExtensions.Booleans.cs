@@ -16,7 +16,10 @@ public static partial class ValidatableExtensions
     {
         if (validatable.Value)
         {
-            ExceptionThrower.Throw(validatable.ParamName, validatable.ExceptionCustomizations, "Value should not be true.");
+            ExceptionThrower.Throw(
+                validatable.ParamName,
+                validatable.ExceptionCustomizations,
+                "Value should not be true.");
         }
 
         return ref validatable;
@@ -33,7 +36,10 @@ public static partial class ValidatableExtensions
     {
         if (!validatable.Value)
         {
-            ExceptionThrower.Throw(validatable.ParamName, validatable.ExceptionCustomizations, "Value should be true.");
+            ExceptionThrower.Throw(
+                validatable.ParamName,
+                validatable.ExceptionCustomizations,
+                "Value should be true.");
         }
 
         return ref validatable;
@@ -46,12 +52,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfTrue<TValue>(this in Validatable<TValue> validatable, bool condition, [CallerArgumentExpression("condition")] string? conditionParamName = null)
+    public static ref readonly Validatable<TValue> IfTrue<TValue>(
+        this in Validatable<TValue> validatable,
+        bool condition,
+        [CallerArgumentExpression("condition")] string? conditionParamName = null)
         where TValue : notnull
     {
         if (condition)
         {
-            ExceptionThrower.Throw(validatable.ParamName, validatable.ExceptionCustomizations, $"Value should not meet condition (condition: '{conditionParamName}').");
+            ExceptionThrower.Throw(
+                validatable.ParamName,
+                validatable.ExceptionCustomizations,
+                $"Value should not meet condition (condition: '{conditionParamName}').");
         }
 
         return ref validatable;
@@ -64,12 +76,18 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfFalse<TValue>(this in Validatable<TValue> validatable, bool condition, [CallerArgumentExpression("condition")] string? conditionParamName = null)
+    public static ref readonly Validatable<TValue> IfFalse<TValue>(
+        this in Validatable<TValue> validatable,
+        bool condition,
+        [CallerArgumentExpression("condition")] string? conditionParamName = null)
         where TValue : notnull
     {
         if (!condition)
         {
-            ExceptionThrower.Throw(validatable.ParamName, validatable.ExceptionCustomizations, $"Value should meet condition (condition: '{conditionParamName}').");
+            ExceptionThrower.Throw(
+                validatable.ParamName,
+                validatable.ExceptionCustomizations,
+                $"Value should meet condition (condition: '{conditionParamName}').");
         }
 
         return ref validatable;

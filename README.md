@@ -243,6 +243,7 @@ void SendEmail(User user)
         .IfFalse();
 }
 ```
+
 ```csharp
 // MyCustomException: Param name: nullableValue.
 nullableValue.ThrowIfNull(paramName => throw new MyCustomException($"Param name: {paramName}."));
@@ -301,10 +302,28 @@ name.Throw().IfLengthEquals(7); // System.ArgumentException: String length shoul
 name.Throw().IfLengthNotEquals(10); // System.ArgumentException: String length should be equal to 10. (Parameter 'name')
 name.Throw().IfShorterThan(10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'name')
 name.Throw().IfLongerThan(3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'name')
-name.Throw().IfEquals("Amichai"); // System.ArgumentException: String should not be equal to 'Amichai'. (Parameter 'name')
-name.Throw().IfEqualsIgnoreCase("AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (case insensitive). (Parameter 'name')
-name.Throw().IfNotEquals("Dan"); // System.ArgumentException: String should be equal to 'Dan'. (Parameter 'name')
-name.Throw().IfNotEqualsIgnoreCase("Dan"); // System.ArgumentException: String should be equal to 'Dan' (case insensitive). (Parameter 'name')
+name.Throw().IfEquals("Amichai"); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfEquals("Amichai", StringComparison.InvariantCulture); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'InvariantCulture'). (Parameter 'name')
+name.Throw().IfEqualsIgnoreCase("AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotEquals("Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotEquals("Dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotEqualsIgnoreCase("Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfContains("substring"); // System.ArgumentException: String should not contain 'substring' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfContains("substring", ComparisonType.InvariantCulture); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCulture'). (Parameter 'name')
+name.Throw().IfNotContains("substring"); // System.ArgumentException: String should contain 'substring' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotContains("substring", ComparisonType.InvariantCultureIgnoreCase); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
+name.Throw().IfStartsWith("Jer"); // System.ArgumentException: String should not start with 'Jer' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfStartsWith("JER", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not start with 'JER' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotStartsWith("dan"); // System.ArgumentException: String should start with 'dan' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotStartsWith("dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should start with 'dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'name')
+name.Throw().IfEndsWith("emy"); // System.ArgumentException: String should not end with 'emy' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfEndsWith("EMY", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not end with 'EMY' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfNotEndsWith("dan"); // System.ArgumentException: String should end with 'dan' (comparison type: 'Ordinal'). (Parameter 'name')
+name.Throw().IfNotEndsWith("dan", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should end with 'dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'name')
+name.Throw().IfMatches("J.*y"); // System.ArgumentException: String should not match RegEx pattern 'J.*y' (Parameter 'name')
+name.Throw().IfMatches("[a-z]{0,10}", RegexOptions.IgnoreCase); // System.ArgumentException: String should not match RegEx pattern '[a-z]{0,10}' (Parameter 'name')
+name.Throw().IfNotMatches("^[0-9]+$"); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'name')
+name.Throw().IfNotMatches("abc ", RegexOptions.IgnorePatternWhitespace); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'name')
 ```
 
 ### Collections (`IEnumerable`, `IEnumerable<T>`, `ICollection`, `ICollection<T>`, `IList`, etc.)
@@ -319,6 +338,8 @@ collection.Throw().IfCountLessThan(5); // System.ArgumentException: Collection c
 collection.Throw().IfCountGreaterThan(1); // System.ArgumentException: Collection count should not be greater than 1. (Parameter 'collection')
 collection.Throw().IfCountEquals(0); // System.ArgumentException: Collection count should not be equal to 0. (Parameter 'collection')
 collection.Throw().IfCountNotEquals(0); // System.ArgumentException: Collection count should be equal to 0. (Parameter 'collection')
+collection.Throw().IfContains("value"); // System.ArgumentException: Collection should not contain element. (Parameter 'person: p => p.Friends')
+collection.Throw().IfNotContains("value"); // System.ArgumentException: Collection should contain element. (Parameter 'person: p => p.Friends')
 ```
 
 ### DateTime
@@ -399,10 +420,28 @@ person.Throw().IfLengthEquals(p => p.Name, 7); // System.ArgumentException: Stri
 person.Throw().IfLengthNotEquals(p => p.Name, 10); // System.ArgumentException: String length should be equal to 10. (Parameter 'person: p => p.Name')
 person.Throw().IfShorterThan(p => p.Name, 10); // System.ArgumentException: String should not be shorter than 10 characters. (Parameter 'person: p => p.Name')
 person.Throw().IfLongerThan(p => p.Name, 3); // System.ArgumentException: String should not be longer than 3 characters. (Parameter 'person: p => p.Name')
-person.Throw().IfEquals(p => p.Name, "Amichai"); // System.ArgumentException: String should not be equal to 'Amichai'. (Parameter 'person: p => p.Name')
-person.Throw().IfEqualsIgnoreCase(p => p.Name, "AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (case insensitive). (Parameter 'person: p => p.Name')
-person.Throw().IfNotEquals(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan'. (Parameter 'person: p => p.Name')
-person.Throw().IfNotEqualsIgnoreCase(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (case insensitive). (Parameter 'person: p => p.Name')
+person.Throw().IfEquals(p => p.Name, "Amichai"); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfEquals(p => p.Name, "Amichai", StringComparison.InvariantCulture); // System.ArgumentException: String should not be equal to 'Amichai' (comparison type: 'InvariantCulture'). (Parameter 'person: p => p.Name')
+person.Throw().IfEqualsIgnoreCase(p => p.Name, "AMICHAI"); // System.ArgumentException: String should not be equal to 'AMICHAI' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEquals(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEquals(p => p.Name, "Dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEqualsIgnoreCase(p => p.Name, "Dan"); // System.ArgumentException: String should be equal to 'Dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfContains(p => p.Name, "substring"); // System.ArgumentException: String should not contain 'substring' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfContains(p => p.Name, "substring", ComparisonType.InvariantCulture); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCulture'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotContains(p => p.Name, "substring"); // System.ArgumentException: String should contain 'substring' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotContains(p => p.Name, "substring", ComparisonType.InvariantCultureIgnoreCase); // System.ArgumentException: String should contain 'substring' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfStartsWith(p => p.Name, "Jer"); // System.ArgumentException: String should not start with 'Jer' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfStartsWith(p => p.Name, "JER", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not start with 'JER' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotStartsWith(p => p.Name, "dan"); // System.ArgumentException: String should start with 'dan' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotStartsWith(p => p.Name, "dan", StringComparison.InvariantCultureIgnoreCase); // System.ArgumentException: String should start with 'dan' (comparison type: 'InvariantCultureIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfEndsWith(p => p.Name, "emy"); // System.ArgumentException: String should not end with 'emy' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfEndsWith(p => p.Name, "EMY", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should not end with 'EMY' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEndsWith(p => p.Name, "dan"); // System.ArgumentException: String should end with 'dan' (comparison type: 'Ordinal'). (Parameter 'person: p => p.Name')
+person.Throw().IfNotEndsWith(p => p.Name, "dan", StringComparison.OrdinalIgnoreCase); // System.ArgumentException: String should end with 'dan' (comparison type: 'OrdinalIgnoreCase'). (Parameter 'person: p => p.Name')
+person.Throw().IfMatches(p => p.Name, "J.*y"); // System.ArgumentException: String should not match RegEx pattern 'J.*y' (Parameter 'person: p => p.Name')
+person.Throw().IfMatches(p => p.Name, "[a-z]{0,10}", RegexOptions.IgnoreCase); // System.ArgumentException: String should not match RegEx pattern '[a-z]{0,10}' (Parameter 'person: p => p.Name')
+person.Throw().IfNotMatches(p => p.Name, "^[0-9]+$"); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'person: p => p.Name')
+person.Throw().IfNotMatches(p => p.Name, "abc ", RegexOptions.IgnorePatternWhitespace); // System.ArgumentException: String should match RegEx pattern '^[0-9]+$' (Parameter 'person: p => p.Name')
 ```
 
 ### Collection properties
@@ -415,6 +454,8 @@ person.Throw().IfCountLessThan(p => p.Friends, 5); // System.ArgumentException: 
 person.Throw().IfCountGreaterThan(p => p.Friends, 1); // System.ArgumentException: Collection count should not be greater than 1. (Parameter 'person: p => p.Friends')
 person.Throw().IfCountEquals(p => p.Friends, 0); // System.ArgumentException: Collection count should not be equal to 0. (Parameter 'person: p => p.Friends')
 person.Throw().IfCountNotEquals(p => p.Friends, 0); // System.ArgumentException: Collection count should be equal to 0. (Parameter 'person: p => p.Friends')
+person.Throw().IfContains(p => p.Friends, "Amichai"); // System.ArgumentException: Collection should not contain element. (Parameter 'person: p => p.Friends')
+person.Throw().IfNotContains(p => p.Friends, "Amichai"); // System.ArgumentException: Collection should contain element. (Parameter 'person: p => p.Friends')
 ```
 
 ### DateTime properties

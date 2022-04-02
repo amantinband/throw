@@ -9,7 +9,10 @@ public static class ExceptionThrower
     /// Throws an <see cref="ArgumentNullException"/>, unless the <paramref name="exceptionCustomizations"/> defines a custom exception.
     /// </summary>
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void ThrowNull(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Value cannot be null.")
+    public static void ThrowNull(
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations = null,
+        string? generalMessage = "Value cannot be null.")
     {
         if (exceptionCustomizations is null)
         {
@@ -27,7 +30,11 @@ public static class ExceptionThrower
     /// Throws an <see cref="ArgumentOutOfRangeException"/>, unless the <paramref name="exceptionCustomizations"/> defines a custom exception.
     /// </summary>
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void ThrowOutOfRange<TValue>(string paramName, TValue actualValue, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = "Specified argument was out of the range of valid values.")
+    public static void ThrowOutOfRange<TValue>(
+        string paramName,
+        TValue actualValue,
+        ExceptionCustomizations? exceptionCustomizations = null,
+        string? generalMessage = "Specified argument was out of the range of valid values.")
     {
         if (exceptionCustomizations is null)
         {
@@ -45,7 +52,10 @@ public static class ExceptionThrower
     /// Throws an <see cref="ArgumentException"/>, unless the <paramref name="exceptionCustomizations"/> defines a custom exception.
     /// </summary>
     [DoesNotReturn, MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void Throw(string paramName, ExceptionCustomizations? exceptionCustomizations = null, string? generalMessage = null)
+    public static void Throw(
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations = null,
+        string? generalMessage = null)
     {
         if (exceptionCustomizations is null)
         {

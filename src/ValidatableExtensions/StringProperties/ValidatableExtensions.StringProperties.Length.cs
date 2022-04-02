@@ -1,100 +1,98 @@
 namespace Throw;
 
 /// <summary>
-/// Extension methods for <see cref="DateTime"/> properties.
+/// Extension methods for string properties.
 /// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> is <see cref="DateTimeKind.Utc"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is longer than <paramref name="length"/> characters.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfUtc<TValue>(
+    public static ref readonly Validatable<TValue> IfLongerThan<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
+        Func<TValue, string> func,
+        int length,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfKind(
+        Validator.ThrowIfLongerThan(
             func(validatable.Value),
-            DateTimeKind.Utc,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> is not <see cref="DateTimeKind.Utc"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> is shorter than <paramref name="length"/> characters.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotUtc<TValue>(
+    public static ref readonly Validatable<TValue> IfShorterThan<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
+        Func<TValue, string> func,
+        int length,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotKind(
+        Validator.ThrowIfShorterThan(
             func(validatable.Value),
-            DateTimeKind.Utc,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> matches the given <paramref name="kind"/>.
+    /// Throws an exception if the length of string returned from the given <paramref name="func"/> is equal to <paramref name="length"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfDateTimeKind<TValue>(
+    public static ref readonly Validatable<TValue> IfLengthEquals<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
-        DateTimeKind kind,
+        Func<TValue, string> func,
+        int length,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfKind(
+        Validator.ThrowIfLengthEquals(
             func(validatable.Value),
-            kind,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> does not match the given <paramref name="kind"/>.
+    /// Throws an exception if the length of string returned from the given <paramref name="func"/> is not equal to <paramref name="length"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfDateTimeKindNot<TValue>(
+    public static ref readonly Validatable<TValue> IfLengthNotEquals<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
-        DateTimeKind kind,
+        Func<TValue, string> func,
+        int length,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotKind(
+        Validator.ThrowIfLengthNotEquals(
             func(validatable.Value),
-            kind,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            length);
 
         return ref validatable;
     }

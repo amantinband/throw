@@ -7,7 +7,8 @@ namespace Throw;
 /// <param name="Value">The value to be validated.</param>
 /// <param name="ParamName">The name of the parameter holding the <paramref name="Value"/>.</param>
 /// <param name="ExceptionCustomizations">Customizations to the exception, which will be applied if an exception is thrown.</param>
-public readonly record struct Validatable<TValue>(TValue Value, string ParamName, ExceptionCustomizations? ExceptionCustomizations = null) where TValue : notnull
+public readonly partial record struct Validatable<TValue>(TValue Value, string ParamName, ExceptionCustomizations? ExceptionCustomizations = null)
+    where TValue : notnull
 {
     /// <summary>
     /// Implicit conversion operator back to the original value's type.
@@ -29,7 +30,10 @@ public readonly record struct Validatable<TValue>(TValue Value, string ParamName
     /// <summary>
     /// Creates a validatable with the specified <paramref name="exceptionThrower"/> exception customization.
     /// </summary>
-    /// <param name="exceptionThrower">A function which returns an excpetion. This function will be used to create the exception that will be thrown if a condition is matched.</param>
+    /// <param name="exceptionThrower">
+    /// A function which returns an excpetion. This function will be used to create the exception that will
+    /// be thrown if a condition is matched.
+    /// </param>
     public Validatable<TValue> Throw([DisallowNull, JetBrainsNotNull] Func<Exception> exceptionThrower)
     {
         return this with { ExceptionCustomizations = exceptionThrower };

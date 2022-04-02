@@ -1,7 +1,7 @@
-namespace Throw.UnitTests.ValidatableExtensions;
+namespace Throw.UnitTests.ValidatableExtensions.Strings;
 
 [TestClass]
-public class StringsTests
+public class StringEqualityTests
 {
     [TestMethod]
     public void ThrowIfWhiteSpace_WhenWhiteSpace_ShouldThrow()
@@ -60,62 +60,6 @@ public class StringsTests
     }
 
     [TestMethod]
-    public void ThrowIfLongerThan_WhenLongerThan_ShouldThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfLongerThan(2);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be longer than 2 characters. (Parameter '{nameof(value)}')");
-    }
-
-    [TestMethod]
-    public void ThrowIfLongerThan_WhenNotLongerThan_ShouldNotThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfLongerThan(100);
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
-    public void ThrowIfShorterThan_WhenShorterThan_ShouldThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfShorterThan(100);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be shorter than 100 characters. (Parameter '{nameof(value)}')");
-    }
-
-    [TestMethod]
-    public void ThrowIfShorterThan_WhenNotShorterThan_ShouldNotThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfShorterThan(2);
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
     public void ThrowIfEquals_WhenEquals_ShouldThrow()
     {
         // Arrange
@@ -127,7 +71,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'value'. (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'value' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -138,6 +82,34 @@ public class StringsTests
 
         // Act
         Action action = () => value.Throw().IfEquals("VALUE");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "VALUE", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "\u00e5", StringComparison.InvariantCulture)]
+    [DataRow("AA", "A\u0000\u0000\u0000a", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfEquals_WhenEqualsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfEquals(otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should not be equal to '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(value)}')");
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfEquals_WhenNotEqualsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfEquals(otherValue, comparisonType);
 
         // Assert
         action.Should().NotThrow();
@@ -155,7 +127,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'value' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'value' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -170,7 +142,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should not be equal to 'VALUE' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should not be equal to 'VALUE' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -198,7 +170,35 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value'. (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to 'different value' (comparison type: '{StringComparison.Ordinal}'). (Parameter '{nameof(value)}')");
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "VALUE", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "\u00e5", StringComparison.InvariantCulture)]
+    [DataRow("AA", "A\u0000\u0000\u0000a", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfNotEquals_WhenEqualsUsingCustomComparisonType_ShouldNotThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfNotEquals(otherValue, comparisonType);
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [DataTestMethod]
+    [DataRow("value", "different value", StringComparison.OrdinalIgnoreCase)]
+    [DataRow("\u0061\u030a", "different value", StringComparison.InvariantCulture)]
+    [DataRow("AA", "different value", StringComparison.InvariantCultureIgnoreCase)]
+    public void ThrowIfNotEquals_WhenNotEqualsUsingCustomComparisonType_ShouldThrow(string value, string otherValue, StringComparison comparisonType)
+    {
+        // Act
+        Action action = () => value.Throw().IfNotEquals(otherValue, comparisonType);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"String should be equal to '{otherValue}' (comparison type: '{comparisonType}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -226,7 +226,7 @@ public class StringsTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"String should be equal to 'different value' (case insensitive). (Parameter '{nameof(value)}')");
+            .WithMessage($"String should be equal to 'different value' (comparison type: '{StringComparison.OrdinalIgnoreCase}'). (Parameter '{nameof(value)}')");
     }
 
     [TestMethod]
@@ -250,62 +250,6 @@ public class StringsTests
 
         // Act
         Action action = () => value.Throw().IfNotEqualsIgnoreCase("VALUE");
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
-    public void ThrowIfLenghtEquals_WhenLengthEquals_ShouldThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfLengthEquals(5);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"String length should not be equal to 5. (Parameter '{nameof(value)}')");
-    }
-
-    [TestMethod]
-    public void ThrowIfLenghtEquals_WhenLengthNotEquals_ShouldNotThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfLengthEquals(100);
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
-    public void ThrowIfLenghtNotEquals_WhenLengthNotEquals_ShouldThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfLengthNotEquals(100);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"String length should be equal to 100. (Parameter '{nameof(value)}')");
-    }
-
-    [TestMethod]
-    public void ThrowIfLenghtNotEquals_WhenLengthEquals_ShouldNotThrow()
-    {
-        // Arrange
-        string value = "value";
-
-        // Act
-        Action action = () => value.Throw().IfLengthNotEquals(value.Length);
 
         // Assert
         action.Should().NotThrow();

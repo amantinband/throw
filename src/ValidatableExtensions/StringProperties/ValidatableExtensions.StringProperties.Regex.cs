@@ -1,100 +1,106 @@
+using System.Text.RegularExpressions;
+
 namespace Throw;
 
 /// <summary>
-/// Extension methods for <see cref="DateTime"/> properties.
+/// Extension methods for string properties.
 /// </summary>
 public static partial class ValidatableExtensions
 {
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> is <see cref="DateTimeKind.Utc"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> matches the given <paramref name="regexPattern"/>.
+    /// Default <paramref name="regexOptions"/> is <see cref="RegexOptions.None"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfUtc<TValue>(
+    public static ref readonly Validatable<TValue> IfMatches<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
+        Func<TValue, string> func,
+        string regexPattern,
+        RegexOptions regexOptions = RegexOptions.None,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfKind(
+        Validator.ThrowIfMatches(
             func(validatable.Value),
-            DateTimeKind.Utc,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            regexPattern,
+            regexOptions);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> is not <see cref="DateTimeKind.Utc"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> matches the given <paramref name="regex"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotUtc<TValue>(
+    public static ref readonly Validatable<TValue> IfMatches<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
+        Func<TValue, string> func,
+        Regex regex,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotKind(
+        Validator.ThrowIfMatches(
             func(validatable.Value),
-            DateTimeKind.Utc,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            regex);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> matches the given <paramref name="kind"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> does not match the given <paramref name="regexPattern"/>.
+    /// Default <paramref name="regexOptions"/> is <see cref="RegexOptions.None"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfDateTimeKind<TValue>(
+    public static ref readonly Validatable<TValue> IfNotMatches<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
-        DateTimeKind kind,
+        Func<TValue, string> func,
+        string regexPattern,
+        RegexOptions regexOptions = RegexOptions.None,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfKind(
+        Validator.ThrowIfNotMatches(
             func(validatable.Value),
-            kind,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            regexPattern,
+            regexOptions);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the <see cref="DateTimeKind"/> of the <see cref="DateTime"/> returned
-    /// from the given <paramref name="func"/> does not match the given <paramref name="kind"/>.
+    /// Throws an exception if the string returned from the given <paramref name="func"/> does not match the given <paramref name="regex"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfDateTimeKindNot<TValue>(
+    public static ref readonly Validatable<TValue> IfNotMatches<TValue>(
         this in Validatable<TValue> validatable,
-        Func<TValue, DateTime> func,
-        DateTimeKind kind,
+        Func<TValue, string> func,
+        Regex regex,
         [CallerArgumentExpression("func")] string? funcName = null)
         where TValue : notnull
     {
-        Validator.ThrowIfNotKind(
+        Validator.ThrowIfNotMatches(
             func(validatable.Value),
-            kind,
             $"{validatable.ParamName}: {funcName}",
-            validatable.ExceptionCustomizations);
+            validatable.ExceptionCustomizations,
+            regex);
 
         return ref validatable;
     }

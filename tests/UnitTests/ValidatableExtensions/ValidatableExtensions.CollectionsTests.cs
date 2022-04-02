@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Throw.UnitTests.ValidatableExtensions;
 
 [TestClass]
@@ -13,7 +15,8 @@ public class CollectionsTests
         Action action = () => collection.Throw().IfEmpty();
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>().WithMessage($"Collection should not be empty. (Parameter '{nameof(collection)}')");
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should not be empty. (Parameter '{nameof(collection)}')");
     }
 
     [TestMethod]
@@ -39,7 +42,8 @@ public class CollectionsTests
         Action action = () => collection.Throw().IfNotEmpty();
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>().WithMessage($"Collection should be empty. (Parameter '{nameof(collection)}')");
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should be empty. (Parameter '{nameof(collection)}')");
     }
 
     [TestMethod]
@@ -65,7 +69,8 @@ public class CollectionsTests
         Action action = () => collection.Throw().IfCountEquals(1);
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>().WithMessage($"Collection count should not be equal to 1. (Parameter '{nameof(collection)}')");
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection count should not be equal to 1. (Parameter '{nameof(collection)}')");
     }
 
     [TestMethod]
@@ -91,7 +96,8 @@ public class CollectionsTests
         Action action = () => collection.Throw().IfCountNotEquals(2);
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>().WithMessage($"Collection count should be equal to 2. (Parameter '{nameof(collection)}')");
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection count should be equal to 2. (Parameter '{nameof(collection)}')");
     }
 
     [TestMethod]
@@ -117,7 +123,8 @@ public class CollectionsTests
         Action action = () => collection.Throw().IfCountGreaterThan(0);
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>().WithMessage($"Collection count should not be greater than 0. (Parameter '{nameof(collection)}')");
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection count should not be greater than 0. (Parameter '{nameof(collection)}')");
     }
 
     [TestMethod]
@@ -156,7 +163,8 @@ public class CollectionsTests
         Action action = () => collection.Throw().IfCountLessThan(2);
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>().WithMessage($"Collection count should not be less than 2. (Parameter '{nameof(collection)}')");
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection count should not be less than 2. (Parameter '{nameof(collection)}')");
     }
 
     [TestMethod]
@@ -195,7 +203,8 @@ public class CollectionsTests
         Action action = () => collection.Throw().IfHasNullElements();
 
         // Assert
-        action.Should().ThrowExactly<ArgumentException>().WithMessage($"Collection should not have null elements. (Parameter '{nameof(collection)}')");
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should not have null elements. (Parameter '{nameof(collection)}')");
     }
 
     [TestMethod]
@@ -209,5 +218,71 @@ public class CollectionsTests
 
         // Assert
         action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionContains_WhenCollectionContainsElement_ShouldThrow()
+    {
+        // Arrange
+        var collection = new[] { "hey", null, "ho" };
+        var collection2 = new[] { 1, 2 };
+        // Act
+        Action action = () => collection.Throw().IfContains("ho");
+        Action action2 = () => collection2.Throw().IfContains(1);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should not contain element. (Parameter '{nameof(collection)}')");
+        action2.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should not contain element. (Parameter '{nameof(collection2)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionContains_WhenCollectionNotContainsElement_ShouldNotThrow()
+    {
+        // Arrange
+        var collection = new[] { "hey", null, "ho" };
+        var collection2 = new[] { 1, 2 };
+
+        // Act
+        Action action = () => collection.Throw().IfContains("ho1");
+        Action action2 = () => collection2.Throw().IfContains(3);
+
+        // Assert
+        action.Should().NotThrow();
+        action2.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionNotContains_WhenCollectionNotContainsElement_ShouldThrow()
+    {
+        // Arrange
+        var collection = new[] { "hey", null, "ho" };
+        var collection2 = new[] { 1, 2 };
+        // Act
+        Action action = () => collection.Throw().IfNotContains("ho1");
+        Action action2 = () => collection2.Throw().IfNotContains(3);
+
+        // Assert
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should contain element. (Parameter '{nameof(collection)}')");
+        action2.Should().ThrowExactly<ArgumentException>()
+            .WithMessage($"Collection should contain element. (Parameter '{nameof(collection2)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfCollectionNotContains_WhenCollectionContainsElement_ShouldNotThrow()
+    {
+        // Arrange
+        var collection = new[] { "hey", null, "ho" };
+        var collection2 = new[] { 1, 2 };
+
+        // Act
+        Action action = () => collection.Throw().IfNotContains("hey");
+        Action action2 = () => collection2.Throw().IfNotContains(1);
+
+        // Assert
+        action.Should().NotThrow();
+        action2.Should().NotThrow();
     }
 }
