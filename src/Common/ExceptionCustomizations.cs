@@ -7,17 +7,17 @@ namespace Throw;
 public struct ExceptionCustomizations
 {
     /// <summary>
-    /// A discriminated union of all possible exception customization options.
-    /// </summary>
-    public OneOf<string, Type, Func<Exception>, Func<string, Exception>> Customization { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExceptionCustomizations"/> class.
+    /// Initializes a new instance of the <see cref="ExceptionCustomizations"/> struct.
     /// </summary>
     public ExceptionCustomizations(OneOf<string, Type, Func<Exception>, Func<string, Exception>> customization)
     {
         this.Customization = customization;
     }
+
+    /// <summary>
+    /// Gets a discriminated union of all possible exception customization options.
+    /// </summary>
+    public OneOf<string, Type, Func<Exception>, Func<string, Exception>> Customization { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ExceptionCustomizations"/> class.

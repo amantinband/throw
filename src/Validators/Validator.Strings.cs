@@ -1,6 +1,6 @@
-using System.Text.RegularExpressions;
-
 namespace Throw;
+
+using System.Text.RegularExpressions;
 
 internal static partial class Validator
 {

@@ -237,20 +237,20 @@ public class EqualitiesTests
 
     private class OverrideEqualsType
     {
-        public OverrideEqualsType(int id) => Id = id;
+        public OverrideEqualsType(int id) => this.Id = id;
 
         public int Id { get; }
 
         public override bool Equals(object? obj)
         {
-            var other = obj as OverrideEqualsType;
+            if (obj is not OverrideEqualsType other)
+            {
+                return false;
+            }
 
-            if (other is null) return false;
-
-            return Id == other.Id;
+            return this.Id == other.Id;
         }
 
-        public override int GetHashCode() => Id.GetHashCode();
+        public override int GetHashCode() => this.Id.GetHashCode();
     }
-
 }

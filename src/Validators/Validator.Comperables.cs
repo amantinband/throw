@@ -56,5 +56,4 @@ internal static partial class Validator
                 $"Value should be between {min} and {max}.");
         }
     }
-
 }

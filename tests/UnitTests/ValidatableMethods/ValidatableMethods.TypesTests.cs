@@ -52,7 +52,6 @@ public class TypesTests
         // Arrange
         string str = "string";
 
-
         // Act
         Action action = () => str.Throw().IfNotType<int>();
 

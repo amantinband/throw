@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Throw.UnitTests.ValidatableExtensions;
 
 [TestClass]
@@ -226,6 +224,7 @@ public class CollectionsTests
         // Arrange
         var collection = new[] { "hey", null, "ho" };
         var collection2 = new[] { 1, 2 };
+
         // Act
         Action action = () => collection.Throw().IfContains("ho");
         Action action2 = () => collection2.Throw().IfContains(1);
@@ -259,6 +258,7 @@ public class CollectionsTests
         // Arrange
         var collection = new[] { "hey", null, "ho" };
         var collection2 = new[] { 1, 2 };
+
         // Act
         Action action = () => collection.Throw().IfNotContains("ho1");
         Action action2 = () => collection2.Throw().IfNotContains(3);

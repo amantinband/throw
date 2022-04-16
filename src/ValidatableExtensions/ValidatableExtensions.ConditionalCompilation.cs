@@ -1,6 +1,6 @@
-using System.Diagnostics;
-
 namespace Throw;
+
+using System.Diagnostics;
 
 /// <summary>
 /// Extension methods for controlling whether the "throw" rule will be ignored by the compiler.
