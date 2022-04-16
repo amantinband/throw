@@ -86,62 +86,6 @@ public class ComparablesTests
     }
 
     [TestMethod]
-    public void ThrowIfEquals_WhenValueEquals_ShouldThrow()
-    {
-        // Arrange
-        int value = 5;
-
-        // Act
-        Action action = () => value.Throw().IfEquals(5);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Value should not be equal to 5. (Parameter '{nameof(value)}')");
-    }
-
-    [TestMethod]
-    public void ThrowIfEquals_WhenValueIsNotEqual_ShouldNotThrow()
-    {
-        // Arrange
-        int value = 5;
-
-        // Act
-        Action action = () => value.Throw().IfEquals(6);
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
-    public void ThrowIfNotEquals_WhenNotEquals_ShouldThrow()
-    {
-        // Arrange
-        int value = 5;
-
-        // Act
-        Action action = () => value.Throw().IfNotEquals(6);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Value should be equal to 6. (Parameter '{nameof(value)}')");
-    }
-
-    [TestMethod]
-    public void ThrowIfNotEquals_WhenEquals_ShouldNotThrow()
-    {
-        // Arrange
-        int value = 5;
-
-        // Act
-        Action action = () => value.Throw().IfNotEquals(5);
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
     public void ThrowIfPositive_WhenPositive_ShouldThrow()
     {
         // Arrange

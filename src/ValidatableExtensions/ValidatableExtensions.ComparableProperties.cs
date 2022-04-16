@@ -54,54 +54,6 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the value returned from the given <paramref name="func"/> is equal to <paramref name="n"/>.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfEquals<TValue, TResult>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, TResult> func,
-        TResult n,
-        [CallerArgumentExpression("func")] string? funcName = null)
-            where TValue : notnull
-            where TResult : IComparable
-    {
-        Validator.ThrowIfEquals(
-            value: func(validatable.Value),
-            other: n,
-            paramName: $"{validatable.ParamName}: {funcName}",
-            exceptionCustomizations: validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
-    /// Throws an exception if the value returned from the given <paramref name="func"/> is not equal to <paramref name="n"/>.
-    /// </summary>
-    /// <remarks>
-    /// The default exception thrown is an <see cref="ArgumentException"/>.
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfNotEquals<TValue, TResult>(
-        this in Validatable<TValue> validatable,
-        Func<TValue, TResult> func,
-        TResult n,
-        [CallerArgumentExpression("func")] string? funcName = null)
-            where TValue : notnull
-            where TResult : IComparable
-    {
-        Validator.ThrowIfNotEquals(
-            value: func(validatable.Value),
-            other: n,
-            paramName: $"{validatable.ParamName}: {funcName}",
-            exceptionCustomizations: validatable.ExceptionCustomizations);
-
-        return ref validatable;
-    }
-
-    /// <summary>
     /// Throws an exception if the value returned from the given <paramref name="func"/> is greater than 0.
     /// </summary>
     /// <remarks>
