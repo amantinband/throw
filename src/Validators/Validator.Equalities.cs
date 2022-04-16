@@ -37,5 +37,4 @@ internal static partial class Validator
                 message ?? $"Value should not be equal to {other}.");
         }
     }
-
 }

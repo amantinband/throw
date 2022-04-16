@@ -86,6 +86,21 @@ public class ComparablePropertiesTests
     }
 
     [TestMethod]
+    public void ThrowIfPropertyPositive_WhenPropertyPositive_ShouldThrow()
+    {
+        // Arrange
+        var value = new { Property = 5 };
+
+        // Act
+        Action action = () => value.Throw().IfPositive(v => v.Property);
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentOutOfRangeException>()
+            .WithMessage($"Value should not be greater than 0. (Parameter '{nameof(value)}: v => v.Property')\nActual value was {value.Property}.");
+    }
+
+    [TestMethod]
     public void ThrowIfPropertyPositive_WhenPropertyNegative_ShouldNotThrow()
     {
         // Arrange

@@ -46,22 +46,22 @@ public static partial class ValidatableExtensions
     }
 
     /// <summary>
-    /// Throws an exception if the value equals <paramref name="n"/>.
+    /// Throws an exception if the value equals <paramref name="other"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfEquals<TValue>(this in Validatable<TValue> validatable, TValue n)
+    public static ref readonly Validatable<TValue> IfEquals<TValue>(this in Validatable<TValue> validatable, TValue other)
         where TValue : notnull
     {
-        Validator.ThrowIfEquals(validatable.Value, n, validatable.ParamName, validatable.ExceptionCustomizations);
+        Validator.ThrowIfEquals(validatable.Value, other, validatable.ParamName, validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
 
     /// <summary>
-    /// Throws an exception if the value does not equal <paramref name="n"/>.
+    /// Throws an exception if the value does not equal <paramref name="other"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
@@ -69,10 +69,10 @@ public static partial class ValidatableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Validatable<TValue> IfNotEquals<TValue>(
         this in Validatable<TValue> validatable,
-        TValue n)
+        TValue other)
         where TValue : notnull
     {
-        Validator.ThrowIfNotEquals(validatable.Value, n, validatable.ParamName, validatable.ExceptionCustomizations);
+        Validator.ThrowIfNotEquals(validatable.Value, other, validatable.ParamName, validatable.ExceptionCustomizations);
 
         return ref validatable;
     }
