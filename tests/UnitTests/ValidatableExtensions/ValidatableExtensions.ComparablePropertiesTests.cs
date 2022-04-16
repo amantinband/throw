@@ -86,62 +86,6 @@ public class ComparablePropertiesTests
     }
 
     [TestMethod]
-    public void ThrowIfPropertyEquals_WhenPropertyEquals_ShouldThrow()
-    {
-        // Arrange
-        var value = new { Property = 5 };
-
-        // Act
-        Action action = () => value.Throw().IfEquals(v => v.Property, 5);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Value should not be equal to 5. (Parameter '{nameof(value)}: v => v.Property')");
-    }
-
-    [TestMethod]
-    public void ThrowIfPropertyEquals_WhenPropertyNotEquals_ShouldNotThrow()
-    {
-        // Arrange
-        var value = new { Property = 5 };
-
-        // Act
-        Action action = () => value.Throw().IfEquals(v => v.Property, 6);
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
-    public void ThrowIfPropertyNotEquals_WhenPropertyNotEquals_ShouldThrow()
-    {
-        // Arrange
-        var value = new { Property = 5 };
-
-        // Act
-        Action action = () => value.Throw().IfNotEquals(v => v.Property, 6);
-
-        // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Value should be equal to 6. (Parameter '{nameof(value)}: v => v.Property')");
-    }
-
-    [TestMethod]
-    public void ThrowIfPropertyNotEquals_WhenPropertyEquals_ShouldNotThrow()
-    {
-        // Arrange
-        var value = new { Property = 5 };
-
-        // Act
-        Action action = () => value.Throw().IfNotEquals(v => v.Property, 5);
-
-        // Assert
-        action.Should().NotThrow();
-    }
-
-    [TestMethod]
     public void ThrowIfPropertyPositive_WhenPropertyPositive_ShouldThrow()
     {
         // Arrange
