@@ -1,8 +1,6 @@
-
-using Microsoft.VisualBasic;
-using OneOf;
-
 namespace Throw.UnitTests.ValidatableCreation;
+
+using OneOf;
 
 [TestClass]
 public class ValidatableCreationExtensionsTests

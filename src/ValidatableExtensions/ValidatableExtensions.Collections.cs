@@ -75,7 +75,8 @@ public static partial class ValidatableExtensions
     /// The default exception thrown is an <see cref="ArgumentException"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ref readonly Validatable<TValue> IfCountEquals<TValue>(this in Validatable<TValue> validatable,
+    public static ref readonly Validatable<TValue> IfCountEquals<TValue>(
+        this in Validatable<TValue> validatable,
         int count)
         where TValue : notnull, IEnumerable
     {
@@ -182,7 +183,8 @@ public static partial class ValidatableExtensions
         where TElement : notnull
     {
         Validator.ThrowIfNotContainsElement(
-            validatable.Value, element,
+            validatable.Value,
+            element,
             validatable.ParamName,
             validatable.ExceptionCustomizations);
 

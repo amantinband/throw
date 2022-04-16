@@ -31,7 +31,7 @@ public class EnumsTests
         action.Should().NotThrow();
     }
 
-    enum TestEnum
+    private enum TestEnum
     {
         Value1,
         Value2,

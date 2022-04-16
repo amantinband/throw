@@ -1,12 +1,16 @@
-namespace Throw;
-
 using System.Collections;
+
+namespace Throw;
 
 internal static partial class Validator
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfCountNot<TValue>(TValue value, int count, string paramName,
-        ExceptionCustomizations? exceptionCustomizations, string? message = null)
+    internal static void ThrowIfCountNot<TValue>(
+        TValue value,
+        int count,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string? message = null)
         where TValue : notnull, IEnumerable
     {
         if (GetCollectionCount(value) != count)
@@ -19,8 +23,12 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfCount<TValue>(TValue value, int count, string paramName,
-        ExceptionCustomizations? exceptionCustomizations, string? message = null)
+    internal static void ThrowIfCount<TValue>(
+        TValue value,
+        int count,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations,
+        string? message = null)
         where TValue : notnull, IEnumerable
     {
         if (GetCollectionCount(value) == count)
@@ -33,7 +41,10 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfCountGreaterThan<TValue>(TValue value, int count, string paramName,
+    internal static void ThrowIfCountGreaterThan<TValue>(
+        TValue value,
+        int count,
+        string paramName,
         ExceptionCustomizations? exceptionCustomizations)
         where TValue : notnull, IEnumerable
     {
@@ -47,7 +58,10 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfCountLessThan<TValue>(TValue value, int count, string paramName,
+    internal static void ThrowIfCountLessThan<TValue>(
+        TValue value,
+        int count,
+        string paramName,
         ExceptionCustomizations? exceptionCustomizations)
         where TValue : notnull, IEnumerable
     {
@@ -61,11 +75,13 @@ internal static partial class Validator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void ThrowIfHasNullElements<TValue>(TValue value, string paramName,
+    internal static void ThrowIfHasNullElements<TValue>(
+        TValue value,
+        string paramName,
         ExceptionCustomizations? exceptionCustomizations)
         where TValue : notnull, IEnumerable
     {
-        foreach (var item in value)
+        foreach (object? item in value)
         {
             if (item == null)
             {
@@ -76,7 +92,6 @@ internal static partial class Validator
             }
         }
     }
-
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void ThrowIfContainsElement<TValue, TElement>(
@@ -118,7 +133,7 @@ internal static partial class Validator
         where TValue : IEnumerable<TElement?>
         where TElement : notnull
     {
-        foreach (var item in value)
+        foreach (TElement? item in value)
         {
             if (element.Equals(item))
             {
@@ -135,7 +150,7 @@ internal static partial class Validator
     {
         static int GetEnumeratedCount(IEnumerable enumerable)
         {
-            var count = 0;
+            int count = 0;
             IEnumerator enumerator = enumerable.GetEnumerator();
             while (enumerator.MoveNext())
             {

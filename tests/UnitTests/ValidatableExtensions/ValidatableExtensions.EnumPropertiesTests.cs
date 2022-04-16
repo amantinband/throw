@@ -31,7 +31,7 @@ public class EnumPropertiesTests
         action.Should().NotThrow();
     }
 
-    enum PersonType
+    private enum PersonType
     {
         Funny,
         NotFunny,
