@@ -366,6 +366,8 @@ employeeType.Throw().IfEquals(EmployeeType.FullTime); // System.ArgumentExceptio
 ```csharp
 dateTime.Throw().IfDefault(); // System.ArgumentException: Value should not be default. (Parameter 'dateTime')
 dateTime.Throw().IfNotDefault(); // System.ArgumentException: Value should be default. (Parameter 'dateTime')
+datetime1.Throw().IfEquals(datetime2); // System.ArgumentException: Value should not be equal to datetime2. (Parameter 'datetime1')
+datetime1.Throw().IfNotEquals(datetime2); // System.ArgumentException: Value should be equal to datetime2. (Parameter 'datetime1')
 ```
 
 ### Uris
@@ -390,8 +392,6 @@ uri.Throw().IfNotRelative(); // System.ArgumentException: Uri should be relative
 ```csharp
 number.Throw().IfPositive(); // System.ArgumentOutOfRangeException: Value should not be greater than 0. (Parameter 'number')\n Actual value was 5.
 number.Throw().IfNegative(); // System.ArgumentOutOfRangeException: Value should not be less than 0. (Parameter 'number')\n Actual value was -5.
-number.Throw().IfEquals(5); // System.ArgumentException: Value should not be not be equal to 5. (Parameter 'number')
-number.Throw().IfNotEquals(3); // System.ArgumentException: Value should be equal to 3. (Parameter 'number')
 number.Throw().IfLessThan(10); // System.ArgumentOutOfRangeException: Value should not be less than 10. (Parameter 'number')\n Actual value was 5.
 number.Throw().IfGreaterThan(3); // System.ArgumentOutOfRangeException: Value should not be greater than 3. (Parameter 'number')\n Actual value was 5.
 number.Throw().IfOutOfRange(0, 5); // System.ArgumentOutOfRangeException: Value should be between 0 and 5. (Parameter 'number')\n Actual value was -5.
@@ -484,6 +484,8 @@ person.Throw().IfDefault(p => p.DateOfBirth); // System.ArgumentException: Value
 person.Throw().IfNotDefault(p => p.DateOfBirth); // System.ArgumentException: Value should be default. (Parameter 'person: p => p.DateOfBirth')
 person.Throw().IfNull(p => p.MiddleName); // System.ArgumentNullException: Value cannot be null. (Parameter 'person: p => p.MiddleName')
 person.Throw().IfNotNull(p => p.MiddleName); // System.ArgumentException: Value should be null. (Parameter 'person: p => p.MiddleName')
+person.Throw().IfEquals(p => p.MiddleName, "Amichai"); // System.ArgumentException: Value should not be equal to 'Amichai'. (Parameter 'person: p => p.MiddleName')
+person.Throw().IfNotEquals(p => p.MiddleName, "Amichai"); // System.ArgumentException: Value should be equal to 'Amichai'. (Parameter 'person: p => p.MiddleName')
 ```
 
 ### Uri properties
@@ -508,8 +510,6 @@ person.Throw().IfNotRelative(p => p.Website); // System.ArgumentException: Uri s
 ```csharp
 person.Throw().IfPositive(p => p.Age); // System.ArgumentOutOfRangeException: Value should not be greater than 0. (Parameter 'person: p => p.Age')\n Actual value was 5.
 person.Throw().IfNegative(p => p.Age); // System.ArgumentOutOfRangeException: Value should not be less than 0. (Parameter 'person: p => p.Age')\n Actual value was -5.
-person.Throw().IfEquals(p => p.Age, 5); // System.ArgumentException: Value should not be not be equal to 5. (Parameter 'person: p => p.Age')
-person.Throw().IfNotEquals(p => p.Age, 3); // System.ArgumentException: Value should be equal to 3. (Parameter 'person: p => p.Age')
 person.Throw().IfLessThan(p => p.Age, 10); // System.ArgumentOutOfRangeException: Value should not be less than 10. (Parameter 'person: p => p.Age')\n Actual value was 5.
 person.Throw().IfGreaterThan(p => p.Age, 3); // System.ArgumentOutOfRangeException: Value should not be greater than 3. (Parameter 'person: p => p.Age')\n Actual value was 5.
 person.Throw().IfOutOfRange(p => p.Age, 0, 5); // System.ArgumentOutOfRangeException: Value should be between 0 and 5. (Parameter 'person: p => p.Age')\n Actual value was -5.
