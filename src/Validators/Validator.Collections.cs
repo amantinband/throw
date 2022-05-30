@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq.Expressions;
 
 namespace Throw;
 
@@ -167,4 +168,83 @@ internal static partial class Validator
             _ => GetEnumeratedCount(value)
         };
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfContainsElement<TValue>(TValue value, Expression<Func<TValue, bool>> predicate, string paramName, ExceptionCustomizations? exceptionCustomizations)
+        where TValue : notnull, IEnumerable
+    {
+        foreach (var item in value)
+        {
+            if (item)
+            {
+                ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Collection should not contain element {element}.");
+            }
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfContainsSingleElement<TValue>(TValue value, dynamic element, string paramName, ExceptionCustomizations? exceptionCustomizations)
+        where TValue : notnull, IEnumerable
+    {
+        var count = 0;
+        foreach (var item in value)
+        {
+            if (item == element)
+            {
+                count++;
+                if (count > 1) break;
+            }
+        }
+        if (count == 1)  ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Collection should not contain a single element having value of {element}.");
+    }
+
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfContainsNoSingleElement<TValue>(TValue value, dynamic element, string paramName, ExceptionCustomizations? exceptionCustomizations)
+        where TValue : notnull, IEnumerable
+    {
+        var count = 0;
+        foreach (var item in value)
+        {
+            if (item == element)
+            {
+                count++;
+                if (count > 1) break;
+            }
+        }
+        if (count > 1) ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Collection should not contain multiple occurences of element having value of {element}.");
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfContainsNone<TValue>(TValue value, dynamic element, string paramName, ExceptionCustomizations? exceptionCustomizations)
+        where TValue : notnull, IEnumerable
+    {
+        var count = 0;
+        foreach (var item in value)
+        {
+            if (item == element)
+            {
+                count++;
+                if (count > 0) break;
+            }
+        }
+        if (count > 0) ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Collection should contain at least one occurences of element having value of {element}.");
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfAll<TValue>(TValue value, dynamic element, string paramName, ExceptionCustomizations? exceptionCustomizations)
+        where TValue : notnull, IEnumerable
+    {
+        bool notAll = false;
+        foreach (var item in value)
+        {
+            if (item != element)
+            {
+                notAll = true;
+                if (notAll) break;
+            }
+        }
+        if (!notAll) ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Collection should contain at least one occurences of an element not of the same value as the element {element}.");
+    }
+
 }
