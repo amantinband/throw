@@ -1,5 +1,3 @@
-using System.Collections;
-
 namespace Throw;
 
 internal static partial class Validator
