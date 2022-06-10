@@ -95,7 +95,7 @@ public class ExceptionThrowerTests
     }
 
     [TestMethod]
-    public void ThrowOutOfRange_WhenCustomExceptionMessage_ShouldThrowArgumentNullExceptionWithCustomMessage()
+    public void ThrowOutOfRange_WhenCustomExceptionMessage_ShouldThrowOutOfRangeExceptionWithCustomMessage()
     {
         // Arrange
         ExceptionCustomizations exceptionCustomizations = ParameterConstants.CustomMessage;
