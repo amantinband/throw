@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <PackageId>Throw</PackageId>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <Authors>Amichai Mantinband</Authors>
     <PackageIcon>icon-square.png</PackageIcon>
     <PackageTags>argument,guard,clause,exception,contract,assert,assertions,validation</PackageTags>
     <Description>A simple, fluent, extensible, and fully customizable library for throwing exceptions using .NET 6+</Description>
-    <PackageProjectUrl>https://github.com/mantinband/throw</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/amantinband/throw</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <licenses>https://opensource.org/licenses/MIT</licenses>
-    <RepositoryUrl>https://github.com/mantinband/throw</RepositoryUrl>
+    <RepositoryUrl>https://github.com/amantinband/throw</RepositoryUrl>
     <PackageOutputPath>../artifacts/</PackageOutputPath>
   </PropertyGroup>
 
