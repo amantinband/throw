@@ -4,7 +4,7 @@ namespace Throw.UnitTests.ValidatableMethods;
 public class TypesTests
 {
     [TestMethod]
-    public void ThrowIfType_WhenValueIsType_ShouldThrow()
+    public void ThrowIfType_WhenCompileTypesEqual_ShouldThrow()
     {
         // Arrange
         string str = "string";
@@ -19,20 +19,22 @@ public class TypesTests
     }
 
     [TestMethod]
-    public void ThrowIfType_WhenCompileTypesNotEqualButRuntimeEquals_ShouldNotThrow()
+    public void ThrowIfType_WhenRuntimeTypesEqual_ShouldThrow()
     {
         // Arrange
-        IList<int> list = new List<int>();
+        object list = new List<int>();
 
         // Act
         Action action = () => list.Throw().IfType<List<int>>();
 
         // Assert
-        action.Should().NotThrow();
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Parameter should not be of type '{list.GetType().Name}'. (Parameter '{nameof(list)}')");
     }
 
     [TestMethod]
-    public void ThrowIfType_WhenValueIsNotType_ShouldNotThrow()
+    public void ThrowIfType_WhenCompileTimeTypeIsNotType_ShouldNotThrow()
     {
         // Arrange
         List<int> list = new();
@@ -45,7 +47,7 @@ public class TypesTests
     }
 
     [TestMethod]
-    public void ThrowIfNotType_WhenValueIsNotType_ShouldThrow()
+    public void ThrowIfNotType_WhenCompileTimeTypeIsNotType_ShouldThrow()
     {
         // Arrange
         string str = "string";
@@ -60,7 +62,7 @@ public class TypesTests
     }
 
     [TestMethod]
-    public void ThrowIfNotType_WhenValueIsType_ShouldNotThrow()
+    public void ThrowIfNotType_WhenCompileTimeTypesEqual_ShouldNotThrow()
     {
         // Arrange
         List<int> list = new();
@@ -73,17 +75,15 @@ public class TypesTests
     }
 
     [TestMethod]
-    public void ThrowIfNotType_WhenCompileTypesNotEqualButRuntimeEquals_ShouldThrow()
+    public void ThrowIfNotType_WhenRuntimeTypesEquals_ShouldNotThrow()
     {
         // Arrange
-        IList<int> list = new List<int>();
+        object list = new List<int>();
 
         // Act
         Action action = () => list.Throw().IfNotType<List<int>>();
 
         // Assert
-        action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Parameter should be of type '{typeof(List<int>).Name}'. (Parameter '{nameof(list)}')");
+        action.Should().NotThrow();
     }
 }

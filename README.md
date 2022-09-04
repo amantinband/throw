@@ -4,9 +4,9 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Throw.svg)](https://www.nuget.org/packages/Throw)
 
-[![Build](https://github.com/mantinband/throw/actions/workflows/build.yml/badge.svg)](https://github.com/mantinband/throw/actions/workflows/build.yml) [![publish Throw to nuget](https://github.com/mantinband/throw/actions/workflows/publish.yml/badge.svg)](https://github.com/mantinband/throw/actions/workflows/publish.yml) [![codecov](https://codecov.io/gh/mantinband/throw/branch/main/graph/badge.svg?token=PA879VKK6M)](https://codecov.io/gh/mantinband/throw)
+[![Build](https://github.com/amantinband/throw/actions/workflows/build.yml/badge.svg)](https://github.com/amantinband/throw/actions/workflows/build.yml) [![publish Throw to NuGet](https://github.com/amantinband/throw/actions/workflows/publish.yml/badge.svg)](https://github.com/amantinband/throw/actions/workflows/publish.yml) [![codecov](https://codecov.io/gh/amantinband/throw/branch/main/graph/badge.svg?token=PA879VKK6M)](https://codecov.io/gh/amantinband/throw)
 
-[![GitHub contributors](https://img.shields.io/github/contributors/mantinband/throw)](https://GitHub.com/mantinband/throw/graphs/contributors/) [![GitHub Stars](https://img.shields.io/github/stars/mantinband/throw.svg)](https://github.com/mantinband/throw/stargazers) [![GitHub license](https://img.shields.io/github/license/mantinband/throw)](https://github.com/mantinband/throw/blob/main/LICENSE)
+[![GitHub contributors](https://img.shields.io/github/contributors/amantinband/throw)](https://GitHub.com/amantinband/throw/graphs/contributors/) [![GitHub Stars](https://img.shields.io/github/stars/amantinband/throw.svg)](https://github.com/amantinband/throw/stargazers) [![GitHub license](https://img.shields.io/github/license/amantinband/throw)](https://github.com/amantinband/throw/blob/main/LICENSE)
 
 ---
 
@@ -39,6 +39,7 @@
     - [Equalities (non-nullables)](#equalities-non-nullables)
     - [Uris](#uris)
     - [Comparable (`int`, `double`, `decimal`, `long`, `float`, `short`, `DateTime`, `DateOnly`, `TimeOnly` etc.)](#comparable-int-double-decimal-long-float-short-datetime-dateonly-timeonly-etc)
+    - [Types](#types)
   - [Nested properties](#nested-properties)
     - [Boolean properties](#boolean-properties)
     - [String properties](#string-properties)
@@ -87,7 +88,7 @@ name.Throw() // warning CS8714: The type 'string?' cannot be used as type parame
     .IfEmpty();
 ```
 
-After validating the nullable type isn't null, all the regular non-nullable rules can be used
+After validating that the nullable type isn't null, all the regular non-nullable rules can be used
 
 ```csharp
 name.ThrowIfNull()
@@ -394,7 +395,19 @@ number.Throw().IfPositive(); // System.ArgumentOutOfRangeException: Value should
 number.Throw().IfNegative(); // System.ArgumentOutOfRangeException: Value should not be less than 0. (Parameter 'number')\n Actual value was -5.
 number.Throw().IfLessThan(10); // System.ArgumentOutOfRangeException: Value should not be less than 10. (Parameter 'number')\n Actual value was 5.
 number.Throw().IfGreaterThan(3); // System.ArgumentOutOfRangeException: Value should not be greater than 3. (Parameter 'number')\n Actual value was 5.
+number.Throw().IfGreaterThanOrEqualTo(5); // System.ArgumentOutOfRangeException: Value should not be greater than or equal to 5. (Parameter 'number')\n Actual value was 6.
+number.Throw().IfLessThanOrEqualTo(5); // System.ArgumentOutOfRangeException: Value should not be less than or equal to 5. (Parameter 'number')\n Actual value was 4.
+number.Throw().IfPositiveOrZero(); // System.ArgumentOutOfRangeException: Value should not be greater than or equal to 0. (Parameter 'number')\n Actual value was 4.
+number.Throw().IfNegativeOrZero(); // System.ArgumentOutOfRangeException: Value should not be less than or equal to 0. (Parameter 'number')\n Actual value was -1.
 number.Throw().IfOutOfRange(0, 5); // System.ArgumentOutOfRangeException: Value should be between 0 and 5. (Parameter 'number')\n Actual value was -5.
+number.Throw().IfInRange(0, 5); // System.ArgumentOutOfRangeException: Value should not be between 0 and 5. (Parameter 'number')\n Actual value was 4.
+```
+
+### Types
+
+```csharp
+myObject.Throw().IfType<string>(); // System.ArgumentException: Parameter should not be of type 'String'. (Parameter 'myObject').
+myObject.Throw().IfNotType<string>(); // System.ArgumentException: Parameter should be of type 'String'. (Parameter 'myObject').
 ```
 
 ## Nested properties
@@ -512,7 +525,12 @@ person.Throw().IfPositive(p => p.Age); // System.ArgumentOutOfRangeException: Va
 person.Throw().IfNegative(p => p.Age); // System.ArgumentOutOfRangeException: Value should not be less than 0. (Parameter 'person: p => p.Age')\n Actual value was -5.
 person.Throw().IfLessThan(p => p.Age, 10); // System.ArgumentOutOfRangeException: Value should not be less than 10. (Parameter 'person: p => p.Age')\n Actual value was 5.
 person.Throw().IfGreaterThan(p => p.Age, 3); // System.ArgumentOutOfRangeException: Value should not be greater than 3. (Parameter 'person: p => p.Age')\n Actual value was 5.
+person.Throw().IfGreaterThanOrEqualTo(p => p.Age, 5); // System.ArgumentOutOfRangeException: Value should not be greater than or equal to 5. (Parameter 'person: p => p.Age')\n Actual value was 6.
+person.Throw().IfLessThanOrEqualTo(p => p.Age, 5); // System.ArgumentOutOfRangeException: Value should not be less than or equal to 5. (Parameter 'person: p => p.Age')\n Actual value was 4.
+person.Throw().IfPositiveOrZero(p => p.Age); // System.ArgumentOutOfRangeException: Value should not be greater than or equal to 0. (Parameter 'person: p => p.Age')\n Actual value was 4.
+person.Throw().IfNegativeOrZero(p => p.Age); // System.ArgumentOutOfRangeException: Value should not be less than or equal to 0. (Parameter 'person: p => p.Age')\n Actual value was -1.
 person.Throw().IfOutOfRange(p => p.Age, 0, 5); // System.ArgumentOutOfRangeException: Value should be between 0 and 5. (Parameter 'person: p => p.Age')\n Actual value was -5.
+person.Throw().IfInRange(p => p.Age, 0, 5); // System.ArgumentOutOfRangeException: Value should not be between 0 and 5. (Parameter 'person: p => p.Age')\n Actual value was 4.
 ```
 
 # Extensibility
@@ -632,11 +650,10 @@ dotnet run -c Release # won't throw
 
 # Contribution
 
-Contributions are super welcome!
-Take a look at the open issues, there are multiple features waiting to be implemented!
-Please go ahead and open an issue with any idea, bug, or feature request.
+Feel free to open an issue with any idea, bug, or feature request.
 
-We are trying to be the fastest validation library, so if you have any suggestions on how to improve the runtime speed, share them with us.
+We are trying to be the fastest validation library, so if you have suggestions on improving the runtime speed, share them with us.
+
 
 # Credits
 
@@ -644,4 +661,4 @@ We are trying to be the fastest validation library, so if you have any suggestio
 
 # License
 
-This project is licensed under the terms of the [MIT](https://github.com/mantinband/github-contribution-art/blob/main/LICENSE) license.
+This project is licensed under the terms of the [MIT](https://github.com/amantinband/throw/blob/main/LICENSE) license.

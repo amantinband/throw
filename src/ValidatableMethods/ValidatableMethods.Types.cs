@@ -6,7 +6,7 @@ namespace Throw;
 public readonly partial record struct Validatable<TValue>
 {
     /// <summary>
-    /// Throws an exception if <typeparamref name="TValue"/> equals <typeparamref name="TOther"/>.
+    /// Throws an exception if <typeparamref name="TValue"/>'s runtime type equals <typeparamref name="TOther"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
@@ -15,7 +15,7 @@ public readonly partial record struct Validatable<TValue>
     public Validatable<TValue> IfType<TOther>()
     {
         Validator.ThrowIfTypesEqual(
-            typeof(TValue),
+            Value.GetType(),
             typeof(TOther),
             ParamName,
             ExceptionCustomizations);
@@ -24,7 +24,7 @@ public readonly partial record struct Validatable<TValue>
     }
 
     /// <summary>
-    /// Throws an exception if <typeparamref name="TValue"/> does not equal <typeparamref name="TOther"/>.
+    /// Throws an exception if <typeparamref name="TValue"/>'s runtime type does not equal <typeparamref name="TOther"/>.
     /// </summary>
     /// <remarks>
     /// The default exception thrown is an <see cref="ArgumentException"/>.
@@ -33,7 +33,7 @@ public readonly partial record struct Validatable<TValue>
     public Validatable<TValue> IfNotType<TOther>()
     {
         Validator.ThrowIfTypesNotEqual(
-            typeof(TValue),
+            Value.GetType(),
             typeof(TOther),
             ParamName,
             ExceptionCustomizations);
