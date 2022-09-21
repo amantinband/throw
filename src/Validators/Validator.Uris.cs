@@ -77,4 +77,30 @@ internal static partial class Validator
             ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Uri port should be {port}.");
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfHost(
+        Uri value,
+        string host,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
+    {
+        if (value.Host == host)
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Uri host should not be {host}.");
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void ThrowIfHostNot(
+        Uri value,
+        string host,
+        string paramName,
+        ExceptionCustomizations? exceptionCustomizations)
+    {
+        if (value.Host != host)
+        {
+            ExceptionThrower.Throw(paramName, exceptionCustomizations, $"Uri host should be {host}.");
+        }
+    }
 }

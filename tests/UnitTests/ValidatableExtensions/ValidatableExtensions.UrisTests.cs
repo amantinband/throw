@@ -338,4 +338,60 @@ public class UrisTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfHostEquals_WhenEquals_ShouldThrow()
+    {
+        // Arrange
+        var uri = new Uri("https://www.google.com");
+
+        // Act
+        Action action = () => uri.Throw().IfHost("www.google.com");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Uri host should not be www.google.com. (Parameter '{nameof(uri)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfHostEquals_WhenNotEquals_ShouldNotThrow()
+    {
+        // Arrange
+        var uri = new Uri("https://www.google.com");
+
+        // Act
+        Action action = () => uri.Throw().IfHost("www.duckduckgo.com");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfHostNotEquals_WhenNotEquals_ShouldThrow()
+    {
+        // Arrange
+        var uri = new Uri("https://www.google.com");
+
+        // Act
+        Action action = () => uri.Throw().IfHostNot("www.duckduckgo.com");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Uri host should be www.duckduckgo.com. (Parameter '{nameof(uri)}')");
+    }
+
+    [TestMethod]
+    public void ThrowIfHostNotEquals_WhenEquals_ShouldNotThrow()
+    {
+        // Arrange
+        var uri = new Uri("https://www.google.com");
+
+        // Act
+        Action action = () => uri.Throw().IfHostNot("www.google.com");
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }

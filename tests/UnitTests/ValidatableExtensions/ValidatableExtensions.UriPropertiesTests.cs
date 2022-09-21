@@ -338,4 +338,60 @@ public class UriPropertiesTests
         // Assert
         action.Should().NotThrow();
     }
+
+    [TestMethod]
+    public void ThrowIfUriPropertyHostEquals_WhenUriPropertyHostEquals_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Uri = new Uri("https://www.google.com") };
+
+        // Act
+        Action action = () => person.Throw().IfHost(p => p.Uri, "www.google.com");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Uri host should not be www.google.com. (Parameter '{nameof(person)}: p => p.Uri')");
+    }
+
+    [TestMethod]
+    public void ThrowIfUriPropertyHostEquals_WhenUriPropertyHostNotEquals_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Uri = new Uri("https://www.google.com") };
+
+        // Act
+        Action action = () => person.Throw().IfHost(p => p.Uri, "www.duckduckgo.com");
+
+        // Assert
+        action.Should().NotThrow();
+    }
+
+    [TestMethod]
+    public void ThrowIfUriPropertyHostNotEquals_WhenUriPropertyHostNotEquals_ShouldThrow()
+    {
+        // Arrange
+        var person = new { Uri = new Uri("https://www.google.com") };
+
+        // Act
+        Action action = () => person.Throw().IfHostNot(p => p.Uri, "www.duckduckgo.com");
+
+        // Assert
+        action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Uri host should be www.duckduckgo.com. (Parameter '{nameof(person)}: p => p.Uri')");
+    }
+
+    [TestMethod]
+    public void ThrowIfUriPropertyHostNotEquals_WhenUriPropertyHostEquals_ShouldNotThrow()
+    {
+        // Arrange
+        var person = new { Uri = new Uri("https://www.google.com") };
+
+        // Act
+        Action action = () => person.Throw().IfHostNot(p => p.Uri, "www.google.com");
+
+        // Assert
+        action.Should().NotThrow();
+    }
 }
