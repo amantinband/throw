@@ -386,6 +386,8 @@ uri.Throw().IfAbsolute(); // System.ArgumentException: Uri should be relative. (
 uri.Throw().IfRelative(); // System.ArgumentException: Uri should be absolute. (Parameter 'uri')
 uri.Throw().IfNotAbsolute(); // System.ArgumentException: Uri should be absolute. (Parameter 'uri')
 uri.Throw().IfNotRelative(); // System.ArgumentException: Uri should be relative. (Parameter 'uri')
+uri.Throw().IfHost("www.google.com"); // System.ArgumentException: Uri host should not be www.google.com. (Parameter 'uri')
+uri.Throw().IfHostNot("www.google.com"); // System.ArgumentException: Uri host should be www.google.com. (Parameter 'uri')
 ```
 
 ### Comparable (`int`, `double`, `decimal`, `long`, `float`, `short`, `DateTime`, `DateOnly`, `TimeOnly` etc.)
@@ -516,6 +518,8 @@ person.Throw().IfAbsolute(p => p.Website); // System.ArgumentException: Uri shou
 person.Throw().IfRelative(p => p.Website); // System.ArgumentException: Uri should be absolute. (Parameter 'person: p => p.Website')
 person.Throw().IfNotAbsolute(p => p.Website); // System.ArgumentException: Uri should be absolute. (Parameter 'person: p => p.Website')
 person.Throw().IfNotRelative(p => p.Website); // System.ArgumentException: Uri should be relative. (Parameter 'person: p => p.Website')
+person.Throw().IfHost(p => p.Website, "www.google.com"); // System.ArgumentException: Uri host should not be www.google.com. (Parameter 'person: p => p.Website')
+person.Throw().IfHostNot(p => p.Website, "www.google.com"); // System.ArgumentException: Uri host should be www.google.com. (Parameter 'person: p => p.Website')
 ```
 
 ### Comparable properties

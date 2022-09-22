@@ -264,4 +264,46 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if host of the <see cref="Uri"/> returned from the given <paramref name="func"/> matches the given <paramref name="host"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfHost<TValue>(this in Validatable<TValue> validatable, Func<TValue, Uri> func, string host, [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfHost(
+            func(validatable.Value),
+            host,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if host of the <see cref="Uri"/> returned from the given <paramref name="func"/> does not match the given <paramref name="host"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<TValue> IfHostNot<TValue>(
+        this in Validatable<TValue> validatable,
+        Func<TValue, Uri> func,
+        string host,
+        [CallerArgumentExpression("func")] string? funcName = null)
+        where TValue : notnull
+    {
+        Validator.ThrowIfHostNot(
+            func(validatable.Value),
+            host,
+            $"{validatable.ParamName}: {funcName}",
+            validatable.ExceptionCustomizations);
+
+        return ref validatable;
+    }
 }

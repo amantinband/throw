@@ -172,4 +172,32 @@ public static partial class ValidatableExtensions
 
         return ref validatable;
     }
+
+    /// <summary>
+    /// Throws an exception if host of the <see cref="Uri"/> matches the given <paramref name="host"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<Uri> IfHost(this in Validatable<Uri> validatable, string host)
+    {
+        Validator.ThrowIfHost(validatable.Value, host, validatable.ParamName, validatable.ExceptionCustomizations);
+
+        return ref validatable;
+    }
+
+    /// <summary>
+    /// Throws an exception if host of the <see cref="Uri"/> does not match the given <paramref name="host"/>.
+    /// </summary>
+    /// <remarks>
+    /// The default exception thrown is an <see cref="ArgumentException"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Validatable<Uri> IfHostNot(this in Validatable<Uri> validatable, string host)
+    {
+        Validator.ThrowIfHostNot(validatable.Value, host, validatable.ParamName, validatable.ExceptionCustomizations);
+
+        return ref validatable;
+    }
 }
