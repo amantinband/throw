@@ -9,7 +9,7 @@ internal static partial class Validator
         string paramName,
         ExceptionCustomizations? exceptionCustomizations,
         string? message = null)
-        where TValue : notnull, IEnumerable
+        where TValue : IEnumerable
     {
         if (GetCollectionCount(value) != count)
         {
