@@ -58,7 +58,7 @@ public class TypesTests
         // Assert
         action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Parameter should be of type '{typeof(int).Name}'. (Parameter '{nameof(str)}')");
+            .WithMessage($"Parameter should be of type '{nameof(Int32)}'. (Parameter '{nameof(str)}')");
     }
 
     [TestMethod]
