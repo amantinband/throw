@@ -9,7 +9,7 @@ internal static partial class Validator
         string paramName,
         ExceptionCustomizations? exceptionCustomizations,
         string? message = null)
-        where TValue : notnull, IEnumerable
+        where TValue : IEnumerable
     {
         if (GetCollectionCount(value) != count)
         {
@@ -27,7 +27,7 @@ internal static partial class Validator
         string paramName,
         ExceptionCustomizations? exceptionCustomizations,
         string? message = null)
-        where TValue : notnull, IEnumerable
+        where TValue : IEnumerable
     {
         if (GetCollectionCount(value) == count)
         {
@@ -44,7 +44,7 @@ internal static partial class Validator
         int count,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
-        where TValue : notnull, IEnumerable
+        where TValue : IEnumerable
     {
         if (GetCollectionCount(value) > count)
         {
@@ -77,7 +77,7 @@ internal static partial class Validator
         TValue value,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
-        where TValue : notnull, IEnumerable
+        where TValue : IEnumerable
     {
         foreach (object? item in value)
         {
@@ -97,7 +97,7 @@ internal static partial class Validator
         TElement element,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
-        where TValue : notnull, IEnumerable<TElement?>
+        where TValue : IEnumerable<TElement?>
         where TElement : notnull
     {
         if (IsElementInCollection(value, element))
@@ -115,7 +115,7 @@ internal static partial class Validator
         TElement element,
         string paramName,
         ExceptionCustomizations? exceptionCustomizations)
-        where TValue : notnull, IEnumerable<TElement?>
+        where TValue : IEnumerable<TElement?>
         where TElement : notnull
     {
         if (!IsElementInCollection(value, element))
@@ -144,7 +144,7 @@ internal static partial class Validator
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static int GetCollectionCount<TValue>(TValue value)
-        where TValue : notnull, IEnumerable
+        where TValue : IEnumerable
     {
         static int GetEnumeratedCount(IEnumerable enumerable)
         {
